@@ -6,7 +6,7 @@
         {
             "label": "dump-everything",
             "type": "shell",
-            "command": "source env/bin/activate; python3 manage.py dumpdata dmm.Expert dmm.LanguageType dmm.ResourceType dmm.ContentType dmm.Tag dmm.Specie --format json --indent 2 > dmm/fixtures/dump.json"
+            "command": "source env/bin/activate; python3 manage.py dumpdata auth.User auth.Group dmm.Expert dmm.LanguageType dmm.ResourceType dmm.ContentType dmm.Result dmm.Tag dmm.Specie dmm.TonalType dmm.Comment dmm.CommentRound dmm.CommentRoundTags dmm.CommentTags --format json --indent 2 > dmm/fixtures/dump.json"
         },
         // dmm.Result dmm.Tag dmm.Specie dmm.TonalType 
         // source env/bin/activate; python3 manage.py dumpdata dmm.Comment --format json --indent 2 > dmm/fixtures/Comment.json

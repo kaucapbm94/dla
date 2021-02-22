@@ -2,6 +2,18 @@ from ..models import *
 from .default_imports import *
 
 
+def comment_tag_is_finished(comment, tag):
+    comment_rounds = CommentRound.objects.filter(comment=comment)
+    comment_round_tags = CommentRoundTags.objects.filter(comment_round__in=comment_rounds)
+    logger.debug(comment_round_tags)
+    return True if comment_round_tags.count() >= 2 else False
+
+
+def register_tag(comm_round, tag):
+
+    return False
+
+
 def get_need_round_comments(result, expert_id):
     comments = result.comment_set.all()
     need_round_comments = {}

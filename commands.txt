@@ -8,7 +8,9 @@ pip freeze > requirements.txt
 cd /path/to/requirements/file
 pip install -r requirements.txt
 
-python3 manage.py test dmm.tests.test_tag
+python3 manage.py test dmm.tests.ResultTestCase.test_create_result
+python3 manage.py dumpdata dmm.Comment --format json --indent 2 > dmm/fixtures/Comment.json
+
 
 python3 manage.py migrate dmm zero
 python3 manage.py showmigrations | grep '\[ \]\|^[a-z]' | grep '[  ]' -B 1
