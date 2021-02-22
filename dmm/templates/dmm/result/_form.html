@@ -1,0 +1,51 @@
+<form class="g-3 needs-validation" novalidate id="round-form">
+  <div class="col-md-12">
+    <label class="form-label" for="url-input">URL*</label>
+    <input class="form-control" type="text" id="url-input" placeholder="https://..." value="" required>
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+  <div class="col-md-12">
+    <label class="form-label" for="title-input">Заголовок контента</label>
+    <input class="form-control" type="text" id="title-input" placeholder="..." value="">
+  </div>
+  <!-- Content type -->
+  <div class="col-md-12">
+    <label class="form-label" for="content-type">Тип контента*</label>
+    <select class="form-control" id="content-type" required>
+      {% for content_type in content_types %}
+      <option value="{{ content_type.id }}">{{ content_type.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <!-- Language type -->
+  <div class="col-md-12" id="language-type">
+    <label class="form-label" for="language-type">Язык контента*</label>
+    <select class="form-control" id="language-type" required>
+      {% for language_type in language_types %}
+      <option value="{{ language_type.id }}">{{ language_type.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <!-- result-date -->
+  <div class="col-md-12">
+    <label class="form-label" for="result-date">Дата публикации контента*</label>
+    <input class="form-control" type="datetime-local" name="my_date_field" id="result-date" required>
+    {#          {{ date_picker_form.my_date_field }}#}
+    <div class="valid-feedback">
+      Looks good!
+    </div>
+  </div>
+
+  <!-- Resource type -->
+  <div class="col-md-12">
+    <label class="form-label" for="resource-type">Ресурс, на котором контент был опубликован*</label>
+    <select class="form-control" id="resource-type" required>
+      {% for resource_type in resource_types %}
+      <option value="{{ resource_type.id }}">{{ resource_type.name }}</option>
+      {% endfor %}
+    </select>
+  </div>
+
+</form>

@@ -1,0 +1,13 @@
+<div class="form-label"><b>Тональность комментария*:</b></div>
+<div class="">
+    {% for tonal_type in tonal_types %}
+    <div class="form-check">
+        <input type="radio" value="{{ tonal_type.id }}" class="tonal-type form-check-input"
+               {% if tonal_type.id == tonal_type_checked_id %}
+               checked="checked"
+               {% endif %}
+        name="comment-tonalType-radio-{{ comment_instance_id }}" required>
+        <label class="form-check-label" for="gridRadios2">{{ tonal_type.name }}</label>
+    </div>
+    {% endfor %}
+</div>

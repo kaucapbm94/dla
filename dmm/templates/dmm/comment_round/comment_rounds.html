@@ -1,0 +1,29 @@
+<div class="row">
+    <h3><span class="label label-default">Раунды</span></h3>
+    <table class="table table-light table-striped">
+      <thead class="table-light">
+      <tr>
+        <th scope="col" style="width: 5%">#</th>
+        <th scope="col" style="width: 35%">Текст комментария</th>
+        <th scope="col" style="width: 10%">Класс</th>
+        <th scope="col" style="width: 20%">Теги</th>
+        <th scope="col" style="width: 10%">Тональность</th>
+        <th scope="col" style="width: 5%">Эксперт</th>
+        <th scope="col" style="width: 15%">Дата</th>
+      </tr>
+      </thead>
+      <tbody>
+      {% for comment_round in comment_rounds %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ comment_round.comment__text }}</td>
+          <td>{{ comment_round.specie__name }}</td>
+          <td>{{ comment_round.tag_names }}</td>
+          <td>{{ comment_round.tonal_type__name }}</td>
+          <td>{{ comment_round.expert__name }}</td>
+          <td>{{ comment_round.create_date }}</td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  </div>

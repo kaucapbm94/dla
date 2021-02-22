@@ -1,0 +1,16 @@
+<div class="row">
+    <div class="card">
+        <div class="card-header">
+            Заголовок: {{ result.title }}
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">Добавил {{ result.expert.name }}</h5>
+            <p class="card-text"><strong>Тип ресурса:</strong> {{ result.resource_type.name }}</p>
+            <p class="card-text"><strong>Тип контента:</strong> {{ result.content_type.name }}</p>
+            <p class="card-text"><strong>Язык контента:</strong> {{ result.language_type.name }}</p>
+            <p class="card-text"><strong>Дата публикации контента:</strong> {{ result.date }}</p>
+            <p class="card-text"><strong>Дата добавления контента:</strong> {{ result.create_date }}</p>
+            <a class="nav-link btn btn-secondary" href="{{ result.url }}">VISIT</a>
+        </div>
+    </div>
+</div>

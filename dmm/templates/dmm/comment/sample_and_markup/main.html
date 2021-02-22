@@ -1,0 +1,77 @@
+{% extends 'dmm/layout/main.html' %} {% block content %}
+
+<div class="container">
+  <h1 class="d-flex justify-content-center mt-20">
+    Классификация комментариев
+  </h1>
+  {% if result %}
+  {% include 'dmm/result/_result.html' %}
+  {% else %}
+  {% include 'dmm/result/_form.html' %}
+  {% endif %}
+
+  <!-- species-section -->
+  <fieldset class="col-md-12" id="species-section"></fieldset>
+  <!-- tags-section -->
+  <fieldset class="col-md-12">
+    <div class="row" id="tags-section"></div>
+  </fieldset>
+  <!-- transfer -->
+  <div class="col-md-12 mt-20">
+    <button type="button" class="btn btn-primary" id="transfer">
+      Назначить мета данные
+    </button>
+  </div>
+  <!-- comments-section -->
+  <div class="col-md-12" id="comments-section"></div>
+  <!-- add-comment -->
+  {% if not result %}
+  <div class="col-md-12 mt-20">
+    <button type="button" class="btn btn-primary btn-lg btn-block" id="add-comment">
+      Ещё комментарий
+    </button>
+  </div>
+  {% endif %}
+  <!-- finish-comment-round -->
+  <div class="col-12 mt-20">
+    <button type="submit" class="btn btn-success btn-lg btn-block" id="finish-comment-round">
+      Завершить ввод
+    </button>
+  </div>
+</div>
+
+{% if not result %}
+<!-- Add specie -->
+<!-- Add tag -->
+<div class="container">
+  <div class="row">
+    <!-- Add specie -->
+    {% include 'dmm/specie/_form.html' %}
+    <!-- Add tag -->
+    {% include 'dmm/tag/_form.html' %}
+  </div>
+</div>
+{% endif %}
+{% endblock content %}
+
+{% block scripts %}
+
+<script type="text/javascript">
+  let csrf = $("input[name=csrfmiddlewaretoken]").val();
+  let expert_id = "{{ expert.id }}";
+  
+{% if result %}
+  let is_result = true
+{% else %}
+  let is_result = false
+{% endif %}
+
+{%  include 'dmm/comment/sample_and_markup/helper.js' %}
+{% if not result %}
+{%  include 'dmm/comment/sample_and_markup/main.js' %}
+{% else %}
+{%  include 'dmm/comment/sample_and_markup/main.js' %}
+{% endif %}
+</script>
+
+{% endblock %}

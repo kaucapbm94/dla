@@ -1,0 +1,19 @@
+source env/bin/activate
+python3 manage.py runserver
+python3 manage.py makemigrations
+python3 manage.py migrate
+python3 manage.py migrate dmm 0012_example
+
+pip freeze > requirements.txt
+cd /path/to/requirements/file
+pip install -r requirements.txt
+
+python3 manage.py test dmm.tests.test_tag
+
+python3 manage.py migrate dmm zero
+python3 manage.py showmigrations | grep '\[ \]\|^[a-z]' | grep '[  ]' -B 1
+python3 manage.py shell
+    from dmm.models import *
+
+# grant permissions to postgres user to create test_dla
+ALTER USER postgres CREATEDB;

@@ -1,0 +1,223 @@
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+hello!
+DEBUG 2021-01-26 11:57:56,397 views 12716 2800 hello!
+DEBUG 2021-01-26 11:57:57,731 views 12716 2800 hello!
+DEBUG 2021-01-26 11:59:56,088 views 12716 2800 hello!
+DEBUG 2021-01-26 12:00:02,262 views 12716 2800 hello!
+DEBUG 2021-01-26 12:04:11,726 views 1632 9868 hello!
+DEBUG 2021-01-26 12:04:20,814 views 1632 9868 hello!
+DEBUG 2021-01-26 12:04:29,797 views 12496 512 hello!
+DEBUG 2021-01-26 12:04:31,102 views 12496 512 hello!
+DEBUG 2021-01-26 12:04:55,203 views 12496 512 hello!
+DEBUG 2021-01-26 12:05:01,996 views 12496 512 hello!
+DEBUG 2021-01-26 12:12:59,559 views 8040 5932 hello!
+DEBUG 2021-01-26 12:35:57,233 views 14360 9632 hello!
+DEBUG 2021-01-26 12:36:08,160 views 14360 9356 hello!
+DEBUG 2021-01-26 12:36:10,111 views 14360 9632 hello!
+DEBUG 2021-01-26 12:36:41,104 views 14360 9356 hello!
+DEBUG 2021-01-26 12:36:42,306 views 14360 9632 hello!
+DEBUG 2021-01-26 12:36:53,072 views 14360 9356 hello!
+DEBUG 2021-01-26 12:37:30,662 views 14360 9632 hello!
+DEBUG 2021-01-26 12:37:32,042 views 14360 9632 hello!
+DEBUG 2021-01-26 12:37:35,375 views 14360 9356 hello!
+DEBUG 2021-01-26 12:37:36,706 views 14360 9632 hello!
+DEBUG 2021-01-26 12:38:01,014 views 15092 12460 hello!
+DEBUG 2021-01-26 12:38:02,373 views 15092 12460 hello!
+DEBUG 2021-01-26 12:38:06,754 views 15092 13720 hello!
+DEBUG 2021-01-26 12:38:29,546 views 15092 12460 hello!
+DEBUG 2021-01-26 12:38:30,314 views 15092 13720 hello!
+DEBUG 2021-01-26 12:38:31,417 views 2284 14216 hello!
+DEBUG 2021-01-26 12:38:39,254 views 2284 14216 hello!
+DEBUG 2021-01-26 12:38:41,985 views 10364 14096 hello!
+DEBUG 2021-01-26 12:38:45,802 views 10364 14096 hello!
+DEBUG 2021-01-26 12:38:46,695 views 10364 14096 hello!
+DEBUG 2021-01-26 12:38:47,524 views 10364 14096 hello!
+DEBUG 2021-01-26 12:38:48,371 views 10364 14096 hello!
+DEBUG 2021-01-26 12:38:49,401 views 10364 14096 hello!
+DEBUG 2021-01-26 12:39:26,925 views 10364 14096 hello!
+DEBUG 2021-01-26 12:39:50,812 views 10364 14096 hello!
+DEBUG 2021-01-26 12:40:16,884 views 10364 14096 hello!
+DEBUG 2021-01-26 12:40:40,094 views 10364 14096 hello!
+DEBUG 2021-01-26 12:40:48,703 views 10364 14096 hello!
+INFO 2021-01-26 12:45:08,908 views 12240 12088 ������ tries to insert tag
+INFO 2021-01-26 12:45:08,911 views 12240 12088 ������ successfully inserted tag test_tag
+INFO 2021-01-26 12:46:00,017 views 12240 12684 Kaisar tries to insert tag
+INFO 2021-01-26 12:46:00,019 views 12240 12684 Kaisar successfully inserted tag testtag
+INFO 2021-01-26 12:48:45,078 views 8672 13228 Kaisar starts comment round session 
+INFO 2021-01-26 12:50:43,765 views 2528 8796 Kaisar starts comment round session 
+INFO 2021-01-26 12:50:43,968 views 2528 8796 Kaisar has requested meta for comment
+INFO 2021-01-26 12:50:53,010 views 2528 8796 Kaisar has requested meta for comment
+INFO 2021-01-26 12:55:08,725 views 10596 14316 Kaisar starts comment round session 
+INFO 2021-01-26 12:55:08,920 views 10596 14316 Kaisar has requested meta for comment
+INFO 2021-01-26 12:55:28,649 views 10596 14316 Kaisar has requested comment instance
+INFO 2021-01-26 12:55:28,696 views 10596 14316 Kaisar has requested meta for comment
+INFO 2021-01-26 12:55:52,591 views 8780 13084 Kaisar has requested comment instance
+INFO 2021-01-26 12:56:38,462 views 8780 13084 Kaisar has requested comment instance
+INFO 2021-01-26 12:56:48,940 views 14876 4256 Kaisar has requested comment instance
+INFO 2021-01-26 12:56:52,788 views 14876 4256 Kaisar has requested comment instance
+INFO 2021-01-26 12:56:55,551 views 14876 4256 Kaisar has requested comment instance
+INFO 2021-01-26 12:59:16,760 views 14876 9032 Kaisar starts comment round session 
+INFO 2021-01-26 13:02:27,228 views 13708 7820 Kaisar starts comment round session 
+INFO 2021-01-26 13:02:28,192 views 13708 8908 Kaisar starts comment round session 
+INFO 2021-01-26 13:06:25,378 views 13708 7820 Kaisar starts comment round session 
+INFO 2021-02-02 12:29:29,612 views 10224 13560 Kaisar starts comment round session 
+INFO 2021-02-02 12:29:36,139 views 10224 13560 Kaisar has requested comment instance
+INFO 2021-02-02 12:31:50,418 views 10492 6572 Kaisar starts comment round session 
+INFO 2021-02-05 14:55:47,534 views 9928 12096 Kaisar starts comment round session 
+INFO 2021-02-05 14:58:42,428 views 9928 12096 Kaisar starts comment round session 
+INFO 2021-02-05 14:58:54,335 views 9928 12096 Kaisar has requested comment instance
+INFO 2021-02-05 14:58:55,017 views 9928 12096 Kaisar has requested comment instance
+INFO 2021-02-05 14:58:55,599 views 9928 12096 Kaisar has requested comment instance
+INFO 2021-02-05 15:00:59,645 views 9928 12096 Kaisar starts comment round session 
+INFO 2021-02-05 15:03:38,037 views 7960 12116 Kaisar starts comment round session 
+INFO 2021-02-05 15:04:10,855 views 7960 12116 Kaisar has requested comment instance
+INFO 2021-02-05 15:04:11,758 views 7960 12116 Kaisar has requested comment instance
+INFO 2021-02-05 15:04:12,557 views 7960 12116 Kaisar has requested comment instance
+INFO 2021-02-05 15:04:39,246 views 7960 12116 Kaisar has requested comment instance
+INFO 2021-02-05 15:11:18,877 views 14408 2616 Kaisar starts comment round session 
+INFO 2021-02-05 15:21:18,948 __init__ 9888 6040 Kaisar starts comment round session 
+INFO 2021-02-05 15:21:23,208 __init__ 9888 6040 Kaisar starts comment round session 
+INFO 2021-02-05 15:27:08,570 __init__ 8344 11436 Kaisar starts comment round session 
+INFO 2021-02-05 15:34:51,852 __init__ 3776 10116 Kaisar starts comment round session 
+INFO 2021-02-05 15:35:08,146 __init__ 3776 10116 Kaisar has requested comment instance
+INFO 2021-02-05 15:35:08,921 __init__ 3776 10116 Kaisar has requested comment instance
+INFO 2021-02-05 15:35:09,467 __init__ 3776 10116 Kaisar has requested comment instance
+INFO 2021-02-05 15:35:40,182 __init__ 3776 12944 Kaisar tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-05 15:35:40,192 __init__ 3776 12944 Kaisar successfully inserted result for https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-05 15:35:40,233 __init__ 3776 12944 Kaisar tries to insert comment dwqd
+INFO 2021-02-05 15:35:40,237 __init__ 3776 8520 Kaisar tries to insert comment wqdwq
+INFO 2021-02-05 15:35:40,243 __init__ 3776 14284 Kaisar tries to insert comment dwq
+INFO 2021-02-05 15:35:40,243 __init__ 3776 12944 Kaisar successfully inserted comment dwqd
+INFO 2021-02-05 15:35:40,244 __init__ 3776 10116 Kaisar tries to insert comment dwq
+INFO 2021-02-05 15:35:40,244 __init__ 3776 8520 Kaisar successfully inserted comment wqdwq
+INFO 2021-02-05 15:35:40,250 __init__ 3776 14284 Kaisar successfully inserted comment dwq
+INFO 2021-02-05 15:35:40,251 __init__ 3776 10116 Kaisar successfully inserted comment dwq
+INFO 2021-02-05 15:35:40,297 __init__ 3776 10116 Kaisar tries to insert comment round 
+INFO 2021-02-05 15:35:40,298 __init__ 3776 8520 Kaisar tries to insert comment round 
+INFO 2021-02-05 15:35:40,300 __init__ 3776 14284 Kaisar tries to insert comment round 
+INFO 2021-02-05 15:35:40,303 __init__ 3776 12944 Kaisar tries to insert comment round 
+INFO 2021-02-05 15:35:40,320 __init__ 3776 10116 Kaisar successfully inserted comment round for wqdwq
+INFO 2021-02-05 15:35:40,322 __init__ 3776 8520 Kaisar successfully inserted comment round for dwqd
+INFO 2021-02-05 15:35:40,325 __init__ 3776 14284 Kaisar successfully inserted comment round for dwq
+INFO 2021-02-05 15:35:40,331 __init__ 3776 12944 Kaisar successfully inserted comment round for dwq
+INFO 2021-02-05 15:46:30,867 __init__ 13532 14676 Kaisar starts comment round session 
+INFO 2021-02-05 15:47:07,641 __init__ 13532 14676 Kaisar tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-05 15:47:07,646 __init__ 13532 14676 Kaisar successfully inserted result for https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-05 15:47:07,683 __init__ 13532 14676 Kaisar tries to insert comment 3211
+INFO 2021-02-05 15:47:07,687 __init__ 13532 14676 Kaisar successfully inserted comment 3211
+INFO 2021-02-05 15:47:07,725 __init__ 13532 14676 Kaisar tries to insert comment round 
+INFO 2021-02-05 15:47:07,742 __init__ 13532 14676 Kaisar successfully inserted comment round for 3211
+INFO 2021-02-05 15:49:47,889 __init__ 13532 12820 Kaisar starts comment round session 
+INFO 2021-02-05 15:50:16,395 __init__ 13532 12820 Kaisar tries to insert result ewqewq
+INFO 2021-02-05 15:50:16,399 __init__ 13532 12820 Kaisar successfully inserted result for ewqewq
+INFO 2021-02-05 15:50:16,435 __init__ 13532 12820 Kaisar tries to insert comment ewqewqewq
+INFO 2021-02-05 15:50:16,440 __init__ 13532 12820 Kaisar successfully inserted comment ewqewqewq
+INFO 2021-02-05 15:50:16,478 __init__ 13532 12820 Kaisar tries to insert comment round 
+INFO 2021-02-05 15:50:16,494 __init__ 13532 12820 Kaisar successfully inserted comment round for ewqewqewq
+INFO 2021-02-11 09:25:49,847 __init__ 22408 140087110784768 Кайсар starts comment round session 
+INFO 2021-02-12 07:16:13,580 __init__ 4388 140407581177600 Кайсар starts comment round session 
+INFO 2021-02-12 07:16:57,027 __init__ 4388 140407581177600 Кайсар tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 07:16:57,036 __init__ 4388 140407581177600 Кайсар successfully inserted result for https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 07:16:57,086 __init__ 4388 140407581177600 Кайсар tries to insert comment sasdsada
+INFO 2021-02-12 07:16:57,092 __init__ 4388 140407581177600 Кайсар successfully inserted comment sasdsada
+INFO 2021-02-12 07:16:57,115 __init__ 4388 140407581177600 Кайсар tries to insert comment round 
+INFO 2021-02-12 07:16:57,128 __init__ 4388 140407581177600 Кайсар successfully inserted comment round for sasdsada
+INFO 2021-02-12 08:56:14,102 __init__ 6661 140552670541568 Кайсар starts comment round session 
+INFO 2021-02-12 09:10:44,237 __init__ 8720 140236520683264 Кайсар starts comment round session 
+INFO 2021-02-12 09:30:07,683 __init__ 9825 140222801905408 Кайсар starts comment round session 
+INFO 2021-02-12 09:50:56,761 __init__ 12772 139800849938176 Кайсар starts comment round session 
+INFO 2021-02-12 09:51:06,286 __init__ 12772 139800849938176 Кайсар tries to insert specie dwq
+INFO 2021-02-12 09:51:06,289 __init__ 12772 139800849938176 Кайсар successfully inserted specie dwq
+INFO 2021-02-12 10:04:03,615 __init__ 14180 139866339841792 Кайсар starts comment round session 
+INFO 2021-02-12 10:04:06,593 __init__ 14180 139866339841792 Кайсар starts comment round session 
+INFO 2021-02-12 10:14:25,521 __init__ 15999 140615877043968 Кайсар starts comment round session 
+INFO 2021-02-12 10:29:39,989 __init__ 17018 140618473121536 Кайсар starts comment round session 
+INFO 2021-02-12 10:32:28,675 __init__ 17018 140618473121536 Кайсар starts comment round session 
+INFO 2021-02-12 10:32:29,729 __init__ 17018 140618473121536 Кайсар starts comment round session 
+INFO 2021-02-12 10:32:31,774 __init__ 17018 140618473121536 Кайсар starts comment round session 
+INFO 2021-02-12 10:32:36,196 __init__ 18691 139825331488512 Кайсар starts comment round session 
+INFO 2021-02-12 10:32:38,012 __init__ 18691 139825331488512 Кайсар starts comment round session 
+INFO 2021-02-12 10:40:43,103 __init__ 20115 140166694991616 Кайсар starts comment round session 
+INFO 2021-02-12 10:40:45,868 __init__ 20115 140166694991616 Кайсар has requested comment instance
+INFO 2021-02-12 10:40:46,956 __init__ 20115 140166694991616 Кайсар has requested comment instance
+INFO 2021-02-12 11:03:34,636 result 23736 139763426440960 Кайсар starts comment round session 
+INFO 2021-02-12 11:04:09,981 result 24026 139956968433408 Кайсар starts comment round session 
+INFO 2021-02-12 11:04:41,319 result 24128 140093497526016 Кайсар starts comment round session 
+INFO 2021-02-12 11:05:58,139 result 24319 139726572238592 Кайсар starts comment round session 
+INFO 2021-02-12 11:07:32,731 result 24692 140226987370240 Кайсар starts comment round session 
+INFO 2021-02-12 11:08:36,400 result 24818 140640196790016 Кайсар starts comment round session 
+INFO 2021-02-12 11:08:42,475 result 24873 139872091727616 Кайсар starts comment round session 
+INFO 2021-02-12 11:10:05,947 result 25135 139921107711744 Кайсар starts comment round session 
+INFO 2021-02-12 11:10:23,251 result 25225 139982711437056 Кайсар starts comment round session 
+INFO 2021-02-12 11:11:05,348 result 25353 139652161906432 Кайсар starts comment round session 
+INFO 2021-02-12 11:11:19,325 result 25422 140222064035584 Кайсар starts comment round session 
+INFO 2021-02-12 11:11:21,223 result 25422 140222064035584 Кайсар starts comment round session 
+INFO 2021-02-12 11:11:21,932 result 25422 140222064035584 Кайсар starts comment round session 
+INFO 2021-02-12 11:11:22,488 result 25422 140222064035584 Кайсар starts comment round session 
+INFO 2021-02-12 11:11:37,791 result 25422 140222064035584 Кайсар starts comment round session 
+INFO 2021-02-12 11:11:45,015 specie 25422 140222064035584 Кайсар tries to insert specie ewqewqeq
+INFO 2021-02-12 11:11:45,016 specie 25422 140222064035584 Кайсар successfully inserted specie ewqewqeq
+INFO 2021-02-12 11:11:51,014 tag 25422 140222064035584 Кайсар tries to insert tag
+INFO 2021-02-12 11:11:51,016 tag 25422 140222064035584 Кайсар successfully inserted tag ewqewqewq
+INFO 2021-02-12 11:13:16,563 result 25718 139658398258944 Кайсар starts comment round session 
+INFO 2021-02-12 11:13:38,203 result 25838 140558438065920 Кайсар starts comment round session 
+INFO 2021-02-12 11:13:47,742 comment 25838 140558438065920 Кайсар has requested comment instance
+INFO 2021-02-12 11:15:55,751 result 26069 140654155917056 Кайсар tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:16:08,432 result 26112 140611785250560 Кайсар tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:16:08,435 result 26112 140611785250560 Кайсар successfully inserted result for https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:16:33,801 result 26176 139704936732416 Кайсар tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:16:33,802 result 26176 139704936732416 Кайсар successfully inserted result for https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:16:33,815 comment 26176 139704936732416 Кайсар tries to insert comment 
+INFO 2021-02-12 11:16:33,817 comment 26176 139704936732416 Кайсар successfully inserted comment 
+INFO 2021-02-12 11:16:33,828 comment_round 26176 139704936732416 Кайсар tries to insert comment round 
+INFO 2021-02-12 11:16:52,866 result 26235 140386491557632 Кайсар tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:16:52,868 result 26235 140386491557632 Кайсар successfully inserted result for https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:16:52,882 comment 26235 140386491557632 Кайсар tries to insert comment 
+INFO 2021-02-12 11:16:52,884 comment 26235 140386491557632 Кайсар successfully inserted comment 
+INFO 2021-02-12 11:16:52,895 comment_round 26235 140386491557632 Кайсар tries to insert comment round 
+INFO 2021-02-12 11:17:02,649 result 26263 140554012718848 Кайсар tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:17:02,651 result 26263 140554012718848 Кайсар successfully inserted result for https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:17:02,663 comment 26263 140554012718848 Кайсар tries to insert comment 
+INFO 2021-02-12 11:17:02,665 comment 26263 140554012718848 Кайсар successfully inserted comment 
+INFO 2021-02-12 11:17:02,677 comment_round 26263 140554012718848 Кайсар tries to insert comment round 
+INFO 2021-02-12 11:17:02,687 comment_round 26263 140554012718848 Кайсар successfully inserted comment round for 
+INFO 2021-02-12 11:17:35,414 result 26263 140554012718848 Кайсар starts comment round session 
+INFO 2021-02-12 11:17:57,413 result 26263 140554012718848 Кайсар tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:17:57,414 result 26263 140554012718848 Кайсар successfully inserted result for https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-12 11:17:57,426 comment 26263 140554012718848 Кайсар tries to insert comment ewqewq
+INFO 2021-02-12 11:17:57,428 comment 26263 140554012718848 Кайсар successfully inserted comment ewqewq
+INFO 2021-02-12 11:17:57,439 comment_round 26263 140554012718848 Кайсар tries to insert comment round 
+INFO 2021-02-12 11:17:57,445 comment_round 26263 140554012718848 Кайсар successfully inserted comment round for ewqewq
+INFO 2021-02-12 11:18:14,558 result 26263 140554012718848 Кайсар starts comment round session 
+INFO 2021-02-12 11:26:24,786 result 26724 139806528034560 Кайсар starts comment round session 
+INFO 2021-02-12 12:01:51,504 result 30440 140135756277504 Кайсар starts comment round session 
+INFO 2021-02-12 12:01:54,707 comment 30440 140135756277504 Кайсар has requested comment instance
+INFO 2021-02-12 12:01:55,740 comment 30440 140135756277504 Кайсар has requested comment instance
+INFO 2021-02-12 12:01:56,307 comment 30440 140135756277504 Кайсар has requested comment instance
+INFO 2021-02-12 12:02:03,616 result 30440 140135756277504 Кайсар starts comment round session 
+INFO 2021-02-15 03:44:45,266 result 4911 140469880370944 Кайсар starts comment round session 
+INFO 2021-02-15 03:49:47,497 result 5990 140102414169856 Кайсар starts comment round session 
+INFO 2021-02-15 03:49:48,764 result 5990 140102414169856 Кайсар starts comment round session 
+INFO 2021-02-15 03:49:50,169 result 5990 140102414169856 Кайсар starts comment round session 
+INFO 2021-02-15 03:52:56,873 result 5990 140102414169856 Кайсар starts comment round session 
+INFO 2021-02-15 03:53:46,170 result 5990 140102414169856 Кайсар tries to insert result https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-15 03:53:46,182 result 5990 140102414169856 Кайсар successfully inserted result for https://www.facebook.com/100000815788122/posts/3288058627897964/?extid=PhBB0Id5KD4LjEqq&d=n
+INFO 2021-02-15 03:53:46,201 comment 5990 140102414169856 Кайсар tries to insert comment 
+INFO 2021-02-15 03:53:46,204 comment 5990 140102414169856 Кайсар successfully inserted comment 
+INFO 2021-02-15 03:53:46,219 comment_round 5990 140102414169856 Кайсар tries to insert comment round 
+INFO 2021-02-15 03:53:46,227 comment_round 5990 140102414169856 Кайсар successfully inserted comment round for 
+DEBUG 2021-02-15 05:01:11,675 __init__ 8862 140272037062400 dmm.CommentRound.objects
+DEBUG 2021-02-15 05:01:16,551 __init__ 8862 140272037062400 dmm.CommentRound.objects
+DEBUG 2021-02-15 05:01:18,854 __init__ 8862 140272037062400 dmm.CommentRound.objects

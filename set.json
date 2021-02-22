@@ -1,0 +1,88 @@
+{
+    "workbench.colorTheme": "Night Owl",
+    "workbench.iconTheme": "material-icon-theme",
+    "[json]": {
+      "editor.quickSuggestions": {
+        "strings": true
+      },
+      "editor.suggest.insertMode": "replace"
+    },
+    // my custom settings
+    "editor.formatOnSave": true,
+    "editor.rulers": [
+      170
+    ],
+    "files.exclude": {
+      "**/.git": true,
+      "**/.svn": true,
+      "**/.hg": true,
+      "**/CVS": true,
+      "**/.DS_Store": true,
+      ".vscode": true,
+      "**/*.pyc": true
+    },
+    "workbench.editor.enablePreview": false,
+    "editor.minimap.enabled": false,
+    "python.linting.pylintArgs": [
+      "--load-plugins",
+      "pylint_django"
+    ],
+    "emmet.includeLanguages": {
+      "django-html": "html"
+    },
+    "html.format.wrapLineLength": 300,
+    "beautify.config": "",
+    "git.config": "",
+    "python.formatting.autopep8Args": [
+      "--max-line-length=170"
+    ],
+    "editor.wordWrapColumn": 170,
+    "[django-html]": {
+      "editor.defaultFormatter": "HookyQR.beautify",
+      "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+      }
+    },
+    "files.associations": {
+      "**/*.html": "html",
+      "**/templates/**/*.html": "django-html",
+      "**/templates/**/*.js": "javascript",
+      "**/templates/**/*": "django-txt",
+      "**/requirements{/**,*}.{txt,in}": "pip-requirements"
+    },
+    "beautify.language": {
+      "js": {
+        "type": [
+          "javascript",
+          "json",
+          "js"
+        ],
+        "filename": [
+          ".jshintrc",
+          ".jsbeautifyrc"
+        ]
+        // "ext": ["js", "json"]
+        // ^^ to set extensions to be beautified using the javascript beautifier
+      },
+      "css": [
+        "css",
+        "scss"
+      ],
+      "html": [
+        "htm",
+        "html",
+        "django-html"
+      ]
+      // ^^ providing just an array sets the VS Code file type
+    },
+    "[javascript]": {
+      "editor.defaultFormatter": "HookyQR.beautify"
+    },
+    "cSpell.language": "en,en-US",
+    // Is git enabled
+    "git.enabled": true,
+    // Path to the git executable
+    "git.path": "/usr/bin/git"
+  }

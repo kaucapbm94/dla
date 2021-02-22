@@ -1,0 +1,41 @@
+{% load mathfilters %}
+{% load needs_new_column %}
+{% load addstr %}
+{% with column_number=4 %}
+<div class="col-form-label col-md-12 pt-0"><b>Специфичные теги*:</b></div>
+<div class="col-md-{{ 12|intdiv:column_number }}">
+    {% for tag in specific_tags %}
+    {% if "{\"column_number\": "|addstr:column_number|addstr:", \"collection_size\": "|addstr:specific_tags.count|addstr:"}"|needs_new_column:forloop.counter0 %}
+</div>
+<div class="col-md-{{ 12|intdiv:column_number }}">
+    {% endif %}
+    <div class="form-check">
+        <input type="checkbox" value="{{ tag.id }}" class="tag form-check-input"
+            name="comment-tag-checkbox-{{ comment_instance_id }}" {% if tag.id in tag_checked_ids %} checked="checked"
+            {% endif %}>
+        <label class="form-check-label" for="gridRadios2" data-toggle="tooltip" data-placement="top"
+            title="{{ '&quot;'|add:tag.description|add:'&quot;, - '|add:tag.expert.name|add:'.' }}">
+            {{ tag.name}}</label>
+    </div>
+    {% endfor %}
+</div>
+
+
+<div class="col-form-label col-md-12 pt-0"><b>Общие теги*:</b></div>
+<div class="col-md-{{ 12|intdiv:column_number }}">
+    {% for tag in common_tags %}
+    {% if "{\"column_number\": "|addstr:column_number|addstr:", \"collection_size\": "|addstr:common_tags.count|addstr:"}"|needs_new_column:forloop.counter0 %}
+</div>
+<div class="col-md-{{ 12|intdiv:column_number }}">
+    {% endif %}
+    <div class="form-check">
+        <input type="checkbox" value="{{ tag.id }}" class="tag form-check-input"
+            name="comment-tag-checkbox-{{ comment_instance_id }}" {% if tag.id in tag_checked_ids %} checked="checked"
+            {% endif %}>
+        <label class="form-check-label" for="gridRadios2" data-toggle="tooltip" data-placement="top"
+            title="{{ '&quot;'|add:tag.description|add:'&quot;, - '|add:tag.expert.name|add:'.' }}">
+            {{ tag.name }}</label>
+    </div>
+    {% endfor %}
+</div>
+{% endwith %}

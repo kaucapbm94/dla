@@ -1,0 +1,10 @@
+{% extends 'dmm/layout/main.html' %}
+{% block content %}
+
+  <div class="container">
+    {% for result, comments in need_round_results_comments.items %}
+    {%  include 'dmm/comment/comments_need_round.html' with need_round_comments=comments result=result %}
+    {% endfor %}
+  </div>
+
+{% endblock content %}
