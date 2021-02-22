@@ -94,7 +94,7 @@ class Comment(models.Model):
     resource_type = models.ForeignKey(ResourceType, models.DO_NOTHING, null=True)
     date = models.DateTimeField(null=True)
     specie = models.ForeignKey(Specie, models.DO_NOTHING, blank=True, null=True)
-    tags = models.ManyToManyField(Tag, through='CommentTags')
+    tags = models.ManyToManyField(Tag)
     tonal_type = models.ForeignKey(TonalType, models.DO_NOTHING, blank=True, null=True)
 
     clarification = models.CharField(max_length=6000, null=True)
@@ -102,9 +102,6 @@ class Comment(models.Model):
     expert = models.ForeignKey(Expert, models.DO_NOTHING, null=True)
     created = models.DateTimeField(auto_now_add=True, null=True)
     modified = models.DateTimeField(auto_now=True, null=True)
-
-    def __str__(self):
-        return self.text[:80]
 
 
 class CommentRound(models.Model):
@@ -168,3 +165,24 @@ class Book(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Publication(models.Model):
+    title = models.CharField(max_length=30)
+
+    class Meta:
+        ordering = ['title']
+
+    def __str__(self):
+        return self.title
+
+
+class Article(models.Model):
+    headline = models.CharField(max_length=100)
+    publications = models.ManyToManyField(Publication)
+
+    class Meta:
+        ordering = ['headline']
+
+    def __str__(self):
+        return self.headline

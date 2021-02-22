@@ -50,18 +50,26 @@ def createResult(request):
     if request.method == 'POST':
         form = ResultForm(request.POST)
         logger.debug(form.is_valid())
+        logger.debug(request.POST)
+        logger.debug(type(request.POST))
+        my_dict = request.POST
+        # for key in my_dict:
+        #     logger.debug(my_dict[key])
         if form.is_valid():
             logger.debug(request.POST.get("round_tags", ""))
             result = form.save()
             formset = CommentFormSet(request.POST, instance=result)
-            if formset.is_valid():
-                formset.save()
-                return redirect('programmer_new')
-            else:
-                logger.debug(formset.errors)
+            logger.debug(type(formset))
+            for sub_form in formset:
+                if sub_form.is_valid():
+                    sub_form.save()
+                    sub_form.save_m2m()
+                else:
+                    logger.debug(sub_form.errors)
+                    break
+            return redirect('programmer_new')
         else:
             logger.debug(form.errors)
-
     else:
         form = ResultForm(initial={'expert': request.user.expert})
         formset = CommentFormSet()

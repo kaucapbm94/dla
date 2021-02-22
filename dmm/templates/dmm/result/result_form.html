@@ -56,8 +56,16 @@
 				{{ f.resource_type }}
 			</div>
 			<div class="col-md-12">
-				<label>{{f.round_tags.label}}</label>
-				{% for tag in f.round_tags %}
+				<label>{{f.specie.label}}</label>
+				{{ f.specie }}
+			</div>
+			<div class="col-md-12">
+				<label>{{f.tonal_type.label}}</label>
+				{{ f.tonal_type }}
+			</div>
+			<div class="col-md-12">
+				<label>{{f.tags.label}}</label>
+				{% for tag in f.tags %}
 				{{ tag }}
 				{% endfor %}
 			</div>

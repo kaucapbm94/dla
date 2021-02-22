@@ -1,0 +1,232 @@
+[
+{
+  "model": "dmm.expert",
+  "pk": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
+  "fields": {
+    "user": 7,
+    "name": "Айзада",
+    "chat_id": 1
+  }
+},
+{
+  "model": "dmm.expert",
+  "pk": "1539cc3a-e6e2-4715-8db8-df56c6c43bf5",
+  "fields": {
+    "user": 2,
+    "name": "Гульнара",
+    "chat_id": 1
+  }
+},
+{
+  "model": "dmm.expert",
+  "pk": "4716bf12-bcbb-4818-8b8f-9ded024cd7e6",
+  "fields": {
+    "user": 4,
+    "name": "Назым",
+    "chat_id": 0
+  }
+},
+{
+  "model": "dmm.expert",
+  "pk": "5ba34f8a-4b30-442c-ad91-b0691f3a59c4",
+  "fields": {
+    "user": 6,
+    "name": "Бауыржан",
+    "chat_id": 1
+  }
+},
+{
+  "model": "dmm.expert",
+  "pk": "abd738dd-6bea-48ac-a3aa-1d3b620017c6",
+  "fields": {
+    "user": 5,
+    "name": "Руслан",
+    "chat_id": 1
+  }
+},
+{
+  "model": "dmm.expert",
+  "pk": "f9f5b2d8-0947-4bbc-9931-3faa839001e5",
+  "fields": {
+    "user": 1,
+    "name": "Кайсар",
+    "chat_id": 1
+  }
+},
+{
+  "model": "dmm.expert",
+  "pk": "fbef2367-1685-4436-95e9-37c55a945f50",
+  "fields": {
+    "user": 3,
+    "name": "Айганым",
+    "chat_id": 1
+  }
+},
+{
+  "model": "dmm.languagetype",
+  "pk": 1,
+  "fields": {
+    "name": "Russian",
+    "code": "ru"
+  }
+},
+{
+  "model": "dmm.languagetype",
+  "pk": 2,
+  "fields": {
+    "name": "English",
+    "code": "en"
+  }
+},
+{
+  "model": "dmm.languagetype",
+  "pk": 3,
+  "fields": {
+    "name": "Kazakh",
+    "code": "kk"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 1,
+  "fields": {
+    "name": "Instagram"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 2,
+  "fields": {
+    "name": "Telegram"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 3,
+  "fields": {
+    "name": "Вконтакте"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 4,
+  "fields": {
+    "name": "Одноклассники"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 5,
+  "fields": {
+    "name": "2ch"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 6,
+  "fields": {
+    "name": "Новостные порталы"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 7,
+  "fields": {
+    "name": "Википедия"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 8,
+  "fields": {
+    "name": "Facebook"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 9,
+  "fields": {
+    "name": "Youtube"
+  }
+},
+{
+  "model": "dmm.resourcetype",
+  "pk": 10,
+  "fields": {
+    "name": "Twitter"
+  }
+},
+{
+  "model": "dmm.contenttype",
+  "pk": 1,
+  "fields": {
+    "name": "article"
+  }
+},
+{
+  "model": "dmm.contenttype",
+  "pk": 2,
+  "fields": {
+    "name": "post"
+  }
+},
+{
+  "model": "dmm.contenttype",
+  "pk": 3,
+  "fields": {
+    "name": "repost"
+  }
+},
+{
+  "model": "dmm.contenttype",
+  "pk": 4,
+  "fields": {
+    "name": "tweet"
+  }
+},
+{
+  "model": "dmm.contenttype",
+  "pk": 5,
+  "fields": {
+    "name": "video"
+  }
+},
+{
+  "model": "dmm.tag",
+  "pk": 1,
+  "fields": {
+    "name": "tag1",
+    "description": "des",
+    "is_common": false,
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.tag",
+  "pk": 2,
+  "fields": {
+    "name": "tag2",
+    "description": "des",
+    "is_common": false,
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.specie",
+  "pk": 1,
+  "fields": {
+    "name": "specie1",
+    "description": "des",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.specie",
+  "pk": 2,
+  "fields": {
+    "name": "specie2",
+    "description": "des",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+}
+]

@@ -19,3 +19,6 @@ admin.site.register(CommentRoundTags)
 admin.site.register(Example)
 admin.site.register(Programmer)
 admin.site.register(Language)
+
+admin.site.register(Article)
+admin.site.register(Publication)

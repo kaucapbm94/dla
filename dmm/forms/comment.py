@@ -51,7 +51,17 @@ class CommentForm(ModelForm):
         queryset=Result.objects.all()[:6],
         initial={'max_number': '1'}
     )
-    round_tags = CustomMMCF(
+    specie = forms.ModelChoiceField(
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        queryset=Specie.objects.all(),
+        initial={'max_number': '1'}
+    )
+    tonal_type = forms.ModelChoiceField(
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        queryset=TonalType.objects.all(),
+        initial={'max_number': '1'}
+    )
+    tags = CustomMMCF(
         queryset=Tag.objects.all(),
         widget=forms.CheckboxSelectMultiple
     )
@@ -60,11 +70,14 @@ class CommentForm(ModelForm):
         model = Comment
         exclude = ()
         fields = ('text', 'author_url', 'is_answer', 'date', 'clarification', 'expert',
-                  'language_type', 'resource_type', 'result')
+                  'language_type', 'resource_type', 'specie', 'result', 'tags', 'tonal_type')
 
     def save(self, commit=True):
         instance = super(CommentForm, self).save(commit=False)
+        # instance.tags
         instance.author_url = 'OLOLO'
+        logger.debug(instance.tags)
         if commit:
             instance.save()
+
         return instance
