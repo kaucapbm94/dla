@@ -12,7 +12,7 @@ class CustomMMCF(forms.ModelMultipleChoiceField):
 
 class CommentForm(ModelForm):
     text = forms.CharField(
-        widget=forms.Textarea(attrs={'class': 'form-control border-primary'}),
+        widget=forms.Textarea(attrs={'class': 'form-control border-primary', 'rows': 1}),
         initial='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed elementum sem ac magna suscipit, non.')
     author_url = forms.CharField(
         widget=forms.URLInput(attrs={'class': 'form-control', 'placeholder': 'https://...'}),

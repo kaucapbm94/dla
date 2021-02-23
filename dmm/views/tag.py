@@ -3,6 +3,23 @@ from ..models import Tag
 from ..helpers.tag import *
 
 
+def TagCreate(request):
+    form = TagForm(request.POST or None)
+    logger.debug(request.POST)
+    if form.is_valid():
+        instance = form.save()
+
+        # Change the value of the "#id_author". This is the element id in the form
+        resp = (
+            '<script>' +
+            'opener.closeTagPopup(window, "%s", "%s");' % (instance.pk, instance) +
+            '</script>'
+        )
+        return HttpResponse(resp)
+
+    return render(request, "dmm/tag/tag_form.html", {"form": form, })
+
+
 class AddTagView(View):
     def post(self, request):
         if request.is_ajax():

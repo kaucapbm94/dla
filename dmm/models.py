@@ -88,13 +88,13 @@ class Comment(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     text = models.TextField(blank=True, null=True)
     author_url = models.CharField(max_length=2100, null=True)
-    result = models.ForeignKey(Result, models.DO_NOTHING, null=True)
+    result = models.ForeignKey(Result, on_delete=models.CASCADE, null=True)
     is_answer = models.BooleanField(null=True)
     language_type = models.ForeignKey(LanguageType, models.DO_NOTHING)
     resource_type = models.ForeignKey(ResourceType, models.DO_NOTHING, null=True)
     date = models.DateTimeField(null=True)
     specie = models.ForeignKey(Specie, models.DO_NOTHING, blank=True, null=True)
-    tags = models.ManyToManyField(Tag)
+    tags = models.ManyToManyField(Tag, through='CommentTags')
     tonal_type = models.ForeignKey(TonalType, models.DO_NOTHING, blank=True, null=True)
 
     clarification = models.CharField(max_length=6000, null=True)
@@ -104,15 +104,24 @@ class Comment(models.Model):
     modified = models.DateTimeField(auto_now=True, null=True)
 
 
+class CommentTags(models.Model):
+    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, blank=True, null=True)
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, blank=True, null=True)
+    is_present = models.BooleanField(null=True)
+
+    def __str__(self):
+        return self.comment.text[:80]
+
+
 class CommentRound(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    comment = models.ForeignKey(Comment, models.DO_NOTHING, blank=True, null=True)
+    comment = models.ForeignKey(Comment, models.CASCADE, blank=True, null=True)
     specie = models.ForeignKey(Specie, models.DO_NOTHING, blank=True, null=True)
     tags = models.ManyToManyField(Tag, through='CommentRoundTags')
     tonal_type = models.ForeignKey(TonalType, models.DO_NOTHING, blank=True, null=True)
 
     clarification = models.CharField(max_length=2000, null=True)
-    create_date = models.DateTimeField(null=True)
+    created = models.DateTimeField(auto_now_add=True, null=True)
     expert = models.ForeignKey(Expert, models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
@@ -128,61 +137,72 @@ class CommentRoundTags(models.Model):
         return self.comment_round.comment.text[:80]
 
 
-class CommentTags(models.Model):
-    tag = models.ForeignKey(Tag, on_delete=models.CASCADE, blank=True, null=True)
-    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, blank=True, null=True)
-    is_present = models.BooleanField(null=True)
+# class Example(models.Model):
+#     name = models.CharField(max_length=20)
+#     location = models.CharField(max_length=20)
 
 
-class Example(models.Model):
-    name = models.CharField(max_length=20)
-    location = models.CharField(max_length=20)
+# class Programmer(models.Model):
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     name = models.CharField(max_length=20)
+
+#     def __str__(self):
+#         return self.name
 
 
-class Programmer(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=20)
+# class Language(models.Model):
+#     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
+#     name = models.CharField(max_length=20)
+#     programmer = models.ForeignKey(Programmer, on_delete=models.CASCADE)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
 
-class Language(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
-    name = models.CharField(max_length=20)
-    programmer = models.ForeignKey(Programmer, on_delete=models.CASCADE)
+# class Book(models.Model):
+#     name = models.CharField(max_length=255)
+#     isbn_number = models.CharField(max_length=13)
+
+#     class Meta:
+#         db_table = 'book'
+
+#     def __str__(self):
+#         return self.name
+
+
+# class Publication(models.Model):
+#     title = models.CharField(max_length=30)
+
+#     class Meta:
+#         ordering = ['title']
+
+#     def __str__(self):
+#         return self.title
+
+
+# class Article(models.Model):
+#     headline = models.CharField(max_length=100)
+#     publications = models.ManyToManyField(Publication)
+
+#     class Meta:
+#         ordering = ['headline']
+
+#     def __str__(self):
+#         return self.headline
+
+
+class Author(models.Model):
+    name = models.CharField(max_length=100)
 
     def __str__(self):
         return self.name
 
 
 class Book(models.Model):
-    name = models.CharField(max_length=255)
-    isbn_number = models.CharField(max_length=13)
-
-    class Meta:
-        db_table = 'book'
-
-    def __str__(self):
-        return self.name
-
-
-class Publication(models.Model):
-    title = models.CharField(max_length=30)
-
-    class Meta:
-        ordering = ['title']
+    title = models.CharField(max_length=100)
+    author = models.ForeignKey(Author, on_delete=models.CASCADE)
+    price = models.DecimalField(max_digits=12, decimal_places=4, default=0)
+    publish = models.DateField(default=timezone.now)
 
     def __str__(self):
         return self.title
-
-
-class Article(models.Model):
-    headline = models.CharField(max_length=100)
-    publications = models.ManyToManyField(Publication)
-
-    class Meta:
-        ordering = ['headline']
-
-    def __str__(self):
-        return self.headline

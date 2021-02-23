@@ -1,5 +1,24 @@
 from .default_imports import *
 from ..models import Specie
+from django.http import HttpResponseRedirect
+import logging
+logger = logging.getLogger(__name__)
+
+
+def SpecieCreate(request):
+    form = SpecieForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save()
+
+        # Change the value of the "#id_author". This is the element id in the form
+        resp = (
+            '<script>' +
+            'opener.closeSpeciePopup(window, "%s", "%s");' % (instance.pk, instance) +
+            '</script>'
+        )
+        return HttpResponse(resp)
+
+    return render(request, "dmm/specie/specie_form.html", {"form": form, })
 
 
 class AddSpecieView(View):

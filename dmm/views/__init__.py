@@ -13,9 +13,6 @@ from .specie import *
 from .tag import *
 from .tonal_type import *
 
-from .contact import *
-from .example import *
-from .programmer import *
 from .book import *
 
 

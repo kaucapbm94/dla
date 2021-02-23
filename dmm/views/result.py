@@ -3,7 +3,7 @@ from ..models import Tag, Specie, Result, Expert, Comment, CommentRound
 from django.forms import inlineformset_factory
 from ..forms import ResultForm, CommentForm
 from django.http import HttpResponseRedirect
-from ..helpers import comment_tag_is_finished, register_tag
+from ..helpers import tag_is_present, specie_is_present, tonal_type_is_present
 
 from datetime import datetime
 
@@ -47,31 +47,55 @@ class InsertResultView(View):
 
 def createResult(request):
     logger.debug(request)
-    CommentFormSet = inlineformset_factory(Result, Comment, form=CommentForm, can_delete=False, extra=3, max_num=1)
+    CommentFormSet = inlineformset_factory(Result, Comment, form=CommentForm, can_delete=False, extra=3, max_num=500, min_num=1)
 
     if request.method == 'POST':
         form = ResultForm(request.POST)
         logger.debug(request.POST)
         my_dict = request.POST
+
         if form.is_valid():
             result = form.save()
             formset = CommentFormSet(request.POST, instance=result)
+
             for sub_form in formset:
                 if sub_form.is_valid():
+                    chosen_tags = sub_form.cleaned_data['tags']
                     comm = sub_form.save()
-                    sub_form.save_m2m()
-                    comm_round = CommentRound.objects.create()
-                    # make decision about tags
-                    tags = comm.tags.all()
+                    comm_round = CommentRound.objects.create(clarification=sub_form.cleaned_data['clarification'], comment=comm, expert=request.user.expert)
+                    # sub_form.save_m2m()
+                    # assign specie if enough votes else round it
+                    spec = sub_form.cleaned_data['specie']
+                    if specie_is_present(comm, spec):
+                        comm.specie = spec
+                    else:
+                        comm_round.specie = spec
+                        comm.specie = None
+                        # make decision about tags
+                    tonal_type = sub_form.cleaned_data['tonal_type']
+                    if tonal_type_is_present(comm, tonal_type):
+                        comm.tonal_type = tonal_type
+                    else:
+                        comm_round.tonal_type = tonal_type
+                        comm.tonal_type = None
+                        # make decision about tags
+                    tags = Tag.objects.all()
                     for tag in tags:
-                        if not comment_tag_is_finished(comm, tag):
-                            comm_round.tags.add(tag)
-                            comm.tags.remove(tag)
-                    logger.debug(comm.tags.all())
+                        # if tag is already in comment_tags for the comment
+                        if tag in comm.tags.all():
+                            continue
+                        # if tag is definitely present/absent/still not defined for the comment
+                        is_present = tag_is_present(comm, tag)
+                        if is_present is not None:
+                            ct = CommentTags.objects.create(tag=tag, comment=comm, is_present=is_present)
+                        else:
+                            crt = CommentRoundTags.objects.create(tag=tag, is_present=(True if tag in chosen_tags else False), comment_round=comm_round)
+                    comm_round.save()
+                    comm.save()
                 else:
                     logger.debug(sub_form.errors)
                     break
-            return redirect('programmer_new')
+            return redirect('')
         else:
             logger.debug(form.errors)
     else:

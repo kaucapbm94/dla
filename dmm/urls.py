@@ -1,14 +1,18 @@
 from django.urls import path
 from . import views
 
+from django.conf.urls import url
+
+
 urlpatterns = [
+    url(r'^book/create', views.BookCreate, name="BookCreate"),
+    url(r'^specie/create', views.SpecieCreate, name="SpecieCreate"),
+    url(r'^tag/create', views.TagCreate, name="TagCreate"),
+    url(r'^author/create', views.AuthorCreatePopup, name="AuthorCreate"),
+    url(r'^author/(?P<pk>\d+)/edit', views.AuthorEditPopup, name="AuthorEdit"),
+    url(r'^author/ajax/get_author_id', views.get_author_id, name="get_author_id"),
     # path('register/', views.registerPage, name='register'),
-    path('', views.Statistics),
-    path('contact/', views.contact, name='contact'),
-    path('example/', views.index, name='example'),
-    path('create_normal/', views.create_book_model_form, name='book_list'),
-    path('programmer/show/<programmer_id>/', views.programmer, name='programmer'),
-    path('programmer/new/', views.programmer_new, name='programmer_new'),
+    path('', views.createResult),
     path('result/new', views.createResult, name='result_create'),
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),

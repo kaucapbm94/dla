@@ -1,47 +1,49 @@
-from ..forms import BookModelFormset
-from django.shortcuts import render, redirect
-
-from ..forms import BookFormset
-from ..models import Book
-
-
-def create_book_normal(request):
-    template_name = 'dmm/create_normal.html'
-    heading_message = 'Formset Demo'
-    if request.method == 'GET':
-        formset = BookFormset(request.GET or None)
-    elif request.method == 'POST':
-        formset = BookFormset(request.POST)
-        if formset.is_valid():
-            for form in formset:
-                name = form.cleaned_data.get('name')
-                if name:
-                    Book(name=name).save()
-
-            return redirect('book_list')
-
-    return render(request, template_name, {
-        'formset': formset,
-        'heading': heading_message,
-    })
+from django.shortcuts import render
+from django.http import HttpResponse, HttpResponseRedirect
+from ..forms import BookForm, AuthorForm
+from ..models import Book, Author
+from django.views.decorators.csrf import csrf_exempt
+import json
 
 
-def create_book_model_form(request):
-    template_name = 'dmm/create_normal.html'
-    heading_message = 'Model Formset Demo'
-    if request.method == 'GET':
-        # we don't want to display the already saved model instances
-        formset = BookModelFormset(queryset=Book.objects.all())
-    elif request.method == 'POST':
-        formset = BookModelFormset(request.POST)
-        if formset.is_valid():
-            for form in formset:
-                # only save if name is present
-                if form.cleaned_data.get('name'):
-                    form.save()
-            return redirect('book_list')
+def BookCreate(request):
+    form = BookForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save()
+        return HttpResponseRedirect("/")
+    return render(request, "dmm/book/book_form.html", {"form": form, })
 
-    return render(request, template_name, {
-        'formset': formset,
-        'heading': heading_message,
-    })
+
+def AuthorCreatePopup(request):
+    form = AuthorForm(request.POST or None)
+    if form.is_valid():
+        instance = form.save()
+
+        # Change the value of the "#id_author". This is the element id in the form
+
+        return HttpResponse('<script>opener.closePopup(window, "%s", "%s", "#id_author");</script>' % (instance.pk, instance))
+
+    return render(request, "dmm/book/author_form.html", {"form": form})
+
+
+def AuthorEditPopup(request, pk=None):
+    instance = get_object_or_404(Author, pk=pk)
+    form = AuthorForm(request.POST or None, instance=instance)
+    if form.is_valid():
+        instance = form.save()
+
+        # Change the value of the "#id_author". This is the element id in the form
+
+        return HttpResponse('<script>opener.closePopup(window, "%s", "%s", "#id_author");</script>' % (instance.pk, instance))
+
+    return render(request, "dmm/book/author_form.html", {"form": form})
+
+
+@csrf_exempt
+def get_author_id(request):
+    if request.is_ajax():
+        author_name = request.GET['author_name']
+        author_id = Author.objects.get(name=author_name).id
+        data = {'author_id': author_id, }
+        return HttpResponse(json.dumps(data), content_type='application/json')
+    return HttpResponse("/")

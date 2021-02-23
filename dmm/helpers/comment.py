@@ -2,16 +2,34 @@ from ..models import *
 from .default_imports import *
 
 
-def comment_tag_is_finished(comment, tag):
+# returns true if 'tag' was considered 2 or more times as is_present=true/false for the 'comment'
+def tag_is_present(comment, tag):
+    # firstly get all comment_rounds for the comment
     comment_rounds = CommentRound.objects.filter(comment=comment)
-    comment_round_tags = CommentRoundTags.objects.filter(comment_round__in=comment_rounds)
-    logger.debug(comment_round_tags)
-    return True if comment_round_tags.count() >= 2 else False
+    # in the queryset search now any instances of the comment_round_tag containing 'tag' and count is_present
+    if CommentRoundTags.objects.filter(comment_round__in=comment_rounds, tag=tag, is_present=True).count() >= 1:
+        is_present = True
+    elif CommentRoundTags.objects.filter(comment_round__in=comment_rounds, tag=tag, is_present=False).count() >= 1:
+        is_present = False
+    else:
+        is_present = None
+    return is_present
 
 
-def register_tag(comm_round, tag):
+def specie_is_present(comment, specie):
+    return True if CommentRound.objects.filter(comment=comment, specie=specie).count() >= 1 else False
 
-    return False
+
+def tonal_type_is_present(comment, tonal_type):
+    return True if CommentRound.objects.filter(comment=comment, tonal_type=tonal_type).count() >= 1 else False
+
+
+def specie_winner(comment):
+    species = Specie.objects.all()
+    for spec in species:
+        if CommentRound.objects.filter(comment=comment, specie=spec).count() >= 2:
+            return spec
+    return None
 
 
 def get_need_round_comments(result, expert_id):
