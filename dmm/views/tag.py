@@ -1,10 +1,19 @@
-from .default_imports import *
-from ..models import Tag
+from django.http import HttpResponse
+from ..models import Tag, Expert
 from ..helpers.tag import *
+from django.views.generic import View
+from django.http import HttpResponseRedirect
+from django import forms
+from django.shortcuts import render, redirect
+from ..forms import TagForm
+import logging
+logger = logging.getLogger(__name__)
 
 
-def TagCreate(request):
-    form = TagForm(request.POST or None)
+def TagCreate(request, expert_id):
+    expert = Expert.objects.get(id=expert_id)
+    form = TagForm(request.POST or None, initial={'expert': expert, })
+    form.fields['expert'].widget = forms.HiddenInput()
     logger.debug(request.POST)
     if form.is_valid():
         instance = form.save()
@@ -12,35 +21,9 @@ def TagCreate(request):
         # Change the value of the "#id_author". This is the element id in the form
         resp = (
             '<script>' +
-            'opener.closeTagPopup(window, "%s", "%s");' % (instance.pk, instance) +
+            'opener.closeTagPopup(window, "%s", "%s", "%s");' % (instance.pk, f"{instance.description} ({instance.expert.name})", instance) +
             '</script>'
         )
         return HttpResponse(resp)
 
     return render(request, "dmm/tag/tag_form.html", {"form": form, })
-
-
-class AddTagView(View):
-    def post(self, request):
-        if request.is_ajax():
-            tag_name = request.POST.get('tag_name')
-            tag_description = request.POST.get('tag_description')
-            tag_is_common = request.POST.get('tag_is_common')
-            tag_expert_id = request.POST.get('tag_expert_id')
-            tag_checked_ids = [int(spec_id) for spec_id in json.loads(request.GET.get('tag_checked_ids'))]
-
-            comment_instance_id = ''
-            Tag(name=tag_name, description=tag_description, is_common=(tag_is_common == 'true'), expert_id=tag_expert_id).save()
-            logger.info(request.user.expert.name + ' tries to insert tag')
-            logger.info(request.user.expert.name +
-                        ' successfully inserted tag ' + t.name)
-
-            tags_section = render_to_string(
-                'dmm/tag/_tag_section.html',
-                {'comment_instance_id': comment_instance_id,
-                 'specific_tags': get_specific_tags(),
-                 'common_tags': get_common_tags(),
-                 'tag_checked_ids': tag_checked_ids
-                 })
-            return JsonResponse({'tags_section': tags_section}, status=200)
-        return render(request, 'dmm/statistics.html')

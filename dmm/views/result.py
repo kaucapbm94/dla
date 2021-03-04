@@ -1,53 +1,120 @@
-from .default_imports import *
-from ..models import Tag, Specie, Result, Expert, Comment, CommentRound
+from ..models import Tag, Specie, Result, Expert, Comment, CommentRound, CommentTags, CommentRoundTags
 from django.forms import inlineformset_factory
-from ..forms import ResultForm, CommentForm
+from ..forms import ResultForm, CommentForm, CommentRoundForm
 from django.http import HttpResponseRedirect
 from ..helpers import tag_is_present, specie_is_present, tonal_type_is_present
-
+from django.forms import formset_factory, modelformset_factory
+from django import forms
+from ..helpers import get_allowed
+from django.views.generic import View
+from django.contrib.auth.decorators import login_required
+from ..decorators import allowed_users
 from datetime import datetime
+from django.shortcuts import render, redirect
+from django.db.models import Count, F, Value
 
 import logging
 logger = logging.getLogger(__name__)
 
 
-class InsertResultView(View):
-    def post(self, request):
-        if request.is_ajax():
-            text = request.POST.get('text')
-            title = request.POST.get('title')
-            url = request.POST.get('url')
-            language_type_id = request.POST.get('language_type_id')
-            resource_type_id = request.POST.get('resource_type_id')
-            content_type_id = request.POST.get('content_type_id')
-            result_date = pytz.utc.localize(dt.strptime(
-                request.POST.get('result_date'), '%Y-%m-%dT%H:%M'))
-            create_date = timezone.now()
-            expert_id = request.POST.get('expert_id')
-            logger.info(request.user.expert.name +
-                        ' tries to insert result ' + url)
-            result = Result(
-                text=text,
-                title=title,
-                url=url,
-                language_type_id=language_type_id,
-                resource_type_id=resource_type_id,
-                content_type_id=content_type_id,
-                date=result_date,
-                create_date=create_date,
-                expert_id=expert_id,
-            )
-            result.save()
-            logger.info(request.user.expert.name +
-                        ' successfully inserted result for ' + url)
+@ login_required(login_url='login')
+@ allowed_users(allowed_roles=['expert', 'admin'])
+def roundResult(request, result_id):
+    result = Result.objects.get(id=result_id)
+    expert_id = request.user.expert.id
+    comments = Comment.objects.filter(result=result)
+    expert = Expert.objects.get(id=request.user.expert.id)
+    # CommentRoundFormset = formset_factory(CommentRoundForm, extra=len(comments))
+    CommentRoundFormset = modelformset_factory(
+        CommentRound,
+        # form=CommentRoundForm,
+        extra=len(comments),
+        fields=['clarification', 'comment', 'expert', 'specie', 'tonal_type', 'tags'],
+        widgets={
+            'clarification': forms.TextInput(attrs={'class': 'form-control'}),
+            'comment': forms.HiddenInput(),
+            'expert': forms.HiddenInput(),
+            'specie': forms.Select(attrs={'class': 'form-control'}),
+            'tonal_type': forms.Select(attrs={'class': 'form-control'}),
+            'tags': forms.CheckboxSelectMultiple(attrs={"class": 'my_class'}),
+        },
+        labels={
+            'specie': 'Класс'
+        }
+    )
 
-            return JsonResponse({'result_id': result.id}, status=200)
-        return render(request, 'dmm/statistics.html')
+    if request.method == 'POST':
+        tags = Tag.objects.all()
+        logger.debug(request.POST)
+        formset = CommentRoundFormset(request.POST)
+        logger.debug(formset)
+        if formset.is_valid():
+            for sub_form in formset:
+                if sub_form.is_valid():
+                    comm_round = sub_form.save(commit=False)
+                    comm_round_tags = sub_form.cleaned_data['tags']
+                    comm_round.save()
+                    logger.debug(comm_round.__dict__)
+
+                    for tag in tags:
+                        if tag in comm_round_tags:
+                            comm_round_tag = CommentRoundTags.objects.create(tag=tag, is_present=True, comment_round=comm_round)
+                        else:
+                            comm_round_tag = CommentRoundTags.objects.create(tag=tag, is_present=False, comment_round=comm_round)
+
+                else:
+                    logger.debug(sub_form.errors)
+        else:
+            logger.debug(formset.errors)
+        return redirect('waiting_rounds')
+
+    # modelformset_factory(Author, widgets={'name': Textarea(attrs={'cols': 80, 'rows': 20})})
+    initials = []
+    tag_allowed_lists = []
+    specie_allowed_list = []
+    tonal_type_allowed_list = []
+    for comment in comments:
+        spec, ton, TAGS = get_allowed(comment, expert_id)
+        initials.append({
+            'comment': comment,
+            'expert': expert
+        })
+        tag_allowed_lists.append(TAGS)
+        specie_allowed_list.append(True if spec else comment.specie)
+        tonal_type_allowed_list.append(True if ton else comment.tonal_type)
+
+    formset = CommentRoundFormset(
+        queryset=CommentRound.objects.none(),
+        initial=initials
+    )
+
+    tags = Tag.objects.all()
+
+    context = {
+        'tags': tags,
+        'result': result,
+        'formset': formset,
+        'comments': comments,
+        'tag_allowed_lists': tag_allowed_lists,
+        'specie_allowed_list': specie_allowed_list,
+        'tonal_type_allowed_list': tonal_type_allowed_list,
+    }
+
+    return render(request, 'dmm/result/result_round.html', context)
 
 
+@ login_required(login_url='login')
+@ allowed_users(allowed_roles=['expert', 'admin'])
 def createResult(request):
-    logger.debug(request)
-    CommentFormSet = inlineformset_factory(Result, Comment, form=CommentForm, can_delete=False, extra=3, max_num=500, min_num=1)
+    CommentFormSet = inlineformset_factory(
+        Result,
+        Comment,
+        form=CommentForm,
+        can_delete=False,
+        extra=0,
+        max_num=500,
+        min_num=1,
+    )
 
     if request.method == 'POST':
         form = ResultForm(request.POST)
@@ -91,17 +158,39 @@ def createResult(request):
                         else:
                             crt = CommentRoundTags.objects.create(tag=tag, is_present=(True if tag in chosen_tags else False), comment_round=comm_round)
                     comm_round.save()
+                    comm.clarification = None
                     comm.save()
                 else:
                     logger.debug(sub_form.errors)
                     break
-            return redirect('')
+            return redirect('waiting_rounds')
         else:
             logger.debug(form.errors)
     else:
         form = ResultForm(initial={'expert': request.user.expert})
         formset = CommentFormSet()
 
-    # logger.debug(formset)
+    formset = CommentFormSet()
+    tags = Tag.objects.all()
+    context = {
+        'form': form,
+        'formset': formset,
+        'tags': tags
+    }
 
-    return render(request, 'dmm/result/result_form.html', {'form': form, 'formset': formset})
+    return render(request, 'dmm/result/result_form.html', context)
+
+
+def ResultShow(request, result_id):
+    expert = Expert.objects.get(id=request.user.expert.id)
+    result = Result.objects.get(id=result_id)
+    comments = Comment.objects.filter(result=result)
+    logger.debug('SHOWING')
+    logger.debug(comments)
+    for comment in comments:
+        logger.debug(comment.commenttags_set.all())
+    context = {
+        'result': result,
+        'expert': expert
+    }
+    return render(request, "dmm/result/show.html", context)

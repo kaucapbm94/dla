@@ -1,4 +1,5 @@
 dla/
+env/*
 env/
 idea/
 __pycache__/

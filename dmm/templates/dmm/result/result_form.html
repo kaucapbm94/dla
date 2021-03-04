@@ -1,257 +1,135 @@
 {% extends 'dmm/layout/main.html' %}
 
 {% block content %}
-<div class="container">
-	<div class="row">
-		<form action="" method="POST">
-			{% csrf_token %}
-			{% comment %} {{ form.as_p }} {% endcomment %}
-			<div class="col-md-12">
-				<div class="card card-body">
-					{{ form.management_form }}
-					{{ form.text }}
-					{{ form.url }}
-					{{ form.title }}
-					{{ form.date }}
-					{{ form.content_type }}
-					{{ form.expert }}
-					{{ form.language_type }}
-					{{ form.resource_type }}
-				</div>
+<div class="container mt-5">
+	<form action="" method="POST" id="my_form" class="needs-validation">
+		{% csrf_token %}
+		<div class="row">
+			{{ form.management_form }}
+			<div class="col-12">
+				<label>Текст публикации</label>
+				{{ form.text }}
 			</div>
-			<div class="col-md-12" id="comments">
-				{{ formset.management_form }}
+			<div class="col-6">
+				<label>Заголовок публикации<b class="text-danger">*</b></label>
+				{{ form.title }}
+			</div>
+			<div class="col-6">
+				<label>URL публикации<b class="text-danger">*</b></label>
+				{{ form.url }}
+			</div>
+			<div class="col-3">
+				<label>Дата публикации<b class="text-danger">*</b></label>
+				{{ form.date }}
+			</div>
+			<div class="col-3">
+				<label>Тип публикации<b class="text-danger">*</b></label>
+				{{ form.content_type }}
+			</div>
+			<div class="col-3">
+				<label>Язык публикации<b class="text-danger">*</b></label>
+				{{ form.language_type }}
+			</div>
+			<div class="col-3">
+				<label>Ресурс публикации<b class="text-danger">*</b></label>
+				{{ form.resource_type }}
+			</div>
+			<div class="d-none">
+				{{ form.expert.label }}
+				{{ form.expert }}
+			</div>
+		</div>
+		<div class="row">
+			{{ formset.management_form }}
+			<div class="col-12" id="comments">
 				{% for f in formset %}
-				<div class="row comment mt-20" id="comment_set-{{ forloop.counter0 }}">
-					<div class="fieldWrapper col-md-8">
+				<div class="row comment mt-2 border border-secondary rounded bg-light p-2" id="comment_set-{{ forloop.counter0 }}">
+					<div class="col-11">
 						{{ f.text.errors }}
-						{% comment %} <label for="{{ f.text.id_for_label }}">Your message:</label> {% endcomment %}
 						{{ f.text }}
-						<div class="collapse comment-meta" id="comment_set-{{ forloop.counter0 }}-meta">
-							<div class="card card-body">
-								<div class="col-md-12">
-									<label>{{f.author_url.label}}</label>
-									{{ f.author_url }}
-								</div>
-								<div class="col-md-12">
-									<label>{{f.is_answer.label}}</label>
-									{{ f.is_answer }}
-								</div>
-								<div class="col-md-12">
-									<label>{{f.date.label}}</label>
-									{{ f.date }}
-								</div>
-								<div class="col-md-12">
-									<label>{{f.clarification.label}}</label>
-									{{ f.clarification }}
-								</div>
-								<div class="col-md-12">
-									<label>{{f.expert.label}}</label>
-									{{ f.expert }}
-								</div>
-								<div class="col-md-12">
-									<label>{{f.language_type.label}}</label>
-									{{ f.language_type }}
-								</div>
-								<div class="col-md-12">
-									<label>{{f.resource_type.label}}</label>
-									{{ f.resource_type }}
-								</div>
-								<div class="col-md-12">
-									<label>{{f.specie.label}}</label>
-									{{ f.specie }}
-									<a class="add_specie"><i class="far fa-plus-square"></i></a>
-								</div>
-								<div class="col-md-12">
-									<label>{{f.tonal_type.label}}</label>
-									{{ f.tonal_type }}
-								</div>
-								<div class="col-md-12" id="comment_set-{{ forloop.counter0 }}-tags">
-									<label>{{f.tags.label}}</label>
-									<a class="add_tag"><i class="far fa-plus-square"></i></a>
-									{% for tag in f.tags %}
+						<div class="collapse comment-meta row" id="comment_set-{{ forloop.counter0 }}-meta">
+							<div class="col-md-6">
+								<label>URL комментатора<b class="text-danger">*</b></label>
+								{{ f.author_url }}
+							</div>
+							<div class="col-md-3">
+								<label>Дата комментирования<b class="text-danger">*</b></label>
+								{{ f.date }}
+							</div>
+							<div class="col-md-12 d-none">
+								{{ f.expert }}
+							</div>
+							<div class="col-md-3">
+								<label>Язык комментирования<b class="text-danger">*</b></label>
+								{{ f.language_type }}
+							</div>
+							<div class="col-md-3">
+								<label>Ресурс комментирования<b class="text-danger">*</b></label>
+								{{ f.resource_type }}
+							</div>
+							<div class="col-md-3">
+								<label>Является ответом?</label>
+								{{ f.is_answer }}
+							</div>
+							<div class="col-md-3">
+								<label>Тональность<b class="text-danger">*</b></label>
+								{{ f.tonal_type }}
+							</div>
+							<div class="col-md-3">
+								<label>Класс<b class="text-danger">*</b></label>
+								<a class="add_specie"><i class="far fa-plus-square"></i></a>
+								{{ f.specie }}
+							</div>
+							<div class="col-md-3" id="comment_set-{{ forloop.counter0 }}-tags">
+								<label>Теги<b class="text-danger">*</b></label>
+								<a class="add_tag"><i class="far fa-plus-square"></i></a>
+								</br>
+								{% for tag in f.tags %}
+								{% for t in tags %}
+								{% if forloop.counter == forloop.parentloop.counter%}
+								<div class="d-inline tag-div" data-toggle="tooltip" data-placement="top" title="{{ t.description }} ({{ t.expert.name }})">
 									{{ tag }}
-									{% endfor %}
 								</div>
-								<div class="col-md-12">
-									<label>{{f.result.label}}</label>
-									{{ f.result }}
-								</div>
+								{% endif %}
+								{% endfor %}
+								{% endfor %}
+							</div>
+							<div class="col-md-12">
+								<label>Пояснение</label>
+								{{ f.clarification }}
 							</div>
 						</div>
 					</div>
-					<div class="col-md-4">
-						<button class="btn btn-primary" id="comment_set-{{ forloop.counter0 }}-meta-collapse" type="button" data-toggle="collapse" data-target="#comment_set-{{ forloop.counter0 }}-meta" aria-expanded="false" aria-controls="collapseExample">Подробнее</button>
-						<button class="btn btn-danger btn-sm comment-destroy" id="comment_set-{{ forloop.counter0 }}-destroy" type="button">
-							<i class="fa fa-trash"></i>
-						</button>
+					<div class="col-1">
+						<div class="row">
+							<div class="col-6">
+								<button class="btn btn-primary btn-sm" id="comment_set-{{ forloop.counter0 }}-meta-collapse" type="button" data-toggle="collapse" data-target="#comment_set-{{ forloop.counter0 }}-meta" aria-expanded="false" aria-controls="collapseExample">
+									<i class="fas fa-chevron-circle-down"></i>
+								</button>
+							</div>
+							<div class="col-6">
+								<button class="btn btn-danger btn-sm comment-destroy" id="comment_set-{{ forloop.counter0 }}-destroy" type="button">
+									<i class="fa fa-trash"></i>
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 				{% endfor %}
 			</div>
-			<div class="col-md-12 mt-20">
-				<button type="button" class="btn btn-primary btn-lg btn-block" id="add-comment">
-					Ещё комментарий
-				</button>
-			</div>
-			<input type="submit" name="Submit">
-		</form>
+		</div>
+	</form>
+	<div class="col-md-12 mt-20">
+		<button type="button" class="btn btn-primary btn-lg" id="add-comment">
+			Ещё комментарий
+		</button>
+		<button id="my_submit" class="btn btn-success btn-lg">Submit</button>
 	</div>
 </div>
+
 
 {% endblock content %}
 
 {% block scripts %}
-
-<script type='text/javascript'>
-	$(document).on('click', '.add_specie', function (e) {
-		e.preventDefault();
-		href = "/specie/create"
-		var name = e.target.id.replace(/^add_/, '');
-		var win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
-		win.focus();
-		return false;
-	})
-	$(document).on('click', '.add_tag', function (e) {
-		e.preventDefault();
-		href = "/tag/create"
-		var name = e.target.id.replace(/^add_/, '');
-		var win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
-		win.focus();
-		return false;
-	})
-
-
-	function closeSpeciePopup(win, newID, newRepr) {
-		total = parseInt($('#id_comment_set-TOTAL_FORMS').val());
-		for (let i = 0; i < total; i++) {
-			$("#id_comment_set-" + i + "-specie").append('<option value=' + newID + '>' + newRepr + '</option>')
-		}
-		win.close();
-	}
-
-	function closeTagPopup(win, newID, newRepr) {
-		total = parseInt($('#id_comment_set-TOTAL_FORMS').val());
-		for (let i = 0; i < total; i++) {
-			// ("#id_comment_set-" + i + "-specie").append('<option value=' + newID + '>' + newRepr + '</option>')
-			console.log($("#comment_set-" + i + "-tags"))
-			console.log(i)
-		}
-		win.close();
-	}
-
-
-	function get_comment_instance_id(target, prefix) {
-		let str = target.attr("id");
-		var res = str.substr(str.lastIndexOf(prefix) + prefix.length + 1);
-		var res = res.substr(0, res.indexOf("-"));
-		return res;
-	}
-
-
-	function updateElementIndex(el, prefix, old_id, new_id) {
-		// replace #comment_set-old_id with #comment_set-new_id
-		el.attr('id', el.attr('id').replace('-' + old_id, '-' + new_id))
-
-		// id should be the last of attrs
-		let targets = [
-			// replace #comment_set-old_id-meta with #comment_set-new_id-meta
-			new my_targ("#" + prefix + '-' + old_id + "-meta", ['id']),
-			// replace #comment_set-old_id-meta-collapse with #comment_set-new_id-meta-collapse
-			new my_targ("#" + prefix + '-' + old_id + "-meta-collapse", ['data-target', 'id']),
-			new my_targ("#" + prefix + '-' + old_id + "-destroy", ['id']),
-			new my_targ(':input:not([type=button]):not([type=submit]):not([type=reset]):not(button)', ['name', 'id']),
-			new my_targ('label', ['for']),
-		]
-		targets.forEach(function (target, index) {
-			el.find(target.selector).each(function () {
-				let my_obj = $(this)
-				target.attrs.forEach(function (attr, index) {
-					let val = my_obj.attr(attr)
-					if (val)
-						my_obj.attr(attr, val.replace('-' + old_id, '-' + new_id))
-				})
-			})
-		});
-		// var id_regex = new RegExp('(' + prefix + '-\\d+)');
-		// var replacement = prefix + '-' + ndx;
-		// if ($(el).attr("for")) $(el).attr("for", $(el).attr("for").replace(id_regex, replacement));
-		// if (el.id) el.id = el.id.replace(id_regex, replacement);
-		// if (el.name) el.name = el.name.replace(id_regex, replacement);
-	}
-
-	class my_targ {
-		constructor(selector, attrs) {
-			this.selector = selector;
-			this.attrs = attrs;
-		}
-	}
-
-	function cloneMore(selector, prefix) {
-		var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
-		// since selector selects last comment instance and formset is ordered without gaps, last comment will have index = total - 1 and new index will be = total
-		let old_id = total - 1
-		let new_id = total
-		var newElement = $(selector).clone();
-
-		updateElementIndex(newElement, prefix, old_id, new_id)
-		total++;
-		$('#id_' + prefix + '-TOTAL_FORMS').val(total);
-		$('#comments').append(newElement)
-		return
-	}
-
-	function deleteForm(prefix, btn) {
-		var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-
-		if (total > 1) {
-			if (confirm("Вы уверены что хотите удалить комментарий?")) {
-				let comment_instance_id = get_comment_instance_id(btn, prefix);
-				console.log(btn)
-				$("#comment_set-" + comment_instance_id).remove();
-				var forms = $('.comment');
-				$('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
-				for (var i = 0, formCount = forms.length; i < formCount; i++) {
-					let old_id = parseInt(get_comment_instance_id($(forms.get(i)).find(".comment-destroy").first(), prefix))
-					let new_id = i
-					updateElementIndex($(forms.get(i)), prefix, old_id, new_id)
-				}
-			}
-		} else
-			alert('Количество комментариев не может быть меньше одного')
-		return false;
-	}
-
-	$(document).on('click', '.comment-destroy', function (e) {
-		e.preventDefault();
-		deleteForm('comment_set', $(this));
-		return false;
-	});
-
-
-	$(document).on('click', '#add-comment', function (e) {
-		e.preventDefault();
-		cloneMore('.comment:last', 'comment_set');
-		return false;
-	});
-
-	$("#edit_author").click(function () {
-		author_name = $("#id_author option:selected").text();
-		var data = {
-			"author_name": author_name
-		};
-		$.ajax({
-			type: 'GET',
-			url: '/author/ajax/get_author_id',
-			data: data,
-			success: function (data) {
-				var url = "/author/" + data['author_id'] + "/edit/";
-				showEditPopup(url);
-			},
-			error: function (data) {
-				alert("Something Went Wrong");
-			}
-		});
-	})
-</script>
+{%  include 'dmm/result/script.html' %}
 {% endblock %}

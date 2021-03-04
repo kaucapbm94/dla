@@ -1,29 +1,34 @@
 <div class="row">
-    <h3><span class="label label-default">Раунды</span></h3>
-    <table class="table table-light table-striped">
-      <thead class="table-light">
+  <h3><span class="label label-default">Раунды</span></h3>
+  <table class="table table-light table-striped">
+    <thead class="table-light">
       <tr>
         <th scope="col" style="width: 5%">#</th>
-        <th scope="col" style="width: 35%">Текст комментария</th>
-        <th scope="col" style="width: 10%">Класс</th>
-        <th scope="col" style="width: 20%">Теги</th>
-        <th scope="col" style="width: 10%">Тональность</th>
+        <th scope="col" style="width: 30%">Текст комментария</th>
+        <th scope="col" style="width: 7%">Класс</th>
+        <th scope="col" style="width: 14%">Теги</th>
+        <th scope="col" style="width: 7%">Тональность</th>
         <th scope="col" style="width: 5%">Эксперт</th>
         <th scope="col" style="width: 15%">Дата</th>
+        <th scope="col" style="width: 5%">Подробнее</th>
       </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
       {% for comment_round in comment_rounds %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ comment_round.comment__text }}</td>
-          <td>{{ comment_round.specie__name }}</td>
-          <td>{{ comment_round.tag_names }}</td>
-          <td>{{ comment_round.tonal_type__name }}</td>
-          <td>{{ comment_round.expert__name }}</td>
-          <td>{{ comment_round.create_date }}</td>
-        </tr>
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ comment_round.comment__text }}</td>
+        <td>{{ comment_round.specie__name }}</td>
+        <td>{{ comment_round.tag_names }}</td>
+        <td>{{ comment_round.tonal_type__name }}</td>
+        <td>{{ comment_round.expert__name }}</td>
+        <td>{{ comment_round.created }}</td>
+        <td>
+          {% comment %} {{ comment_round.id }} {% endcomment %}
+          <div class="col-2"><a class="nav-link btn btn-primary" href="{% url 'comment-round-show' comment_round.id %}"><i class="fas fa-info-circle"></i></a></div>
+        </td>
+      </tr>
       {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+  </table>
+</div>

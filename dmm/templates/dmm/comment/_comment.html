@@ -1,15 +1,42 @@
-<div class="row comment mt-20" id="comment-instance-{{ comment_instance_id }}">
-  <div class="col-md-{{ parameter_width }}">
-    <textarea class="form-control border-primary" id="comment-text-{{ comment_instance_id }}" rows="1" placeholder="Комментарий {{ comment_instance_id }}...">{{ text }}</textarea>
-    <div class="collapse comment-meta" id="comment-meta-{{ comment_instance_id }}">
-      <div class="card card-body">
-      </div>
+<div class="row mt-5 border border-secondary rounded p-5 bg-light border">
+    <div class="col-9">
+        <h3>Комментарий</h3>
     </div>
-  </div>
-  <div class="col-md-{{ label_width }}">
-    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#comment-meta-{{ comment_instance_id }}" aria-expanded="false" aria-controls="collapseExample">Подробнее</button>
-    <button class="btn btn-danger btn-sm comment-destroy" id="comment-destroy-{{ comment_instance_id }}" type="button">
-      <i class="fa fa-trash"></i>
-    </button>
-  </div>
+    <div class="col-3"><a class="nav-link btn btn-secondary" href="{{ comment.author_url }}">AUTHOR</a></div>
+    <div class="col-12">
+        <h5>Текст комментария</h5>
+        <p>{{ comment.text }}</p>
+    </div>
+    <div class="col-4">
+        <h6>Класс:</h6>
+        {% if comment.specie %}
+        {{ comment.specie }}
+        {% else %}
+        Не назначен
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <h6>Тональность:</h6>
+        {% if comment.tonal_type  %}
+        {{ comment.tonal_type }}
+        {% else %}
+        Не назначен
+        {% endif %}
+    </div>
+    <div class="col-4">
+        <h6>Теги:</h6>
+        {% for comment_tag in comment_tags %}
+        {{ comment_tag.tag.name }}
+        {% if comment_tag.is_present %}
+        <i class="fas fa-check"></i>
+        {% else %}
+        <i class="fas fa-times"></i>
+        {% endif %}
+        {% endfor %}
+    </div>
+
+    {% for comment_round in comment.commentround_set.all %}
+    {%  include 'dmm/comment_round/_comment_round.html' with comment_round=comment_round comment_round_tags=comment_round.commentroundtags_set.all %}
+    {% endfor %}
+
 </div>

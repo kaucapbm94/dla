@@ -1,0 +1,209 @@
+<script type='text/javascript'>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+
+    jQuery.fn.exists = function () {
+        return this.length > 0;
+    }
+    $('#my_submit').click(function (event) {
+        event.preventDefault()
+        if (confirm("Вы уверены что хотите закончить раунд?")) {
+            if (!document.getElementById("my_form").checkValidity()) {
+                alert("Не все поля заполнены!");
+                document.getElementById("my_form").classList.add('was-validated')
+                return;
+            }
+            $('#my_form').submit();
+        } else {}
+    });
+
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+    $(document).on('click', '.add_specie', function (e) {
+        e.preventDefault();
+        href = "/specie/create/" + "{{user.expert.id}}"
+        var name = e.target.id.replace(/^add_/, '');
+        var win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
+        win.focus();
+        return false;
+    })
+    $(document).on('click', '.add_tag', function (e) {
+        e.preventDefault();
+        href = "/tag/create/" + "{{user.expert.id}}"
+        var name = e.target.id.replace(/^add_/, '');
+        var win = window.open(href, name, 'height=500,width=800,resizable=yes,scrollbars=yes');
+        win.focus();
+        return false;
+    })
+
+    function closeSpeciePopup(win, newID, newRepr) {
+        var total = parseInt($('#id_comment_set-TOTAL_FORMS').val()) || parseInt($('#id_form-TOTAL_FORMS').val());
+
+        for (let i = 0; i < total; i++) {
+            let selector = $("#id_comment_set-" + i + "-specie").exists() ? $("#id_comment_set-" + i + "-specie") : $("#id_form-" + i + "-specie");
+            selector.append('<option value=' + newID + '>' + newRepr + '</option>')
+        }
+        win.close();
+    }
+
+    function closeTagPopup(win, newID, newTitle, newRepr) {
+        console.log(`${win}, ${newID}, ${newTitle}, ${newRepr}`)
+        var total = parseInt($('#id_comment_set-TOTAL_FORMS').val()) || parseInt($('#id_form-TOTAL_FORMS').val());
+        for (let i = 0; i < total; i++) {
+            let prefix = '-tags'
+            let new_tag_div = $("#comment_set-" + i + "-tags .tag-div").last().clone()
+            new_tag_div.attr("title", newTitle);
+            let new_tag_label = new_tag_div.find("label");
+            let old_id = new_tag_label.find("input").first().attr("id");
+            console.log(new_tag_div)
+            old_id = parseInt(old_id.substr(old_id.lastIndexOf(prefix) + prefix.length + 1))
+            let new_id = old_id + 1
+            updateElementIndex(new_tag_label, prefix, old_id, new_id)
+            let new_input = new_tag_label.find("input").first().clone().attr("value", newID)
+            new_tag_label.html("")
+            new_tag_label.append(new_input)
+            new_tag_label.append('\n' + newRepr)
+            console.log(new_tag_div)
+            $("#comment_set-" + i + "-tags").append(new_tag_div)
+        }
+        $('[data-toggle="tooltip"]').tooltip();
+        win.close();
+    }
+
+
+    function get_comment_instance_id(target, prefix) {
+        console.log(target)
+        let str = target.attr("id");
+        var res = str.substr(str.lastIndexOf(prefix) + prefix.length + 1);
+        var res = res.substr(0, res.indexOf("-"));
+        console.log(res)
+        return res;
+    }
+
+
+    function updateElementIndex(el, prefix, old_id, new_id) {
+        // id should be the last of attrs
+        let targets = [
+            new my_par(
+                parent_attr = 'id',
+                prefix_template = '-',
+                children = [
+                    // replace #comment_set-old_id-meta with #comment_set-new_id-meta
+                    new my_targ("#" + prefix + '-' + old_id + "-meta", ['id']),
+                    // replace #comment_set-old_id-meta-collapse with #comment_set-new_id-meta-collapse
+                    new my_targ("#" + prefix + '-' + old_id + "-meta-collapse", ['data-target', 'id']),
+                    new my_targ("#" + prefix + '-' + old_id + "-destroy", ['id']),
+                    new my_targ(':input:not([type=button]):not([type=submit]):not([type=reset]):not(button)', ['name', 'id']),
+                    new my_targ('label', ['for']),
+                ]
+            ),
+            new my_par(
+                parent_attr = 'for',
+                prefix_template = prefix + '_',
+                children = [
+                    new my_targ("input", ['id']),
+                ]
+            )
+        ]
+
+        targets.forEach(function (target, index) {
+            if (el.attr(target.parent_attr)) {
+                el.attr(target.parent_attr, el.attr(target.parent_attr).replace(target.prefix_template + old_id, target.prefix_template + new_id))
+                target.children.forEach(function (child, index) {
+                    el.find(child.selector).each(function () {
+                        let my_obj = $(this)
+                        child.attrs.forEach(function (attr, index) {
+                            let val = my_obj.attr(attr)
+                            if (val)
+                                my_obj.attr(attr, val.replace(target.prefix_template + old_id, target.prefix_template + new_id))
+                        })
+                    })
+                })
+            }
+        });
+    }
+
+    class my_par {
+        constructor(parent_attr, prefix_template, children) {
+            this.parent_attr = parent_attr;
+            this.prefix_template = prefix_template;
+            this.children = children;
+        }
+    }
+
+    class my_targ {
+        constructor(selector, attrs) {
+            this.selector = selector;
+            this.attrs = attrs;
+        }
+    }
+
+    function cloneMore(selector, prefix) {
+        var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+        // since selector selects last comment instance and formset is ordered without gaps, last comment will have index = total - 1 and new index will be = total
+        let old_id = total - 1
+        let new_id = total
+        var newElement = $(selector).clone();
+
+        updateElementIndex(newElement, prefix, old_id, new_id)
+        total++;
+        $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+        $('#comments').append(newElement)
+        return
+    }
+
+    function deleteForm(prefix, btn) {
+        var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+
+        if (total > 1) {
+            if (confirm("Вы уверены что хотите удалить комментарий?")) {
+                let comment_instance_id = get_comment_instance_id(btn, prefix);
+                console.log(btn)
+                $("#comment_set-" + comment_instance_id).remove();
+                var forms = $('.comment');
+                $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+                for (var i = 0, formCount = forms.length; i < formCount; i++) {
+                    let old_id = parseInt(get_comment_instance_id($(forms.get(i)).find(".comment-destroy").first(), prefix))
+                    let new_id = i
+                    updateElementIndex($(forms.get(i)), prefix, old_id, new_id)
+                }
+            }
+        } else
+            alert('Количество комментариев не может быть меньше одного')
+        return false;
+    }
+
+    $(document).on('click', '.comment-destroy', function (e) {
+        e.preventDefault();
+        deleteForm('comment_set', $(this));
+        return false;
+    });
+
+
+    $(document).on('click', '#add-comment', function (e) {
+        e.preventDefault();
+        cloneMore('.comment:last', 'comment_set');
+        return false;
+    });
+
+    $("#edit_author").click(function () {
+        author_name = $("#id_author option:selected").text();
+        var data = {
+            "author_name": author_name
+        };
+        $.ajax({
+            type: 'GET',
+            url: '/author/ajax/get_author_id',
+            data: data,
+            success: function (data) {
+                var url = "/author/" + data['author_id'] + "/edit/";
+                showEditPopup(url);
+            },
+            error: function (data) {
+                alert("Something Went Wrong");
+            }
+        });
+    })
+</script>

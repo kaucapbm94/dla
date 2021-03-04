@@ -1,6 +1,6 @@
 from django.test import TestCase
-from dmm.helpers.comment import tag_is_present
-from ..models import Comment, Tag
+from dmm.helpers.comment import tag_is_present, get_allowed
+from ..models import *
 import logging
 logger = logging.getLogger(__name__)
 
@@ -15,3 +15,16 @@ class CommentTestCase(TestCase):
 
         # get_info()
         logger.debug(tag_is_present(comm, tag))
+
+    # python3 manage.py test dmm.tests.CommentTestCase.test_get_allowed
+    def test_get_allowed(self):
+        logger.debug(Tag.objects.all())
+        logger.debug(Specie.objects.all())
+        logger.debug(TonalType.objects.all())
+        result_id = 'd1a49558-805b-4376-8afc-72587fdd46c9'
+        comments = Comment.objects.filter(result_id=result_id)
+        expert_id = 'f9f5b2d8-0947-4bbc-9931-3faa839001e5'
+
+        for comm in comments:
+            logger.debug(comm.__dict__)
+            logger.debug(get_allowed(comm, expert_id))

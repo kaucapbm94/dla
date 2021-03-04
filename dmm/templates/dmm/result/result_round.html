@@ -1,0 +1,142 @@
+{% extends 'dmm/layout/main.html' %}
+
+{% block content %}
+<div class="container">
+	<div class="row mt-5 border border-secondary rounded p-5 bg-light border">
+		<div class="col-6">
+			<p><b>{{ result.resource_type.name }}</b>: {{ result.title }} ({{ result.language_type.name }})</p>
+		</div>
+		<div class="col-2">
+			<p><b>Добавил:</b> {{ result.expert.name }} ({{ result.created }})</p>
+		</div>
+		<div class="col-2"><a class="nav-link btn btn-secondary" href="{{ result.url }}">Post</a></div>
+	</div>
+	<form action="" method="POST" id="my_form">
+		{% csrf_token %}
+		{{ formset.management_form }}
+		{% comment %} {{ formset }} {% endcomment %}
+		{% for form in formset %}
+		<div class="row mt-2 border border-secondary rounded bg-light border">
+			<div class="card col-12">
+				<div class="card-header mt-3">
+					<div class="row">
+						{% for comment in comments %}
+						{% if forloop.counter == forloop.parentloop.counter %}
+						<div class="col-12">
+							<p class="card-title"><b>Текст комментария:</b> {{ comment.text }}</p>
+						</div>
+						<div class="col-6">
+							<p class="card-text"><b>Добавил:</b> {{ comment.expert }}({{ comment.created }}: {{ comment.clarification }})</p>
+						</div>
+						<div class="col-2">
+							<p class="card-text"><b>Язык:</b> {{ comment.language_type }}</p>
+						</div>
+						<div class="col-2">
+							<p class="card-text"><b>Ресурс:</b> {{ comment.resource_type }}</p>
+						</div>
+						<div class="col-2">
+							<a href="{{ comment.author_url }}" class="btn btn-primary">Author</a>
+						</div>
+						{% endif %}
+						{% endfor %}
+					</div>
+				</div>
+				<div class="card-body">
+					{{ form.expert }}
+					{{ form.comment }}
+					<div class="row">
+						<div class="col-4">
+							<label for="">Тональность</label>
+							{% for tonal_type_allowed in tonal_type_allowed_list %}
+							{% if forloop.counter == forloop.parentloop.counter %}
+							{% if tonal_type_allowed == True %}
+							{{ form.tonal_type }}
+							{% else %}
+							<div class="div d-none">
+								{{ form.tonal_type }}
+							</div>
+							{{ tonal_type_allowed }}
+							{% endif %}
+							{% endif %}
+							{% endfor %}
+						</div>
+						<div class="col-4">
+							<label for="">Класс</label>
+							<a class="add_specie"><i class="far fa-plus-square"></i></a>
+							{% for specie_allowed in specie_allowed_list %}
+							{% if forloop.counter == forloop.parentloop.counter %}
+							{% if specie_allowed == True %}
+							{{ form.specie }}
+							{% else %}
+							<div class="div d-none">
+								{{ form.label_specie }}
+								{{ form.specie }}
+							</div>
+							{{ specie_allowed }}
+							{% endif %}
+							{% endif %}
+							{% endfor %}
+						</div>
+						<div class="col-4">
+
+							<div class="col-md-3 d-inline" id="comment_set-{{ forloop.counter0 }}-tags">
+								<label>Теги<b class="text-danger">*</b></label>
+								<a class="add_tag"><i class="far fa-plus-square"></i></a>
+								</br>
+
+								{% for tag_allowed_list in tag_allowed_lists %}
+
+								{% if forloop.counter == forloop.parentloop.counter %}
+
+								{% for tag in form.tags %}
+
+								{% for tag_allowed in tag_allowed_list %}
+								{% if forloop.counter == forloop.parentloop.counter%}
+								{% if tag_allowed == True %}
+								{% for t in tags %}
+								{% if forloop.counter == forloop.parentloop.counter %}
+								<div class="d-inline tag-div" data-toggle="tooltip" data-placement="top" title="{{ t.description }} ({{ t.expert.name }})">
+									{{ tag }}
+								</div>
+								{% endif %}
+								{% endfor %}
+								{% else %}
+								<div class="div d-none">
+									{{ tag }}
+								</div>
+								{% endif %}
+								{% endif %}
+								{% endfor %}
+
+								{% endfor %}
+
+								{% endif %}
+
+								{% endfor %}
+							</div>
+						</div>
+					</div>
+					<div class="row">
+
+						<div class="col-12">
+							<label>Пояснение</label>
+							{{ form.clarification }}
+						</div>
+					</div>
+
+				</div>
+			</div>
+			</br>
+		</div>
+		{% endfor %}
+
+		<button id="my_submit" class="btn btn-success btn-lg">Submit</button>
+	</form>
+
+</div>
+
+{% endblock content %}
+
+{% block scripts %}
+{%  include 'dmm/result/script.html' %}
+{% endblock %}

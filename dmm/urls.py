@@ -1,35 +1,25 @@
 from django.urls import path
 from . import views
-
+from .decorators import allowed_users
 from django.conf.urls import url
 
 
 urlpatterns = [
-    url(r'^book/create', views.BookCreate, name="BookCreate"),
-    url(r'^specie/create', views.SpecieCreate, name="SpecieCreate"),
-    url(r'^tag/create', views.TagCreate, name="TagCreate"),
-    url(r'^author/create', views.AuthorCreatePopup, name="AuthorCreate"),
-    url(r'^author/(?P<pk>\d+)/edit', views.AuthorEditPopup, name="AuthorEdit"),
-    url(r'^author/ajax/get_author_id', views.get_author_id, name="get_author_id"),
-    # path('register/', views.registerPage, name='register'),
-    path('', views.createResult),
-    path('result/new', views.createResult, name='result_create'),
+    # url(r'^book/create', views.BookCreate, name="BookCreate"),
+    path('tag/create/<uuid:expert_id>', views.TagCreate, name="TagCreate"),
+    path('specie/create/<uuid:expert_id>', views.SpecieCreate, name="SpecieCreate"),
+    # url(r'^author/create', views.AuthorCreatePopup, name="AuthorCreate"),
+    # url(r'^author/(?P<pk>\d+)/edit', views.AuthorEditPopup, name="AuthorEdit"),
+    # url(r'^author/ajax/get_author_id', views.get_author_id, name="get_author_id"),
+    path('', views.createResult, name=''),
+
+    path('result/new', views.createResult, name='sample-markup-comment-page'),
+    path('result/new/<uuid:result_id>', views.roundResult, name='markup-comment-page'),
+    path('comment_round/show/<uuid:comment_round_id>', views.CommentRoundShow, name='comment-round-show'),
+    path('result/show/<uuid:result_id>', views.ResultShow, name='result-show'),
+
     path('login/', views.loginPage, name='login'),
     path('logout/', views.logoutUser, name='logout'),
-    path('sample_markup_comment/<uuid:result_id>/', views.MarkupCommentPage, name="markup-comment-page"),
-    path('sample_markup_comment/<uuid:result_id>/get_initials', views.GetInitialsView.as_view()),
-    path('sample_markup_comment/<uuid:result_id>/get_comment_meta', views.GetCommentMetaView.as_view()),
-
-    path('sample_markup_comment/', views.SampleMarkupCommentPage, name="sample-markup-comment-page"),
-    path('sample_markup_comment/add_tag', views.AddTagView.as_view()),
-    path('sample_markup_comment/get_initials', views.GetInitialsView.as_view()),
-
-    path('sample_markup_comment/add_specie', views.AddSpecieView.as_view()),
-    path('sample_markup_comment/get_comment_meta', views.GetCommentMetaView.as_view()),
-    path('sample_markup_comment/add_comment', views.AddCommentView.as_view()),
-    path('sample_markup_comment/insert_result', views.InsertResultView.as_view()),
-    path('sample_markup_comment/insert_comment', views.InsertCommentView.as_view()),
-    path('sample_markup_comment/insert_comment_round', views.InsertCommentRoundView.as_view()),
 
     path('statistics/', views.Statistics, name='home'),
     path('waiting_round/', views.WaitingRounds, name='waiting_rounds'),

@@ -1,0 +1,6 @@
+{% extends 'dmm/layout/main.html' %}
+{% block content %}
+<div class="container">
+    {%  include 'dmm/comment/_comment.html' with comment=comment_round.comment comment_tags=comment_tags%}
+</div>
+{% endblock content %}

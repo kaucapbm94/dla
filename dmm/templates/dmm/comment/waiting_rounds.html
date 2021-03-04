@@ -1,10 +1,94 @@
 {% extends 'dmm/layout/main.html' %}
 {% block content %}
 
-  <div class="container">
-    {% for result, comments in need_round_results_comments.items %}
-    {%  include 'dmm/comment/comments_need_round.html' with need_round_comments=comments result=result %}
-    {% endfor %}
+<div class="container">
+
+  {% for result, comments in need_round_results_comments.items %}
+  <div class="row mt-5 border border-secondary rounded p-5 bg-light border">
+    <div class="col-6">
+      <p><b>{{ result.resource_type.name }}</b>: {{ result.title }} ({{ result.language_type.name }})</p>
+    </div>
+    <div class="col-2">
+      <p><b>Добавил:</b> {{ result.expert.name }} ({{ result.created }})</p>
+    </div>
+    <div class="col-2"><a class="nav-link btn btn-secondary" href="{{ result.url }}">CONTENT</a></div>
+    <div class="col-2"><a class="nav-link btn btn-primary" href="{% url 'markup-comment-page' result.id %}">Разметить</a></div>
+
+    <table class="table table-light table-striped">
+      <thead class="table-light">
+        <tr>
+          <th scope="col" style="width: 5%">
+            <div class="d-flex justify-content-center">
+              #
+            </div>
+          </th>
+          <th scope="col" style="width: 20%">
+            <div class="d-flex justify-content-center">
+              Текст комментария
+            </div>
+          </th>
+          <th scope="col" style="width: 10%">
+            <div class="d-flex justify-content-center">
+              Класс размечен?
+            </div>
+          </th>
+          <th scope="col" style="width: 10%">
+            <div class="d-flex justify-content-center">
+              Теги размечены?
+            </div>
+          </th>
+          <th scope="col" style="width: 15%">
+            <div class="d-flex justify-content-center">
+              Тональность размечена?
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for comment, val in comments.items %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ comment.text }}</td>
+          <td class="">
+            <div class="d-flex justify-content-center">
+              {% if val.specie_needs_round %}
+              <i class="far fa-times-circle"></i>
+              {% else %}
+              <i class="fas fa-check-circle"></i>
+              {% endif %}
+            </div>
+          </td>
+
+          <td class="">
+            <div class="d-flex justify-content-center">
+              {% if val.tag_ids_need_round %}
+              <i class="far fa-times-circle"></i> (
+              {% for tag in val.tag_ids_need_round %}
+              {{ tag }}
+              {% endfor %}
+              )
+              {% else %}
+              <i class="far fa-check-circle"></i>
+              {% endif %}
+            </div>
+          </td>
+
+          <td class="">
+            <div class="d-flex justify-content-center">
+              {% if val.tonal_type_needs_round  %}
+              <i class="far fa-times-circle"></i>
+              {% else %}
+              <i class="fas fa-check-circle"></i>
+              {% endif %}
+            </div>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
+  {% endfor %}
+
+</div>
 
 {% endblock content %}
