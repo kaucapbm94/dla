@@ -1,0 +1,30 @@
+#logo{
+}
+
+body{
+    background-color: #ebeff5;
+}
+
+
+#total-orders{
+    background-color: #4cb4c7;
+}
+
+
+#orders-delivered{
+    background-color: #7abecc;
+}
+
+#orders-pending{
+    background-color: #7CD1C0;
+}
+
+.mt-20 {
+    margin-top: 20px !important;
+    padding-top: 20px !important;
+}
+
+.mb-20 {
+    margin-bottom: 20px !important;
+    padding-bottom: 20px !important;
+}
