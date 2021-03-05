@@ -1,24 +1,22 @@
-<div class="row mt-5 border border-secondary rounded p-5 bg-light border">
-    <h4>Раунд</h4>
-    <div class="col-12">
-        <b>Эксперт:</b> {{ comment_round.expert.name }}
-    </div>
-    <div class="col-12">
-        <b>Класс:</b> {{ comment_round.specie }}
-    </div>
-    <div class="col-12">
-        <b>Тональность:</b> {{ comment_round.tonal_type }}
-    </div>
-    <div class="col-12">
-        <b>Теги:</b>
-        {% for comment_round_tag in comment_round_tags %}
-        {{ comment_round_tag.tag.name }}
-        {% if comment_round_tag.is_present %}
-        <i class="fas fa-check"></i>
-        {% else %}
-        <i class="fas fa-times"></i>
-        {% endif %}
-        {% endfor %}
-    </div>
+<div class="col-4 mt-5 border border-secondary rounded p-3 bg-light border">
+    <h5>Раунд</h5>
+    <b>Эксперт:</b>
+    {{ comment_round.expert.name }}
+    <br>
+    <b>Класс:</b>
+    {{ comment_round.specie }}
+    <br>
+    <b>Тональность:</b>
+    {{ comment_round.tonal_type }}
+    <br>
+    <b>Теги:</b>
+    {% for comment_round_tag in comment_round_tags %}
+    {{ comment_round_tag.tag.name }}
+    {% if comment_round_tag.is_present %}
+    <i class="fas fa-check"></i>
+    {% else %}
+    <i class="fas fa-times"></i>
+    {% endif %}
+    {% endfor %}
 
 </div>

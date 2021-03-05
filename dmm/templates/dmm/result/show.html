@@ -1,10 +1,11 @@
 {% extends 'dmm/layout/main.html' %}
 {% block content %}
 <div class="container">
+    {% for result, comments in nrrc.items %}
     {%  include 'dmm/result/_result.html' with result=result %}
-    {% for comment in result.comment_set.all %}
-    {%  include 'dmm/comment/_comment.html' with comment=comment comment_tags=comment.commenttags_set.all%}
+    {% for comment, val in comments.items %}
+    {%  include 'dmm/comment/_comment.html' with comment=comment comment_tags=comment.commenttags_set.all val=val %}
     {% endfor %}
-
+    {% endfor %}
 </div>
 {% endblock content %}

@@ -1,4 +1,4 @@
-from ..models import Tag
+from ..models import Tag, CommentRound, CommentRoundTags
 
 # returns true if 'tag' was considered 2 or more times as is_present=true/false for the 'comment'
 

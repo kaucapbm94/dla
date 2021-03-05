@@ -1,4 +1,5 @@
 {% extends 'dmm/layout/main.html' %}
+{% load return_item %}
 
 {% block content %}
 <div class="container">
@@ -16,12 +17,12 @@
 		{{ formset.management_form }}
 		{% comment %} {{ formset }} {% endcomment %}
 		{% for form in formset %}
+		{% if specie_allowed_list|return_item:forloop.counter0 or tag_allowed|return_item:forloop.counter0 or tonal_type_allowed_list|return_item:forloop.counter0 %}
 		<div class="row mt-2 border border-secondary rounded bg-light border">
 			<div class="card col-12">
 				<div class="card-header mt-3">
 					<div class="row">
-						{% for comment in comments %}
-						{% if forloop.counter == forloop.parentloop.counter %}
+						{% with comment=comments|return_item:forloop.counter0 %}
 						<div class="col-12">
 							<p class="card-title"><b>Текст комментария:</b> {{ comment.text }}</p>
 						</div>
@@ -37,8 +38,7 @@
 						<div class="col-2">
 							<a href="{{ comment.author_url }}" class="btn btn-primary">Author</a>
 						</div>
-						{% endif %}
-						{% endfor %}
+						{% endwith %}
 					</div>
 				</div>
 				<div class="card-body">
@@ -46,7 +46,7 @@
 					{{ form.comment }}
 					<div class="row">
 						<div class="col-4">
-							<label for="">Тональность</label>
+							<h6>Тональность</h6>
 							{% for tonal_type_allowed in tonal_type_allowed_list %}
 							{% if forloop.counter == forloop.parentloop.counter %}
 							{% if tonal_type_allowed == True %}
@@ -55,16 +55,27 @@
 							<div class="div d-none">
 								{{ form.tonal_type }}
 							</div>
-							{{ tonal_type_allowed }}
+
+							{% with comment=comments|return_item:forloop.counter0 %}
+							{% if comment.tonal_type %}
+							{{ comment.tonal_type }}
+							{% else %}
+							Не определена
+							{% endif %}
+							{% endwith %}
+
 							{% endif %}
 							{% endif %}
 							{% endfor %}
 						</div>
 						<div class="col-4">
-							<label for="">Класс</label>
-							<a class="add_specie"><i class="far fa-plus-square"></i></a>
-							{% for specie_allowed in specie_allowed_list %}
-							{% if forloop.counter == forloop.parentloop.counter %}
+							{% with specie_allowed=specie_allowed_list|return_item:forloop.counter0 %}
+							<h6>
+								Класс
+								{% if specie_allowed %}
+								<a class="add_specie"><i class="far fa-plus-square"></i></a>
+								{% endif %}
+							</h6>
 							{% if specie_allowed == True %}
 							{{ form.specie }}
 							{% else %}
@@ -72,47 +83,42 @@
 								{{ form.label_specie }}
 								{{ form.specie }}
 							</div>
-							{{ specie_allowed }}
+
+							{% with comment=comments|return_item:forloop.counter0 %}
+							{% if comment.specie %}
+							{{ comment.specie }}
+							{% else %}
+							Не определен
 							{% endif %}
+							{% endwith %}
+
 							{% endif %}
-							{% endfor %}
+							{% endwith %}
 						</div>
 						<div class="col-4">
-
 							<div class="col-md-3 d-inline" id="comment_set-{{ forloop.counter0 }}-tags">
-								<label>Теги<b class="text-danger">*</b></label>
-								<a class="add_tag"><i class="far fa-plus-square"></i></a>
-								</br>
-
-								{% for tag_allowed_list in tag_allowed_lists %}
-
-								{% if forloop.counter == forloop.parentloop.counter %}
-
+								<h6>Теги
+									{% if tag_allowed|return_item:forloop.counter0 %}
+									<a class="add_tag"><i class="far fa-plus-square"></i></a>
+									{% endif %}
+								</h6>
+								{% with tag_allowed_list=tag_allowed_lists|return_item:forloop.counter0 %}
 								{% for tag in form.tags %}
-
-								{% for tag_allowed in tag_allowed_list %}
-								{% if forloop.counter == forloop.parentloop.counter%}
-								{% if tag_allowed == True %}
-								{% for t in tags %}
-								{% if forloop.counter == forloop.parentloop.counter %}
-								<div class="d-inline tag-div" data-toggle="tooltip" data-placement="top" title="{{ t.description }} ({{ t.expert.name }})">
+								{% with tag_allowed=tag_allowed_list|return_item:forloop.counter0 %}
+								{% with t=tags|return_item:forloop.counter0 %}
+								{% if tag_allowed %}
+								<div class="d-inline tag-div" data-toggle="tooltip" data-placement="top" title="{{ t.description }} ({{ t.expert.name|capfirst }})">
 									{{ tag }}
 								</div>
-								{% endif %}
-								{% endfor %}
 								{% else %}
 								<div class="div d-none">
 									{{ tag }}
 								</div>
 								{% endif %}
-								{% endif %}
+								{% endwith %}
+								{% endwith %}
 								{% endfor %}
-
-								{% endfor %}
-
-								{% endif %}
-
-								{% endfor %}
+								{% endwith %}
 							</div>
 						</div>
 					</div>
@@ -128,6 +134,7 @@
 			</div>
 			</br>
 		</div>
+		{% endif %}
 		{% endfor %}
 
 		<button id="my_submit" class="btn btn-success btn-lg">Submit</button>

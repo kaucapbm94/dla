@@ -2,7 +2,7 @@ from ..models import Tag, Specie, Result, Expert, Comment, CommentRound, Comment
 from django.forms import inlineformset_factory
 from ..forms import ResultForm, CommentForm, CommentRoundForm
 from django.http import HttpResponseRedirect
-from ..helpers import tag_is_present, specie_is_present, tonal_type_is_present
+from ..helpers import tag_is_present, specie_is_present, tonal_type_is_present, make_decision, get_need_round_results_comments
 from django.forms import formset_factory, modelformset_factory
 from django import forms
 from ..helpers import get_allowed
@@ -45,32 +45,30 @@ def roundResult(request, result_id):
 
     if request.method == 'POST':
         tags = Tag.objects.all()
-        logger.debug(request.POST)
         formset = CommentRoundFormset(request.POST)
-        logger.debug(formset)
         if formset.is_valid():
             for sub_form in formset:
                 if sub_form.is_valid():
                     comm_round = sub_form.save(commit=False)
                     comm_round_tags = sub_form.cleaned_data['tags']
                     comm_round.save()
-                    logger.debug(comm_round.__dict__)
 
                     for tag in tags:
                         if tag in comm_round_tags:
                             comm_round_tag = CommentRoundTags.objects.create(tag=tag, is_present=True, comment_round=comm_round)
                         else:
                             comm_round_tag = CommentRoundTags.objects.create(tag=tag, is_present=False, comment_round=comm_round)
-
+                    make_decision(comm_round.comment)
                 else:
-                    logger.debug(sub_form.errors)
+                    logger.error(sub_form.errors)
         else:
-            logger.debug(formset.errors)
-        return redirect('waiting_rounds')
+            logger.error(formset.errors)
+        return redirect('statistics')
 
     # modelformset_factory(Author, widgets={'name': Textarea(attrs={'cols': 80, 'rows': 20})})
     initials = []
     tag_allowed_lists = []
+    tag_allowed = []
     specie_allowed_list = []
     tonal_type_allowed_list = []
     for comment in comments:
@@ -80,8 +78,9 @@ def roundResult(request, result_id):
             'expert': expert
         })
         tag_allowed_lists.append(TAGS)
-        specie_allowed_list.append(True if spec else comment.specie)
-        tonal_type_allowed_list.append(True if ton else comment.tonal_type)
+        tag_allowed.append(True if True in TAGS else False)
+        specie_allowed_list.append(spec)
+        tonal_type_allowed_list.append(ton)
 
     formset = CommentRoundFormset(
         queryset=CommentRound.objects.none(),
@@ -96,6 +95,7 @@ def roundResult(request, result_id):
         'formset': formset,
         'comments': comments,
         'tag_allowed_lists': tag_allowed_lists,
+        'tag_allowed': tag_allowed,
         'specie_allowed_list': specie_allowed_list,
         'tonal_type_allowed_list': tonal_type_allowed_list,
     }
@@ -161,11 +161,11 @@ def createResult(request):
                     comm.clarification = None
                     comm.save()
                 else:
-                    logger.debug(sub_form.errors)
+                    logger.error(sub_form.errors)
                     break
             return redirect('waiting_rounds')
         else:
-            logger.debug(form.errors)
+            logger.error(form.errors)
     else:
         form = ResultForm(initial={'expert': request.user.expert})
         formset = CommentFormSet()
@@ -184,13 +184,19 @@ def createResult(request):
 def ResultShow(request, result_id):
     expert = Expert.objects.get(id=request.user.expert.id)
     result = Result.objects.get(id=result_id)
-    comments = Comment.objects.filter(result=result)
-    logger.debug('SHOWING')
-    logger.debug(comments)
-    for comment in comments:
-        logger.debug(comment.commenttags_set.all())
+    nrrc = {}
+    comments = {}
+    for comment in result.comment_set.all():
+        a = get_need_round_results_comments(comment, request.user.expert.id)
+        comments[comment] = a
+        logger.debug(a['specie_needs_round'])
+        logger.debug(a['tonal_type_needs_round'])
+        for tag in a['tag_ids_need_round']:
+            logger.debug(tag)
+    nrrc[result] = comments
+
     context = {
-        'result': result,
+        'nrrc': nrrc,
         'expert': expert
     }
     return render(request, "dmm/result/show.html", context)

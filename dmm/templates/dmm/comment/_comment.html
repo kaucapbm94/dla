@@ -1,4 +1,4 @@
-<div class="row mt-5 border border-secondary rounded p-5 bg-light border">
+<div class="row mt-5 border border-secondary rounded p-4 bg-light border">
     <div class="col-9">
         <h3>Комментарий</h3>
     </div>
@@ -14,17 +14,32 @@
         {% else %}
         Не назначен
         {% endif %}
+        <br> <br>
+        <h6>Класс доступен для разметки:</h6>
+        {% if val.specie_needs_round %}
+        <i class="far fa-check-circle"></i>
+        {% else %}
+        <i class="fas fa-times-circle"></i>
+        {% endif %}
     </div>
     <div class="col-4">
         <h6>Тональность:</h6>
         {% if comment.tonal_type  %}
         {{ comment.tonal_type }}
         {% else %}
-        Не назначен
+        Не назначена
+        {% endif %}
+        <br> <br>
+        <h6>Тональность доступна для разметки:</h6>
+        {% if val.tonal_type_needs_round  %}
+        <i class="far fa-check-circle"></i>
+        {% else %}
+        <i class="fas fa-times-circle"></i>
         {% endif %}
     </div>
     <div class="col-4">
         <h6>Теги:</h6>
+        {% if comment_tags %}
         {% for comment_tag in comment_tags %}
         {{ comment_tag.tag.name }}
         {% if comment_tag.is_present %}
@@ -33,10 +48,26 @@
         <i class="fas fa-times"></i>
         {% endif %}
         {% endfor %}
+        {% else %}
+        Не назначены
+        {% endif %}
+        <br> <br>
+        <div class="h6">Доступные теги для разметки:</div>
+        {% if val.tag_ids_need_round %}
+        <i class="far fa-check-circle"></i> (
+        {% for tag in val.tag_ids_need_round %}
+        {{ tag }}
+        {% endfor %}
+        )
+        {% else %}
+        <i class="far fa-times-circle"></i>
+        {% endif %}
     </div>
-
-    {% for comment_round in comment.commentround_set.all %}
-    {%  include 'dmm/comment_round/_comment_round.html' with comment_round=comment_round comment_round_tags=comment_round.commentroundtags_set.all %}
-    {% endfor %}
-
+    <div class="col-12">
+        <div class="row">
+            {% for comment_round in comment.commentround_set.all %}
+            {%  include 'dmm/comment_round/_comment_round.html' with comment_round=comment_round comment_round_tags=comment_round.commentroundtags_set.all %}
+            {% endfor %}
+        </div>
+    </div>
 </div>

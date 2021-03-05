@@ -1,9 +1,17 @@
-<div class="row mt-5 border border-secondary rounded p-5 bg-light border">
-    <div class="col-9">
+<div class="row mt-5 border border-secondary rounded p-4 bg-light border">
+    <div class="col-6">
         <h3>Контент</h3>
     </div>
+    <div class="col-2"><a class="nav-link btn btn-primary" href="{% url 'markup-comment-page' result.id %}">Разметить</a></div>
     <div class="col-3">
         <a class="nav-link btn btn-secondary" href="{{ result.url }}">CONTENT</a>
+    </div>
+    <div class="col-1">
+        <button class="btn btn-default" style="vertical-align: middle;">
+            <a class="nav-link btn btn-primary" href="{% url 'home' %}">
+                <i class="fas fa-long-arrow-alt-left"></i>
+            </a>
+        </button>
     </div>
     <div class="col-3">
         <h6>Дата публикации:</h6>

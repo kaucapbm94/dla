@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$216000$qBn14dOu3kwx$vjkiFNwa7WgqxjRJm5Cf1JKKxHSsVuV+sEulFkN47hg=",
-    "last_login": "2021-03-02T09:33:22.939Z",
+    "last_login": "2021-03-04T07:58:47.537Z",
     "is_superuser": true,
     "username": "Kaisar",
     "first_name": "",
@@ -25,7 +25,7 @@
   "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$216000$WavPmT1ZgrAv$Shm2N1L+LoVoc5y5MeYt1xDfS2wwfLjnCxHpa6elwcM=",
-    "last_login": null,
+    "last_login": "2021-03-04T07:57:37.367Z",
     "is_superuser": false,
     "username": "gulnar",
     "first_name": "",
@@ -126,7 +126,7 @@
   "pk": 7,
   "fields": {
     "password": "pbkdf2_sha256$216000$Mv8pZXxJ50qP$VDqLBD6G0FvdN2BHTb80zBvEM1qcbiex532JjZpfFZc=",
-    "last_login": "2021-02-16T09:30:05.437Z",
+    "last_login": "2021-03-04T07:55:33.667Z",
     "is_superuser": false,
     "username": "aizada",
     "first_name": "",
@@ -232,16 +232,16 @@
   "model": "dmm.languagetype",
   "pk": 2,
   "fields": {
-    "name": "English",
-    "code": "en"
+    "name": "Kazakh",
+    "code": "kk"
   }
 },
 {
   "model": "dmm.languagetype",
   "pk": 3,
   "fields": {
-    "name": "Kazakh",
-    "code": "kk"
+    "name": "English",
+    "code": "en"
   }
 },
 {
@@ -351,7 +351,23 @@
 },
 {
   "model": "dmm.result",
-  "pk": "0cdfa43e-113d-40c0-b83b-402600cdc4b4",
+  "pk": "10835248-f9fb-462e-9ff4-ec7abc82896b",
+  "fields": {
+    "text": "",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "url": "https://github.com/",
+    "language_type": 1,
+    "resource_type": 1,
+    "content_type": 1,
+    "date": "2021-03-03T05:58:00Z",
+    "created": "2021-03-03T11:58:17.498Z",
+    "modified": "2021-03-03T11:58:17.498Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
+  }
+},
+{
+  "model": "dmm.result",
+  "pk": "17ee5853-4804-438c-b85b-aef847ba23d3",
   "fields": {
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -359,15 +375,15 @@
     "language_type": 1,
     "resource_type": 1,
     "content_type": 1,
-    "date": "2021-02-22T21:54:00Z",
-    "created": "2021-02-23T04:36:12.177Z",
-    "modified": "2021-02-23T04:36:12.177Z",
+    "date": "2021-03-03T04:15:00Z",
+    "created": "2021-03-03T10:16:00.661Z",
+    "modified": "2021-03-03T10:16:00.661Z",
     "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
   }
 },
 {
   "model": "dmm.result",
-  "pk": "105f5997-47ec-4d38-a886-9d6eb8ef3af5",
+  "pk": "1bb7ecdd-adcb-446b-81c0-0c30f5263eae",
   "fields": {
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -375,15 +391,15 @@
     "language_type": 1,
     "resource_type": 1,
     "content_type": 1,
-    "date": "2021-02-22T21:54:00Z",
-    "created": "2021-02-23T04:16:41.100Z",
-    "modified": "2021-02-23T04:16:41.100Z",
+    "date": "2021-03-03T04:42:00Z",
+    "created": "2021-03-03T10:42:37.397Z",
+    "modified": "2021-03-03T10:42:37.397Z",
     "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
   }
 },
 {
   "model": "dmm.result",
-  "pk": "1396d8e9-c69c-4e9e-b471-e2333f5a3c40",
+  "pk": "326c607b-b7a4-451c-8a64-1af26cd83020",
   "fields": {
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -391,15 +407,15 @@
     "language_type": 1,
     "resource_type": 1,
     "content_type": 1,
-    "date": "2021-02-22T21:54:00Z",
-    "created": "2021-02-23T04:41:43.983Z",
-    "modified": "2021-02-23T04:41:43.983Z",
+    "date": "2021-03-03T04:26:00Z",
+    "created": "2021-03-03T10:26:11.180Z",
+    "modified": "2021-03-03T10:26:11.180Z",
     "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
   }
 },
 {
   "model": "dmm.result",
-  "pk": "399e697a-e18c-4e08-8456-a2761613b4a9",
+  "pk": "36fa9b63-6b19-41e9-ba61-8ea620bfadac",
   "fields": {
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -407,15 +423,15 @@
     "language_type": 1,
     "resource_type": 1,
     "content_type": 1,
-    "date": "2021-02-22T21:54:00Z",
-    "created": "2021-02-23T04:41:16.907Z",
-    "modified": "2021-02-23T04:41:16.907Z",
+    "date": "2021-03-03T04:48:00Z",
+    "created": "2021-03-03T10:48:50.429Z",
+    "modified": "2021-03-03T10:48:50.429Z",
     "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
   }
 },
 {
   "model": "dmm.result",
-  "pk": "3cef22f7-7361-4ef3-8c70-365b392c4723",
+  "pk": "3f41d900-732c-43b6-969f-fc601e27a79a",
   "fields": {
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -423,15 +439,47 @@
     "language_type": 1,
     "resource_type": 1,
     "content_type": 1,
-    "date": "2021-02-22T22:33:00Z",
-    "created": "2021-02-23T04:33:17.314Z",
-    "modified": "2021-02-23T04:33:17.314Z",
+    "date": "2021-03-03T04:15:00Z",
+    "created": "2021-03-03T10:15:39.531Z",
+    "modified": "2021-03-03T10:15:39.531Z",
     "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
   }
 },
 {
   "model": "dmm.result",
-  "pk": "58ca763f-a0ea-49e4-bf4a-727aaa0848fc",
+  "pk": "52399e9c-630f-43d1-86d3-f07b2b0ce62f",
+  "fields": {
+    "text": "",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "url": "https://github.com/",
+    "language_type": 1,
+    "resource_type": 1,
+    "content_type": 1,
+    "date": "2021-03-03T05:53:00Z",
+    "created": "2021-03-03T11:54:47.174Z",
+    "modified": "2021-03-03T11:54:47.174Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
+  }
+},
+{
+  "model": "dmm.result",
+  "pk": "6529b9bc-a0bf-4ea4-a6bc-28813c663ead",
+  "fields": {
+    "text": "",
+    "title": "HERE",
+    "url": "https://github.com/",
+    "language_type": 1,
+    "resource_type": 1,
+    "content_type": 1,
+    "date": "2021-03-03T05:58:00Z",
+    "created": "2021-03-03T11:58:37.991Z",
+    "modified": "2021-03-03T11:58:37.991Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
+  }
+},
+{
+  "model": "dmm.result",
+  "pk": "7d6add77-01cf-4a05-a646-f879dcf4aa4a",
   "fields": {
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -439,15 +487,31 @@
     "language_type": 1,
     "resource_type": 1,
     "content_type": 1,
-    "date": "2021-02-22T21:54:00Z",
-    "created": "2021-02-23T04:38:58.126Z",
-    "modified": "2021-02-23T04:38:58.126Z",
+    "date": "2021-03-03T04:24:00Z",
+    "created": "2021-03-03T10:24:56.167Z",
+    "modified": "2021-03-03T10:24:56.167Z",
     "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
   }
 },
 {
   "model": "dmm.result",
-  "pk": "bfd464ac-a6e3-44f8-8009-832448151428",
+  "pk": "8ecfbbc7-f598-41c4-8f2d-7c8bf30db143",
+  "fields": {
+    "text": "",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "url": "https://github.com/",
+    "language_type": 1,
+    "resource_type": 1,
+    "content_type": 1,
+    "date": "2021-03-03T05:48:00Z",
+    "created": "2021-03-03T11:48:09.680Z",
+    "modified": "2021-03-03T11:48:09.680Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
+  }
+},
+{
+  "model": "dmm.result",
+  "pk": "95597d33-d2d9-4233-a25e-e0dbb37ad11a",
   "fields": {
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -455,15 +519,31 @@
     "language_type": 1,
     "resource_type": 1,
     "content_type": 1,
-    "date": "2021-02-22T21:54:00Z",
-    "created": "2021-02-23T04:38:05.249Z",
-    "modified": "2021-02-23T04:38:05.249Z",
+    "date": "2021-03-03T03:36:00Z",
+    "created": "2021-03-03T09:39:28.713Z",
+    "modified": "2021-03-03T09:39:28.713Z",
     "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
   }
 },
 {
   "model": "dmm.result",
-  "pk": "d1a49558-805b-4376-8afc-72587fdd46c9",
+  "pk": "9ed59b9f-5250-4275-9b83-958f01ded576",
+  "fields": {
+    "text": "",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "url": "https://github.com/",
+    "language_type": 1,
+    "resource_type": 1,
+    "content_type": 1,
+    "date": "2021-03-03T05:56:00Z",
+    "created": "2021-03-03T11:56:28.380Z",
+    "modified": "2021-03-03T11:56:28.380Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
+  }
+},
+{
+  "model": "dmm.result",
+  "pk": "a0a5955b-09f6-48cc-a526-2e63abd1ac4a",
   "fields": {
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -471,15 +551,15 @@
     "language_type": 1,
     "resource_type": 1,
     "content_type": 1,
-    "date": "2021-02-22T23:29:00Z",
-    "created": "2021-02-23T05:31:44.858Z",
-    "modified": "2021-02-23T05:31:44.858Z",
+    "date": "2021-03-03T04:32:00Z",
+    "created": "2021-03-03T10:32:36.177Z",
+    "modified": "2021-03-03T10:32:36.177Z",
     "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
   }
 },
 {
   "model": "dmm.result",
-  "pk": "d47fc68e-0c64-4bcc-a10b-4b53ded9aa49",
+  "pk": "baa71945-89e7-478a-a601-37c99acf999e",
   "fields": {
     "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
@@ -487,9 +567,73 @@
     "language_type": 1,
     "resource_type": 1,
     "content_type": 1,
-    "date": "2021-02-23T00:28:00Z",
-    "created": "2021-02-23T09:55:33.832Z",
-    "modified": "2021-02-23T09:55:33.832Z",
+    "date": "2021-03-03T04:29:00Z",
+    "created": "2021-03-03T10:29:58.326Z",
+    "modified": "2021-03-03T10:29:58.326Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.result",
+  "pk": "c35adf9c-e74d-4278-b44b-d2c92ed0d3c0",
+  "fields": {
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "url": "https://github.com/",
+    "language_type": 1,
+    "resource_type": 1,
+    "content_type": 1,
+    "date": "2021-03-03T03:36:00Z",
+    "created": "2021-03-03T09:41:26.404Z",
+    "modified": "2021-03-03T09:41:26.404Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.result",
+  "pk": "d973c767-85f1-41e3-8a6c-348722fd4e80",
+  "fields": {
+    "text": "",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "url": "https://github.com/",
+    "language_type": 1,
+    "resource_type": 1,
+    "content_type": 1,
+    "date": "2021-03-03T05:53:00Z",
+    "created": "2021-03-03T11:53:44.883Z",
+    "modified": "2021-03-03T11:53:44.883Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
+  }
+},
+{
+  "model": "dmm.result",
+  "pk": "de1b1283-b121-4406-b51c-538a2b6e531e",
+  "fields": {
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "url": "https://github.com/",
+    "language_type": 1,
+    "resource_type": 1,
+    "content_type": 1,
+    "date": "2021-03-03T04:43:00Z",
+    "created": "2021-03-03T10:45:46.841Z",
+    "modified": "2021-03-03T10:45:46.841Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.result",
+  "pk": "f05f14e6-9f04-4c2e-8a2b-f9e2dd48dadd",
+  "fields": {
+    "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "title": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "url": "https://github.com/",
+    "language_type": 1,
+    "resource_type": 1,
+    "content_type": 1,
+    "date": "2021-03-03T03:42:00Z",
+    "created": "2021-03-03T09:45:19.734Z",
+    "modified": "2021-03-03T09:45:19.734Z",
     "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
   }
 },
@@ -532,268 +676,706 @@
   }
 },
 {
+  "model": "dmm.specie",
+  "pk": 26,
+  "fields": {
+    "name": "asaadsa",
+    "description": "dwqdwq",
+    "expert": "1539cc3a-e6e2-4715-8db8-df56c6c43bf5"
+  }
+},
+{
   "model": "dmm.tonaltype",
   "pk": 1,
   "fields": {
-    "name": "1"
+    "name": "Нейтральная"
   }
 },
 {
   "model": "dmm.tonaltype",
   "pk": 2,
   "fields": {
-    "name": "2"
+    "name": "Отрицательная"
   }
 },
 {
   "model": "dmm.tonaltype",
   "pk": 3,
   "fields": {
-    "name": "3"
+    "name": "Положительная"
+  }
+},
+{
+  "model": "dmm.tonaltype",
+  "pk": 4,
+  "fields": {
+    "name": "Неопределённая"
   }
 },
 {
   "model": "dmm.comment",
-  "pk": "03d15e15-4615-483f-9784-b6ebdf94d251",
+  "pk": "68c2913b-b3c1-48b8-80a7-aa9bf3248cfd",
   "fields": {
-    "text": "9",
+    "text": "Текст комментария",
     "author_url": "OLOLO",
-    "result": "d47fc68e-0c64-4bcc-a10b-4b53ded9aa49",
+    "result": "10835248-f9fb-462e-9ff4-ec7abc82896b",
     "is_answer": false,
-    "language_type": 2,
+    "language_type": 1,
     "resource_type": 1,
-    "date": "2021-02-23T00:28:00Z",
+    "date": "2021-03-03T05:58:00Z",
+    "specie": null,
+    "tonal_type": null,
+    "clarification": null,
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
+    "created": "2021-03-03T11:58:17.508Z",
+    "modified": "2021-03-03T11:58:17.526Z"
+  }
+},
+{
+  "model": "dmm.comment",
+  "pk": "849be562-8e3a-4399-b57e-2fe03391ede9",
+  "fields": {
+    "text": "Текст комментария",
+    "author_url": "OLOLO",
+    "result": "de1b1283-b121-4406-b51c-538a2b6e531e",
+    "is_answer": false,
+    "language_type": 1,
+    "resource_type": 1,
+    "date": "2021-03-03T04:43:00Z",
     "specie": null,
     "tonal_type": null,
     "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T09:55:33.861Z",
-    "modified": "2021-02-23T09:55:33.873Z"
+    "created": "2021-03-03T10:45:46.854Z",
+    "modified": "2021-03-03T10:45:46.875Z"
   }
 },
 {
   "model": "dmm.comment",
-  "pk": "2b7e5328-e179-4be6-be5b-a73a2007e0e7",
+  "pk": "d0fed1b6-3a37-4d03-a38a-ec2217b0dbcd",
   "fields": {
-    "text": "10",
+    "text": "Текст комментария",
     "author_url": "OLOLO",
-    "result": "399e697a-e18c-4e08-8456-a2761613b4a9",
+    "result": "36fa9b63-6b19-41e9-ba61-8ea620bfadac",
     "is_answer": false,
     "language_type": 1,
     "resource_type": 1,
-    "date": "2021-02-22T21:54:00Z",
+    "date": "2021-03-03T04:48:00Z",
     "specie": 1,
-    "tonal_type": null,
+    "tonal_type": 2,
     "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T04:41:16.919Z",
-    "modified": "2021-03-01T11:06:34.659Z"
+    "created": "2021-03-03T10:48:50.508Z",
+    "modified": "2021-03-03T11:29:56.938Z"
   }
 },
 {
   "model": "dmm.comment",
-  "pk": "336cbf78-1372-4b4a-8ea4-67fb31afc0ff",
+  "pk": "d3ba4b5f-6722-4bd3-8d16-b09e71806465",
   "fields": {
-    "text": "6",
+    "text": "Текст комментария",
     "author_url": "OLOLO",
-    "result": "1396d8e9-c69c-4e9e-b471-e2333f5a3c40",
+    "result": "9ed59b9f-5250-4275-9b83-958f01ded576",
     "is_answer": false,
     "language_type": 1,
     "resource_type": 1,
-    "date": "2021-02-22T21:54:00Z",
-    "specie": 1,
+    "date": "2021-03-03T05:56:00Z",
+    "specie": null,
     "tonal_type": 1,
-    "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+    "clarification": "",
     "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T04:41:43.993Z",
-    "modified": "2021-02-23T04:41:43.993Z"
+    "created": "2021-03-03T11:56:28.388Z",
+    "modified": "2021-03-04T07:58:35.024Z"
   }
 },
 {
   "model": "dmm.comment",
-  "pk": "4242a103-2d72-4986-926b-65f345cd54e8",
+  "pk": "ddbeaa71-03eb-40d9-881d-d7a62f387e62",
   "fields": {
-    "text": "4",
+    "text": "Текст комментария",
     "author_url": "OLOLO",
-    "result": "bfd464ac-a6e3-44f8-8009-832448151428",
+    "result": "8ecfbbc7-f598-41c4-8f2d-7c8bf30db143",
     "is_answer": false,
     "language_type": 1,
     "resource_type": 1,
-    "date": "2021-02-22T21:54:00Z",
-    "specie": 1,
-    "tonal_type": 1,
-    "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T04:38:05.257Z",
-    "modified": "2021-02-23T04:38:05.257Z"
-  }
-},
-{
-  "model": "dmm.comment",
-  "pk": "53458dc6-ea16-45b7-99b0-38595e241557",
-  "fields": {
-    "text": "7",
-    "author_url": "OLOLO",
-    "result": "d1a49558-805b-4376-8afc-72587fdd46c9",
-    "is_answer": false,
-    "language_type": 1,
-    "resource_type": 1,
-    "date": "2021-02-22T23:29:00Z",
+    "date": "2021-03-03T05:48:00Z",
     "specie": null,
     "tonal_type": null,
     "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
     "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T05:31:44.868Z",
-    "modified": "2021-03-02T09:09:03.405Z"
+    "created": "2021-03-03T11:48:09.690Z",
+    "modified": "2021-03-03T11:48:09.707Z"
   }
 },
 {
   "model": "dmm.comment",
-  "pk": "5443878e-c10d-4281-9a37-3d2831d7360e",
+  "pk": "e55bced2-7e6e-4edf-be6b-9154adfe0ed9",
   "fields": {
-    "text": "2",
+    "text": "Текст комментария",
     "author_url": "OLOLO",
-    "result": "3cef22f7-7361-4ef3-8c70-365b392c4723",
+    "result": "6529b9bc-a0bf-4ea4-a6bc-28813c663ead",
     "is_answer": false,
     "language_type": 1,
     "resource_type": 1,
-    "date": "2021-02-22T22:33:00Z",
+    "date": "2021-03-03T05:58:00Z",
+    "specie": null,
+    "tonal_type": null,
+    "clarification": null,
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
+    "created": "2021-03-03T11:58:37.999Z",
+    "modified": "2021-03-03T11:58:38.022Z"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "0c86cad2-2b14-49bf-8c36-6dc258b637c4",
+  "fields": {
+    "comment": "e55bced2-7e6e-4edf-be6b-9154adfe0ed9",
+    "specie": 2,
+    "tonal_type": 3,
+    "clarification": "werwerw",
+    "created": "2021-03-04T07:53:10.193Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "17b7ca9f-aae5-4ec9-91b1-e7fd1245b706",
+  "fields": {
+    "comment": "849be562-8e3a-4399-b57e-2fe03391ede9",
+    "specie": 1,
+    "tonal_type": 2,
+    "clarification": null,
+    "created": "2021-03-03T11:31:57.197Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "1eca17fc-f0b1-4c25-ba6e-e9ed3a7b78a4",
+  "fields": {
+    "comment": "ddbeaa71-03eb-40d9-881d-d7a62f387e62",
+    "specie": 2,
+    "tonal_type": 2,
+    "clarification": "tyryrytr",
+    "created": "2021-03-04T07:54:09.522Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "26ec227a-d36b-4b9e-bde0-0a8241189f91",
+  "fields": {
+    "comment": "d0fed1b6-3a37-4d03-a38a-ec2217b0dbcd",
+    "specie": null,
+    "tonal_type": null,
+    "clarification": "jytytty",
+    "created": "2021-03-04T07:58:17.372Z",
+    "expert": "1539cc3a-e6e2-4715-8db8-df56c6c43bf5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "2bcd40d4-8e41-45a0-b63a-90d0379c9f09",
+  "fields": {
+    "comment": "ddbeaa71-03eb-40d9-881d-d7a62f387e62",
     "specie": 1,
     "tonal_type": 1,
     "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T04:33:17.323Z",
-    "modified": "2021-02-23T04:33:17.337Z"
+    "created": "2021-03-03T11:48:09.693Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
   }
 },
 {
-  "model": "dmm.comment",
-  "pk": "952569c5-1ee3-49d3-b8cd-bf21d834d79e",
+  "model": "dmm.commentround",
+  "pk": "4403c8e8-d060-4b3f-a2e3-34ec57e3abfa",
   "fields": {
-    "text": "8",
-    "author_url": "OLOLO",
-    "result": "d47fc68e-0c64-4bcc-a10b-4b53ded9aa49",
-    "is_answer": false,
-    "language_type": 1,
-    "resource_type": 1,
-    "date": "2021-02-23T00:28:00Z",
-    "specie": null,
-    "tonal_type": null,
-    "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T09:55:33.840Z",
-    "modified": "2021-02-23T09:55:33.855Z"
+    "comment": "68c2913b-b3c1-48b8-80a7-aa9bf3248cfd",
+    "specie": 2,
+    "tonal_type": 3,
+    "clarification": "jdydtjtdy",
+    "created": "2021-03-04T07:58:43.355Z",
+    "expert": "1539cc3a-e6e2-4715-8db8-df56c6c43bf5"
   }
 },
 {
-  "model": "dmm.comment",
-  "pk": "9eb6d075-c09d-4783-bbdf-2e701e31e5a2",
+  "model": "dmm.commentround",
+  "pk": "46abe937-314c-4624-b6cd-3cbce7e62d2c",
   "fields": {
-    "text": "1",
-    "author_url": "OLOLO",
-    "result": "105f5997-47ec-4d38-a886-9d6eb8ef3af5",
-    "is_answer": false,
-    "language_type": 1,
-    "resource_type": 1,
-    "date": "2021-02-22T21:54:00Z",
+    "comment": "d3ba4b5f-6722-4bd3-8d16-b09e71806465",
+    "specie": 2,
+    "tonal_type": 1,
+    "clarification": "jddyd",
+    "created": "2021-03-04T07:58:34.963Z",
+    "expert": "1539cc3a-e6e2-4715-8db8-df56c6c43bf5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "5c801d73-2e55-4cc3-8ad8-d20c80cf4d08",
+  "fields": {
+    "comment": "e55bced2-7e6e-4edf-be6b-9154adfe0ed9",
     "specie": 1,
     "tonal_type": 1,
-    "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T04:16:41.108Z",
-    "modified": "2021-02-23T04:16:41.108Z"
+    "clarification": "dwqqqd",
+    "created": "2021-03-03T11:58:38.002Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
   }
 },
 {
-  "model": "dmm.comment",
-  "pk": "b83df925-d7de-453d-9abc-a975a562123b",
+  "model": "dmm.commentround",
+  "pk": "8c191e9d-4e52-4846-bbae-6977cfa58bcc",
   "fields": {
-    "text": "5",
-    "author_url": "OLOLO",
-    "result": "58ca763f-a0ea-49e4-bf4a-727aaa0848fc",
-    "is_answer": false,
-    "language_type": 1,
-    "resource_type": 1,
-    "date": "2021-02-22T21:54:00Z",
+    "comment": "849be562-8e3a-4399-b57e-2fe03391ede9",
+    "specie": 2,
+    "tonal_type": 3,
+    "clarification": "dwqdq",
+    "created": "2021-03-04T07:57:56.220Z",
+    "expert": "1539cc3a-e6e2-4715-8db8-df56c6c43bf5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "aafdeb60-3fc4-4f5b-8473-5e699ebab608",
+  "fields": {
+    "comment": "68c2913b-b3c1-48b8-80a7-aa9bf3248cfd",
+    "specie": 2,
+    "tonal_type": 3,
+    "clarification": null,
+    "created": "2021-03-04T07:54:44.790Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "bfefa6d2-4d5e-4cb1-a543-1d377933efab",
+  "fields": {
+    "comment": "d3ba4b5f-6722-4bd3-8d16-b09e71806465",
+    "specie": 1,
+    "tonal_type": 1,
+    "clarification": "ueeee",
+    "created": "2021-03-04T07:54:19.602Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "c356e92a-1f6e-40ba-8610-b864b8b9aa54",
+  "fields": {
+    "comment": "d0fed1b6-3a37-4d03-a38a-ec2217b0dbcd",
     "specie": null,
     "tonal_type": null,
-    "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T04:38:58.137Z",
-    "modified": "2021-02-23T04:38:58.150Z"
+    "clarification": null,
+    "created": "2021-03-03T11:32:13.133Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
   }
 },
 {
-  "model": "dmm.comment",
-  "pk": "da56aa82-0db2-4583-959e-7f3f4cf0d674",
+  "model": "dmm.commentround",
+  "pk": "cd453de5-6588-40d4-b6ed-27d633a38dc9",
   "fields": {
-    "text": "3",
-    "author_url": "OLOLO",
-    "result": "0cdfa43e-113d-40c0-b83b-402600cdc4b4",
-    "is_answer": false,
-    "language_type": 1,
-    "resource_type": 1,
-    "date": "2021-02-22T21:54:00Z",
-    "specie": null,
-    "tonal_type": 1,
-    "clarification": "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5",
-    "created": "2021-02-23T04:36:12.185Z",
-    "modified": "2021-02-23T04:36:12.198Z"
+    "comment": "e55bced2-7e6e-4edf-be6b-9154adfe0ed9",
+    "specie": 1,
+    "tonal_type": 3,
+    "clarification": "sdwqdqw",
+    "created": "2021-03-04T07:57:46.967Z",
+    "expert": "1539cc3a-e6e2-4715-8db8-df56c6c43bf5"
   }
 },
 {
-  "model": "dmm.commenttags",
-  "pk": 29,
+  "model": "dmm.commentround",
+  "pk": "cf6010b0-154b-4185-b1d2-f5fe316c6fe6",
+  "fields": {
+    "comment": "ddbeaa71-03eb-40d9-881d-d7a62f387e62",
+    "specie": 2,
+    "tonal_type": 1,
+    "clarification": "djyjdjyd",
+    "created": "2021-03-04T07:58:26.788Z",
+    "expert": "1539cc3a-e6e2-4715-8db8-df56c6c43bf5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "dabed2db-5ba7-4eff-86ad-80a6219ae940",
+  "fields": {
+    "comment": "d3ba4b5f-6722-4bd3-8d16-b09e71806465",
+    "specie": 1,
+    "tonal_type": 1,
+    "clarification": "",
+    "created": "2021-03-03T11:56:28.392Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "dfd487d9-3df9-417c-b5e7-90778c190482",
+  "fields": {
+    "comment": "d0fed1b6-3a37-4d03-a38a-ec2217b0dbcd",
+    "specie": null,
+    "tonal_type": null,
+    "clarification": null,
+    "created": "2021-03-04T05:11:33.054Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "e58a922f-7aa9-4a4e-914d-3cee2a9d5369",
+  "fields": {
+    "comment": "68c2913b-b3c1-48b8-80a7-aa9bf3248cfd",
+    "specie": 1,
+    "tonal_type": 1,
+    "clarification": "",
+    "created": "2021-03-03T11:58:17.511Z",
+    "expert": "00d52d59-b11d-4aa2-8f12-f1fda93857b5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "f4d8e138-8db1-4a2f-9d00-5fb796ea8c82",
+  "fields": {
+    "comment": "849be562-8e3a-4399-b57e-2fe03391ede9",
+    "specie": 2,
+    "tonal_type": 3,
+    "clarification": "sdwqdqw",
+    "created": "2021-03-04T05:12:22.532Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.commentround",
+  "pk": "f590cc59-9040-44be-9c58-d4226f7a52fa",
+  "fields": {
+    "comment": "d0fed1b6-3a37-4d03-a38a-ec2217b0dbcd",
+    "specie": null,
+    "tonal_type": null,
+    "clarification": null,
+    "created": "2021-03-04T05:11:02.877Z",
+    "expert": "f9f5b2d8-0947-4bbc-9931-3faa839001e5"
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 184,
   "fields": {
     "tag": 1,
-    "comment": "9eb6d075-c09d-4783-bbdf-2e701e31e5a2",
+    "comment_round": "17b7ca9f-aae5-4ec9-91b1-e7fd1245b706",
     "is_present": true
   }
 },
 {
-  "model": "dmm.commenttags",
-  "pk": 30,
+  "model": "dmm.commentroundtags",
+  "pk": 185,
   "fields": {
     "tag": 2,
-    "comment": "9eb6d075-c09d-4783-bbdf-2e701e31e5a2",
+    "comment_round": "17b7ca9f-aae5-4ec9-91b1-e7fd1245b706",
     "is_present": true
   }
 },
 {
-  "model": "dmm.commenttags",
-  "pk": 31,
+  "model": "dmm.commentroundtags",
+  "pk": 187,
   "fields": {
     "tag": 1,
-    "comment": "53458dc6-ea16-45b7-99b0-38595e241557",
+    "comment_round": "c356e92a-1f6e-40ba-8610-b864b8b9aa54",
     "is_present": true
   }
 },
 {
-  "model": "dmm.commenttags",
-  "pk": 32,
+  "model": "dmm.commentroundtags",
+  "pk": 188,
+  "fields": {
+    "tag": 2,
+    "comment_round": "c356e92a-1f6e-40ba-8610-b864b8b9aa54",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 190,
   "fields": {
     "tag": 1,
-    "comment": "53458dc6-ea16-45b7-99b0-38595e241557",
+    "comment_round": "2bcd40d4-8e41-45a0-b63a-90d0379c9f09",
     "is_present": false
   }
 },
 {
-  "model": "dmm.commenttags",
-  "pk": 33,
+  "model": "dmm.commentroundtags",
+  "pk": 191,
   "fields": {
     "tag": 2,
-    "comment": "53458dc6-ea16-45b7-99b0-38595e241557",
+    "comment_round": "2bcd40d4-8e41-45a0-b63a-90d0379c9f09",
+    "is_present": false
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 193,
+  "fields": {
+    "tag": 1,
+    "comment_round": "dabed2db-5ba7-4eff-86ad-80a6219ae940",
+    "is_present": false
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 194,
+  "fields": {
+    "tag": 2,
+    "comment_round": "dabed2db-5ba7-4eff-86ad-80a6219ae940",
+    "is_present": false
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 196,
+  "fields": {
+    "tag": 1,
+    "comment_round": "e58a922f-7aa9-4a4e-914d-3cee2a9d5369",
+    "is_present": false
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 197,
+  "fields": {
+    "tag": 2,
+    "comment_round": "e58a922f-7aa9-4a4e-914d-3cee2a9d5369",
+    "is_present": false
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 199,
+  "fields": {
+    "tag": 1,
+    "comment_round": "5c801d73-2e55-4cc3-8ad8-d20c80cf4d08",
+    "is_present": false
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 200,
+  "fields": {
+    "tag": 2,
+    "comment_round": "5c801d73-2e55-4cc3-8ad8-d20c80cf4d08",
+    "is_present": false
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 202,
+  "fields": {
+    "tag": 1,
+    "comment_round": "dfd487d9-3df9-417c-b5e7-90778c190482",
     "is_present": true
   }
 },
 {
-  "model": "dmm.commenttags",
-  "pk": 34,
+  "model": "dmm.commentroundtags",
+  "pk": 203,
   "fields": {
     "tag": 2,
-    "comment": "53458dc6-ea16-45b7-99b0-38595e241557",
+    "comment_round": "dfd487d9-3df9-417c-b5e7-90778c190482",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 204,
+  "fields": {
+    "tag": 1,
+    "comment_round": "f4d8e138-8db1-4a2f-9d00-5fb796ea8c82",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 205,
+  "fields": {
+    "tag": 2,
+    "comment_round": "f4d8e138-8db1-4a2f-9d00-5fb796ea8c82",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 206,
+  "fields": {
+    "tag": 1,
+    "comment_round": "0c86cad2-2b14-49bf-8c36-6dc258b637c4",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 207,
+  "fields": {
+    "tag": 2,
+    "comment_round": "0c86cad2-2b14-49bf-8c36-6dc258b637c4",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 208,
+  "fields": {
+    "tag": 1,
+    "comment_round": "1eca17fc-f0b1-4c25-ba6e-e9ed3a7b78a4",
     "is_present": false
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 209,
+  "fields": {
+    "tag": 2,
+    "comment_round": "1eca17fc-f0b1-4c25-ba6e-e9ed3a7b78a4",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 210,
+  "fields": {
+    "tag": 1,
+    "comment_round": "bfefa6d2-4d5e-4cb1-a543-1d377933efab",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 211,
+  "fields": {
+    "tag": 2,
+    "comment_round": "bfefa6d2-4d5e-4cb1-a543-1d377933efab",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 212,
+  "fields": {
+    "tag": 1,
+    "comment_round": "aafdeb60-3fc4-4f5b-8473-5e699ebab608",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 213,
+  "fields": {
+    "tag": 2,
+    "comment_round": "aafdeb60-3fc4-4f5b-8473-5e699ebab608",
+    "is_present": false
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 214,
+  "fields": {
+    "tag": 1,
+    "comment_round": "cd453de5-6588-40d4-b6ed-27d633a38dc9",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 215,
+  "fields": {
+    "tag": 2,
+    "comment_round": "cd453de5-6588-40d4-b6ed-27d633a38dc9",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 216,
+  "fields": {
+    "tag": 1,
+    "comment_round": "8c191e9d-4e52-4846-bbae-6977cfa58bcc",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 217,
+  "fields": {
+    "tag": 2,
+    "comment_round": "8c191e9d-4e52-4846-bbae-6977cfa58bcc",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 218,
+  "fields": {
+    "tag": 1,
+    "comment_round": "26ec227a-d36b-4b9e-bde0-0a8241189f91",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 219,
+  "fields": {
+    "tag": 2,
+    "comment_round": "26ec227a-d36b-4b9e-bde0-0a8241189f91",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 220,
+  "fields": {
+    "tag": 1,
+    "comment_round": "cf6010b0-154b-4185-b1d2-f5fe316c6fe6",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 221,
+  "fields": {
+    "tag": 2,
+    "comment_round": "cf6010b0-154b-4185-b1d2-f5fe316c6fe6",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 222,
+  "fields": {
+    "tag": 1,
+    "comment_round": "46abe937-314c-4624-b6cd-3cbce7e62d2c",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 223,
+  "fields": {
+    "tag": 2,
+    "comment_round": "46abe937-314c-4624-b6cd-3cbce7e62d2c",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 224,
+  "fields": {
+    "tag": 1,
+    "comment_round": "4403c8e8-d060-4b3f-a2e3-34ec57e3abfa",
+    "is_present": true
+  }
+},
+{
+  "model": "dmm.commentroundtags",
+  "pk": 225,
+  "fields": {
+    "tag": 2,
+    "comment_round": "4403c8e8-d060-4b3f-a2e3-34ec57e3abfa",
+    "is_present": true
   }
 }
 ]

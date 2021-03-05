@@ -2,10 +2,10 @@
 {% block content %}
 
 <div class="container">
+  {% comment %} {%  include 'dmm/comment_round/comment_rounds.html' %} {% endcomment %}
+  {%  include 'dmm/result/result_table.html' with results=results is_result_marked_ups=is_result_marked_ups %}
   {%  include 'dmm/specie/species.html' %}
   {%  include 'dmm/tag/tags.html' %}
-  {%  include 'dmm/comment_round/comment_rounds.html' %}
-  {%  include 'dmm/result/result_table.html' with results=results %}
 </div>
 
 {% endblock content %}

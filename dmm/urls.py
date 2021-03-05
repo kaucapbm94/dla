@@ -22,5 +22,4 @@ urlpatterns = [
     path('logout/', views.logoutUser, name='logout'),
 
     path('statistics/', views.Statistics, name='home'),
-    path('waiting_round/', views.WaitingRounds, name='waiting_rounds'),
 ]

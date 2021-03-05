@@ -1,5 +1,5 @@
 from django.test import TestCase
-from dmm.helpers.comment import tag_is_present, get_allowed
+from dmm.helpers import tag_is_present, get_allowed, make_decision
 from ..models import *
 import logging
 logger = logging.getLogger(__name__)
@@ -28,3 +28,8 @@ class CommentTestCase(TestCase):
         for comm in comments:
             logger.debug(comm.__dict__)
             logger.debug(get_allowed(comm, expert_id))
+
+    # python3 manage.py test dmm.tests.CommentTestCase.test_make_decision
+    def test_make_decision(self):
+        comment = Comment.objects.get(id='ddbeaa71-03eb-40d9-881d-d7a62f387e62')
+        make_decision(comment)

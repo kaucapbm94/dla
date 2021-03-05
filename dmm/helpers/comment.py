@@ -1,3 +1,4 @@
+from itertools import chain
 from ..models import *
 
 
@@ -53,52 +54,74 @@ def get_allowed(comment, expert_id):
     return specie_needs_round, tonal_type_needs_round, allowed_tag_list
 
 
-def get_need_round_results_comments(request):
-    species = Specie.objects.values()
-    expert_id = request.user.expert.id
-
-    # expert primary? show statistics : nothing
-    groups = request.user.groups.values_list('name', flat=True)
-    super_users = ['admin', 'primary_expert']
-    is_primary = False
-    expert_ids = []
-    for group in groups:
-        if group in super_users:
-            is_primary = True
-    if is_primary:
-        expert_ids = Expert.objects.values_list('id', flat=True)
-    else:
-        expert_ids.append(expert_id)
-
-    results = Result.objects.all()
-
-    nrrc = {}
+def get_need_round_results_comments(comment, expert_id):
     tags = Tag.objects.all()
-    for result in results:
-        # logger.debug(get_comments(result.comment_set.all(), expert_id))
-        comments = result.comment_set.all()
+    comments_given = False
+    specie_needs_round, tonal_type_needs_round, allowed_tag_list = get_allowed(comment, expert_id)
 
-        need_round_comments = {}
-
-        comments_given = False
-
-        for comment in comments:
-            specie_needs_round, tonal_type_needs_round, allowed_tag_list = get_allowed(comment, expert_id)
-
-            if specie_needs_round:
+    if specie_needs_round:
+        comments_given = True
+    elif tonal_type_needs_round:
+        comments_given = True
+    else:
+        for tag in allowed_tag_list:
+            if tag:
                 comments_given = True
-            elif tonal_type_needs_round:
-                comments_given = True
-            else:
-                for tag in allowed_tag_list:
-                    if tag:
-                        comments_given = True
-            if comments_given:
-                need_round_comments[comment] = {
-                    'specie_needs_round': specie_needs_round,
-                    'tag_ids_need_round': [tag.name for i, tag in enumerate(tags) if allowed_tag_list[i]],
-                    'tonal_type_needs_round': tonal_type_needs_round}
-        if need_round_comments:
-            nrrc[result] = need_round_comments
 
-    return nrrc
+    ret = {
+        'specie_needs_round': specie_needs_round,
+        'tag_ids_need_round': [tag.name for i, tag in enumerate(tags) if allowed_tag_list[i]],
+        'tonal_type_needs_round': tonal_type_needs_round}
+
+    return ret
+
+
+def most_frequent(List):
+    if len(List) <= 0:
+        return None
+    counter = 0
+    num = List[0]
+
+    for i in List:
+        curr_frequency = List.count(i)
+        if(curr_frequency > counter):
+            counter = curr_frequency
+            num = i
+    if counter >= 2:
+        return num
+    else:
+        return None
+
+
+# def lol():
+#     comments = Comment.objects.all()
+#     for comment in comments:
+#         make_decision(comment)
+
+
+def make_decision(comment):
+    logger.debug(comment)
+    comment_rounds = CommentRound.objects.filter(comment=comment)
+    species = Specie.objects.all()
+    comment_rounds_species = [comment_round.specie for comment_round in comment_rounds]
+    comment_rounds_tonal_types = [comment_round.tonal_type for comment_round in comment_rounds]
+    specie_decision = most_frequent(comment_rounds_species)
+    logger.debug(specie_decision)
+
+    if specie_decision is not None:
+        comment.specie = specie_decision
+    tonal_type_decision = most_frequent(comment_rounds_tonal_types)
+    if tonal_type_decision is not None:
+        comment.tonal_type = tonal_type_decision
+    logger.debug(tonal_type_decision)
+
+    tags = Tag.objects.all()
+    comment_rounds_tags = list(chain(*[comment_round.commentroundtags_set.all() for comment_round in comment_rounds]))
+    logger.debug(comment_rounds_tags)
+    comment_tags = [comment_tag.tag for comment_tag in comment.commenttags_set.all()]
+    for tag in tags:
+        tag_decision = most_frequent([t.is_present for t in comment_rounds_tags if t.tag == tag])
+        logger.debug(tag_decision)
+        if tag_decision is not None and tag not in comment_tags:
+            CommentTags.objects.create(tag=tag, comment=comment, is_present=tag_decision)
+    comment.save()
