@@ -1,12 +1,10 @@
 <div class="row">
-  <h3><span class="label label-default">Классы</span></h3>
+  <h3><span class="label label-default">Тональность</span></h3>
   <table class="table">
     <thead>
       <tr>
         <th scope="col">#</th>
-        <th scope="col">Имя класса</th>
-        <th scope="col">Описание</th>
-        <th scope="col">Автор</th>
+        <th scope="col">Имя тональности</th>
         <th scope="col">Выбрано в комментариях</th>
         <th scope="col">Выбрано в раундах</th>
         <th scope="col" style="width: 5%;" data-toggle="tooltip" data-placement="top" title="Подробнее">
@@ -17,17 +15,15 @@
       </tr>
     </thead>
     <tbody>
-      {% for specie in species %}
+      {% for tonal_type in tonal_types %}
       <tr>
         <th scope="row">{{ forloop.counter }}</th>
-        <td>{{ specie.name }}</td>
-        <td>{{ specie.description }}</td>
-        <td>{{ specie.expert_name }}</td>
-        <td>{{ specie.comment_count }}</td>
-        <td>{{ specie.rounds_count }}</td>
+        <td>{{ tonal_type.name }}</td>
+        <td>{{ tonal_type.comment_count }}</td>
+        <td>{{ tonal_type.rounds_count }}</td>
         <td>
           <button class="btn btn-default" style="vertical-align: middle;">
-            <a class="nav-link btn btn-primary" href="{% url 'specie-comment_rounds-show' specie.id %}">
+            <a class="nav-link btn btn-primary" href="{% url 'tonal-type-comment_rounds-show' tonal_type.id %}">
               <i class="fas fa-info-circle"></i>
             </a>
           </button>

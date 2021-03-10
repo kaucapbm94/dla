@@ -28,6 +28,7 @@ class LanguageType(models.Model):
 
 class ResourceType(models.Model):
     name = models.CharField(max_length=100)
+    icon_code = models.CharField(max_length=100, null=True)
 
     def __str__(self):
         return self.name
@@ -43,7 +44,7 @@ class ContentType(models.Model):
 class Result(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     text = models.TextField(null=True, blank=True)
-    title = models.TextField(null=True)
+    title = models.TextField(null=True, blank=True)
     url = models.CharField(max_length=2100)
     language_type = models.ForeignKey(LanguageType, models.DO_NOTHING)
     resource_type = models.ForeignKey(ResourceType, models.DO_NOTHING)
@@ -128,7 +129,7 @@ class CommentRound(models.Model):
     expert = models.ForeignKey(Expert, models.DO_NOTHING, blank=True, null=True)
 
     def __str__(self):
-        return self.comment.text[:80]
+        return f"{self.comment.text[:80]} ({self.expert.name})"
 
 
 class CommentRoundTags(models.Model):

@@ -1,7 +1,11 @@
 from ..models import Expert, CommentRound, CommentRoundTags, CommentTags
 from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from ..decorators import allowed_users
 
 
+@ login_required(login_url='login')
+@ allowed_users(allowed_roles=['expert', 'admin'])
 def CommentRoundShow(request, comment_round_id):
     expert_id = request.user.expert.id
     expert = Expert.objects.get(id=expert_id)

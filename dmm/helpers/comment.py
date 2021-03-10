@@ -1,5 +1,6 @@
 from itertools import chain
 from ..models import *
+from .result import is_result_marked_up
 
 
 def get_allowed(comment, expert_id):
@@ -54,6 +55,42 @@ def get_allowed(comment, expert_id):
     return specie_needs_round, tonal_type_needs_round, allowed_tag_list
 
 
+def get_nrrc(results, expert_id):
+    # nrrc = {
+    #     result: {
+    #         'comments': {
+    #               comment: {
+    #                   'specie_needs_round': bool,
+    #                   'tag_ids_need_round': [tag.name, tag.name, tag.name, ...],
+    #                   'tonal_type_needs_round': bool,
+    #               }
+    #         }
+    #         'markup_possible': bool,
+    #     }
+    # }
+
+    nrrc = {}
+    for result in results:
+        comments = {}
+        for comment in result.comment_set.all():
+            comments[comment] = get_need_round_results_comments(comment, expert_id)
+        nrrc[result] = {}
+        nrrc[result]['comments'] = comments
+        markup_possible = False
+        for comment in nrrc[result]['comments']:
+            if nrrc[result]['comments'][comment]['specie_needs_round'] or nrrc[result]['comments'][comment]['tonal_type_needs_round'] or len(nrrc[result]['comments'][comment]['tag_ids_need_round']) > 0:
+                markup_possible = True
+            # logger.debug(nrrc[result]['comments'][comment]['specie_needs_round'])
+            # logger.debug(nrrc[result]['comments'][comment]['tag_ids_need_round'])
+            # logger.debug(nrrc[result]['comments'][comment]['tonal_type_needs_round'])
+        nrrc[result]['markup_possible'] = markup_possible
+        nrrc[result]['marked_up'] = is_result_marked_up(result, expert_id)
+        # TODO turn off in production
+        for comment in result.comment_set.all():
+            make_decision(comment)
+    return nrrc
+
+
 def get_need_round_results_comments(comment, expert_id):
     tags = Tag.objects.all()
     comments_given = False
@@ -100,28 +137,28 @@ def most_frequent(List):
 
 
 def make_decision(comment):
-    logger.debug(comment)
+    # logger.debug(comment)
     comment_rounds = CommentRound.objects.filter(comment=comment)
     species = Specie.objects.all()
     comment_rounds_species = [comment_round.specie for comment_round in comment_rounds]
     comment_rounds_tonal_types = [comment_round.tonal_type for comment_round in comment_rounds]
     specie_decision = most_frequent(comment_rounds_species)
-    logger.debug(specie_decision)
+    # logger.debug(specie_decision)
 
     if specie_decision is not None:
         comment.specie = specie_decision
     tonal_type_decision = most_frequent(comment_rounds_tonal_types)
     if tonal_type_decision is not None:
         comment.tonal_type = tonal_type_decision
-    logger.debug(tonal_type_decision)
+    # logger.debug(tonal_type_decision)
 
     tags = Tag.objects.all()
     comment_rounds_tags = list(chain(*[comment_round.commentroundtags_set.all() for comment_round in comment_rounds]))
-    logger.debug(comment_rounds_tags)
+    # logger.debug(comment_rounds_tags)
     comment_tags = [comment_tag.tag for comment_tag in comment.commenttags_set.all()]
     for tag in tags:
         tag_decision = most_frequent([t.is_present for t in comment_rounds_tags if t.tag == tag])
-        logger.debug(tag_decision)
+        # logger.debug(tag_decision)
         if tag_decision is not None and tag not in comment_tags:
             CommentTags.objects.create(tag=tag, comment=comment, is_present=tag_decision)
     comment.save()

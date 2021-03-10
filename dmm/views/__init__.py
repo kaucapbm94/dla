@@ -6,6 +6,8 @@ from .result import *
 from .specie import *
 from .tag import *
 from .commentround import CommentRoundShow
+from .expert import ExpertCommentRoundsShow
+from .tonaltype import TonalTypeCommentRoundsShow
 
 
 def handler500(request, *args, **argv):

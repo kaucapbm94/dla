@@ -1,0 +1,15 @@
+{% extends 'dmm/layout/main.html' %}
+{% block content %}
+<div class="container">
+    {% for result, comments in nrrc.items %}
+    {%  include 'dmm/result/_result.html' with result=result %}
+    {% for comment, comment_rounds in comments.items %}
+    {%  include 'dmm/comment/_comment.html' with comment=comment %}
+    {% endfor %}
+    {% endfor %}
+</div>
+{% endblock content %}
+
+{% block scripts %}
+{%  include 'dmm/result/script.html' %}
+{% endblock %}

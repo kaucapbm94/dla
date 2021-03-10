@@ -11,7 +11,7 @@ class ResultForm(ModelForm):
         widget=forms.Textarea(attrs={
             'class': 'form-control border-primary',
             'cols': 120,
-            'rows': 2
+            'rows': 4
         }),
         required=False
     )
@@ -19,21 +19,22 @@ class ResultForm(ModelForm):
         widget=forms.TextInput(attrs={
             'class': 'form-control border-primary',
         }),
-        initial='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
+        required=False
+        # initial='Lorem ipsum dolor sit amet, consectetur adipiscing elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
     )
     url = forms.CharField(
         widget=forms.URLInput(attrs={
             'class': 'form-control border-primary',
         }),
-        initial='https://github.com/'
+        # initial='https://github.com/'
     )
     date = forms.DateTimeField(
         widget=forms.DateTimeInput(attrs={'type': 'datetime-local', 'class': 'form-control'}),
-        initial=timezone.now().strftime("%Y-%m-%dT%H:%M")
+        # initial=timezone.now().strftime("%Y-%m-%dT%H:%M")
     )
     content_type = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'form-control'}),
-        queryset=ContentType.objects.all(),
+        queryset=ContentType.objects.all().order_by('id'),
         initial={'max_number': '1'}
     )
     language_type = forms.ModelChoiceField(
@@ -43,7 +44,7 @@ class ResultForm(ModelForm):
     )
     resource_type = forms.ModelChoiceField(
         widget=forms.Select(attrs={'class': 'form-control'}),
-        queryset=ResourceType.objects.all(),
+        queryset=ResourceType.objects.all().order_by('id'),
         initial={'max_number': '1'}
     )
 

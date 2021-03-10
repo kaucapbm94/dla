@@ -1,11 +1,99 @@
 {% extends 'dmm/layout/main.html' %}
+{% load i18n %}
 {% block content %}
 
 <div class="container">
-  {% comment %} {%  include 'dmm/comment_round/comment_rounds.html' %} {% endcomment %}
-  {%  include 'dmm/result/result_table.html' with results=results is_result_marked_ups=is_result_marked_ups %}
+  <div class="row d-flex justify-content-center mt-5 mb-5">
+    <h1>Статистика</h1>
+  </div>
+  <div class="row">
+    <h3><span class="label label-default">Результаты</span></h3>
+    <table class="table table-light table-striped">
+      <thead class="table-light">
+        <tr class="justify-content-center">
+          <th scope="col" style="width: 5%">№</th>
+          <th scope="col" style="width: 15%">Заголовок</th>
+          <th scope="col" style="width: 5%" data-toggle="tooltip" data-placement="top" title="Ресурс контента"><i class="fas fa-share-alt"></i></th>
+          <th scope="col" style="width: 5%">Тип</th>
+          <th scope="col" style="width: 5%" data-toggle="tooltip" data-placement="top" title="Язык контента"><i class="fas fa-globe"></i></th>
+          <th scope="col" style="width: 10%">Добавил</th>
+          <th scope="col" style="width: 10%">Опубликовано</th>
+          <th scope="col" style="width: 5%" data-toggle="tooltip" data-placement="top" title="Количество комментариев"><i class="fas fa-comments"></i></th>
+          <th scope="col" style="width: 5%" data-toggle="tooltip" data-placement="top" title="Завершено"><i class="far fa-calendar-check"></i></th>
+          <th scope="col" style="width: 5%" data-toggle="tooltip" data-placement="top" title="Доступно для разметки"><i class="fas fa-door-open"></i></th>
+          <th scope="col" style="width: 5%;" data-toggle="tooltip" data-placement="top" title="Подробнее">
+            <div class="col-2" align="center">
+              <i class="fas fa-info"></i>
+            </div>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for result, params in nrrc.items %}
+        <tr>
+          <th scope="row">{{ forloop.counter }}</th>
+          <td>{{ result.title|slice:":30" }}...</td>
+          <td data-toggle="tooltip" data-placement="top" title="{{ result.resource_type.name }}">
+            {% if result.resource_type.icon_code %}
+            <i class="{{ result.resource_type.icon_code }}"></i>
+            {% else %}
+            {{ result.resource_type.name|slice:":5" }}
+            {% endif %}
+          </td>
+          <td>{{ result.content_type.name }}</td>
+          <td>{{ result.language_type.code }}</td>
+          <td>
+            {{ result.expert.name }}
+            (
+            {% language 'ru' %}
+            {{ result.created  }}
+            {% endlanguage %}
+            )
+          </td>
+          <td>
+            {% language 'ru' %}
+            {{ result.date }}
+            {% endlanguage %}
+          </td>
+          <td>{{ result.number_of_comments }}</td>
+          <td>
+            {% if params.marked_up %}
+            <i class="fas fa-check"></i>
+            {% else %}
+            <i class="fas fa-times"></i>
+            {% endif %}
+          </td>
+          <td>
+            {% if params.markup_possible %}
+            <i class="fas fa-check"></i>
+            {% else %}
+            <i class="fas fa-times"></i>
+            {% endif %}
+          </td>
+          <td>
+            <button class="btn btn-default" style="vertical-align: middle;">
+              <a class="nav-link btn btn-primary" href="{% url 'result-show' result.id %}">
+                <i class="fas fa-info-circle"></i>
+              </a>
+            </button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {%  include 'dmm/expert/stats.html' %}
   {%  include 'dmm/specie/species.html' %}
   {%  include 'dmm/tag/tags.html' %}
+  {%  include 'dmm/tonaltype/tonaltypes.html' %}
 </div>
 
 {% endblock content %}
+
+{% block scripts %}
+<script type='text/javascript'>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip()
+  })
+</script>
+{% endblock %}

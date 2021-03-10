@@ -2,7 +2,7 @@ from ..models import Tag, Specie, Result, Expert, Comment, CommentRound, Comment
 from django.forms import inlineformset_factory
 from ..forms import ResultForm, CommentForm, CommentRoundForm
 from django.http import HttpResponseRedirect
-from ..helpers import tag_is_present, specie_is_present, tonal_type_is_present, make_decision, get_need_round_results_comments
+from ..helpers import tag_is_present, specie_is_present, tonal_type_is_present, make_decision, get_need_round_results_comments, get_nrrc
 from django.forms import formset_factory, modelformset_factory
 from django import forms
 from ..helpers import get_allowed
@@ -18,7 +18,7 @@ logger = logging.getLogger(__name__)
 
 
 @ login_required(login_url='login')
-@ allowed_users(allowed_roles=['expert', 'admin'])
+@ allowed_users(allowed_roles=['expert', 'admin', 'primary-expert'])
 def roundResult(request, result_id):
     result = Result.objects.get(id=result_id)
     expert_id = request.user.expert.id
@@ -34,8 +34,8 @@ def roundResult(request, result_id):
             'clarification': forms.TextInput(attrs={'class': 'form-control'}),
             'comment': forms.HiddenInput(),
             'expert': forms.HiddenInput(),
-            'specie': forms.Select(attrs={'class': 'form-control'}),
-            'tonal_type': forms.Select(attrs={'class': 'form-control'}),
+            'specie': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+            'tonal_type': forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
             'tags': forms.CheckboxSelectMultiple(attrs={"class": 'my_class'}),
         },
         labels={
@@ -63,7 +63,7 @@ def roundResult(request, result_id):
                     logger.error(sub_form.errors)
         else:
             logger.error(formset.errors)
-        return redirect('statistics')
+        return redirect('home')
 
     # modelformset_factory(Author, widgets={'name': Textarea(attrs={'cols': 80, 'rows': 20})})
     initials = []
@@ -129,8 +129,9 @@ def createResult(request):
                 if sub_form.is_valid():
                     chosen_tags = sub_form.cleaned_data['tags']
                     comm = sub_form.save()
+                    comm.resource_type = result.resource_type
+                    comm.save()
                     comm_round = CommentRound.objects.create(clarification=sub_form.cleaned_data['clarification'], comment=comm, expert=request.user.expert)
-                    # sub_form.save_m2m()
                     # assign specie if enough votes else round it
                     spec = sub_form.cleaned_data['specie']
                     if specie_is_present(comm, spec):
@@ -147,23 +148,18 @@ def createResult(request):
                         comm.tonal_type = None
                         # make decision about tags
                     tags = Tag.objects.all()
+                    logger.debug(comm.tags.all())
+                    logger.debug(chosen_tags)
                     for tag in tags:
-                        # if tag is already in comment_tags for the comment
-                        if tag in comm.tags.all():
-                            continue
-                        # if tag is definitely present/absent/still not defined for the comment
-                        is_present = tag_is_present(comm, tag)
-                        if is_present is not None:
-                            ct = CommentTags.objects.create(tag=tag, comment=comm, is_present=is_present)
-                        else:
-                            crt = CommentRoundTags.objects.create(tag=tag, is_present=(True if tag in chosen_tags else False), comment_round=comm_round)
+                        crt = CommentRoundTags.objects.create(tag=tag, is_present=(True if tag in chosen_tags else False), comment_round=comm_round)
+                        ct = comm.commenttags_set.all().filter(tag_id=tag.id).delete()
                     comm_round.save()
                     comm.clarification = None
                     comm.save()
                 else:
                     logger.error(sub_form.errors)
                     break
-            return redirect('waiting_rounds')
+            return redirect('home')
         else:
             logger.error(form.errors)
     else:
@@ -181,20 +177,12 @@ def createResult(request):
     return render(request, 'dmm/result/result_form.html', context)
 
 
+@ login_required(login_url='login')
+@ allowed_users(allowed_roles=['expert', 'admin'])
 def ResultShow(request, result_id):
     expert = Expert.objects.get(id=request.user.expert.id)
     result = Result.objects.get(id=result_id)
-    nrrc = {}
-    comments = {}
-    for comment in result.comment_set.all():
-        a = get_need_round_results_comments(comment, request.user.expert.id)
-        comments[comment] = a
-        logger.debug(a['specie_needs_round'])
-        logger.debug(a['tonal_type_needs_round'])
-        for tag in a['tag_ids_need_round']:
-            logger.debug(tag)
-    nrrc[result] = comments
-
+    nrrc = get_nrrc([result], request.user.expert.id)
     context = {
         'nrrc': nrrc,
         'expert': expert

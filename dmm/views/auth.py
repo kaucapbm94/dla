@@ -5,8 +5,11 @@ from django.contrib.auth.models import Group, User
 from django.contrib import messages
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
-
+from django.contrib.auth.decorators import login_required
+from ..decorators import allowed_users
 # Create your views here.
+
+
 @unauthenticated_user
 def registerPage(request):
     form = CreateUserForm()

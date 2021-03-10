@@ -1,4 +1,5 @@
 
+import json
 from ..models import *
 from ..helpers.user import *
 from ..helpers import get_need_round_results_comments
@@ -7,7 +8,7 @@ from ..decorators import allowed_users
 from django.shortcuts import render, redirect
 from django.db.models import Count
 from django.db.models import CharField, Value
-from ..helpers import get_allowed, is_result_marked_up, make_decision
+from ..helpers import get_allowed, is_result_marked_up, make_decision, get_nrrc
 import logging
 logger = logging.getLogger(__name__)
 
@@ -17,75 +18,46 @@ logger = logging.getLogger(__name__)
 def Statistics(request):
     species = Specie.objects.values()
     tags = Tag.objects.values()
-    comments = Comment.objects.values()
-    groups = request.user.groups.values_list('name', flat=True)
-    is_primary = False
+    tonal_types = TonalType.objects.values()
     expert_id = request.user.expert.id
-    expert_ids = []
-    for group in groups:
-        if group in super_user_group_names():
-            is_primary = True
-
-    if is_primary:
-        expert_ids = Expert.objects.values_list('id', flat=True)
-    else:
-        expert_ids.append(request.user.expert.id)
-    comment_rounds = CommentRound.objects.filter(expert_id__in=expert_ids).values(
-        'id',
-        'comment_id',
-        'comment__text',
-        'specie__name',
-        'tonal_type__name',
-        'expert__name',
-        'created'
-    ).order_by('-created')
-
-    for comment_round in comment_rounds:
-        my_tags = Tag.objects.filter(commentround__comment_id=comment_round['comment_id'],
-                                     commentround__expert__id=request.user.expert.id).values('name')
-        tag_names = ''
-        for my_tag in my_tags:
-            tag_names += my_tag['name'] + ', '
-        comment_round['tag_names'] = tag_names
-
-    stats = {'waiting_round1': 0, 'waiting_round2': 0, 'waiting_round3': 0}
-
-    for comment in comments:
-        comment_round_count = CommentRound.objects.filter(
-            comment_id=comment['id']).count()
-        if comment_round_count == 0:
-            stats['waiting_round1'] += 1
-        elif comment_round_count == 1:
-            stats['waiting_round2'] += 1
-        elif comment_round_count == 2:
-            stats['waiting_round3'] += 1
+    results = Result.objects.all().annotate(number_of_comments=Count('comment')).order_by('-created')
 
     for specie in species:
-        total_count = CommentRound.objects.filter(
-            specie_id=specie['id']).count()
+        rounds_count = CommentRound.objects.filter(specie_id=specie['id']).count()
         specie['expert_name'] = Expert.objects.get(id=specie['expert_id'])
-        specie['total_count'] = total_count
+        comment_count = Comment.objects.filter(specie_id=specie['id']).count()
+        specie['rounds_count'] = rounds_count
+        specie['comment_count'] = comment_count
 
     for tag in tags:
-        total_count = CommentRound.objects.filter(
-            tags__name=tag['name']).count()
+        rounds_count = CommentRound.objects.filter(tags__name=tag['name']).count()
+        comment_count = Comment.objects.filter(tags__name=tag['name']).count()
         tag['expert_name'] = Expert.objects.get(id=tag['expert_id'])
-        tag['total_count'] = total_count
+        tag['rounds_count'] = rounds_count
+        tag['comment_count'] = comment_count
 
-    results = Result.objects.all().annotate(number_of_comments=Count('comment')).order_by('-created')
-    is_result_marked_ups = []
-    for result in results:
-        is_result_marked_ups.append(is_result_marked_up(result, expert_id))
-        # TODO turn off in production
-        for comment in result.comment_set.all():
-            make_decision(comment)
+    for tonal_type in tonal_types:
+        rounds_count = CommentRound.objects.filter(tonal_type_id=tonal_type['id']).count()
+        comment_count = Comment.objects.filter(tonal_type_id=tonal_type['id']).count()
+        tonal_type['rounds_count'] = rounds_count
+        tonal_type['comment_count'] = comment_count
+
+    nrrc = get_nrrc([result for result in results], expert_id)
+
+    experts = Expert.objects.all()
+    expert_stats = {}
+    for expert in experts:
+        expert_stats[expert] = {}
+        comment_rounds = CommentRound.objects.filter(expert=expert).order_by('created')
+        expert_stats[expert]['comment_rounds'] = comment_rounds
+        expert_stats[expert]['last_round_date'] = comment_rounds[0].created if len(comment_rounds) > 0 else None
+        expert_stats[expert]['round_count'] = len(comment_rounds)
 
     context = {
         'tags': tags,
-        'stats': stats,
+        'tonal_types': tonal_types,
         'species': species,
-        'comment_rounds': comment_rounds,
-        'results': results,
-        'is_result_marked_ups': is_result_marked_ups
+        'nrrc': nrrc,
+        'expert_stats': expert_stats,
     }
     return render(request, 'dmm/comment/statistics.html', context)

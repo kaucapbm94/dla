@@ -1,25 +1,39 @@
 <div class="row">
-    <h3><span class="label label-default">Теги</span></h3>
-    <table class="table">
-      <thead>
+  <h3><span class="label label-default">Теги</span></h3>
+  <table class="table">
+    <thead>
       <tr>
         <th scope="col">#</th>
         <th scope="col">Имя тега</th>
         <th scope="col">Описание</th>
         <th scope="col">Автор</th>
+        <th scope="col">Выбрано в комментариях</th>
         <th scope="col">Выбрано в раундах</th>
+        <th scope="col" style="width: 5%;" data-toggle="tooltip" data-placement="top" title="Подробнее">
+          <div class="col-2" align="center">
+            <i class="fas fa-info"></i>
+          </div>
+        </th>
       </tr>
-      </thead>
-      <tbody>
+    </thead>
+    <tbody>
       {% for tag in tags %}
-        <tr>
-          <th scope="row">{{ forloop.counter }}</th>
-          <td>{{ tag.name }}</td>
-          <td>{{ tag.description }}</td>
-          <td>{{ tag.expert_name }}</td>
-          <td>{{ tag.total_count }}</td>
-        </tr>
+      <tr>
+        <th scope="row">{{ forloop.counter }}</th>
+        <td>{{ tag.name }}</td>
+        <td>{{ tag.description }}</td>
+        <td>{{ tag.expert_name }}</td>
+        <td>{{ tag.comment_count }}</td>
+        <td>{{ tag.rounds_count }}</td>
+        <td>
+          <button class="btn btn-default" style="vertical-align: middle;">
+            <a class="nav-link btn btn-primary" href="{% url 'tag-comment_rounds-show' tag.id %}">
+              <i class="fas fa-info-circle"></i>
+            </a>
+          </button>
+        </td>
+      </tr>
       {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    </tbody>
+  </table>
+</div>

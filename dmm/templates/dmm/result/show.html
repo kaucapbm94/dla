@@ -1,11 +1,28 @@
 {% extends 'dmm/layout/main.html' %}
 {% block content %}
 <div class="container">
-    {% for result, comments in nrrc.items %}
-    {%  include 'dmm/result/_result.html' with result=result %}
-    {% for comment, val in comments.items %}
-    {%  include 'dmm/comment/_comment.html' with comment=comment comment_tags=comment.commenttags_set.all val=val %}
-    {% endfor %}
+    <br>
+    <h1 class="row justify-content-center">
+        {% if filter_expert %}
+        Фильтр по эксперту: {{ filter_expert }}
+        {% endif %}
+        {% if filter_tag %}
+        Фильтр по тегу: {{ filter_tag }}
+        {% endif %}
+        {% if filter_specie %}
+        Фильтр по классу: {{ filter_specie }}
+        {% endif %}
+        {% if filter_tonal_type %}
+        Фильтр по тональности: {{ filter_tonal_type }}
+        {% endif %}
+    </h1>
+    <br>
+    {% for result, params in nrrc.items %}
+    {%  include 'dmm/result/_result.html' with result=result markup_possible=params.markup_possible params=params %}
     {% endfor %}
 </div>
 {% endblock content %}
+
+{% block scripts %}
+{%  include 'dmm/result/script.html' %}
+{% endblock %}

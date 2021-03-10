@@ -1,22 +1,63 @@
-<div class="col-4 mt-5 border border-secondary rounded p-3 bg-light border">
+{% load i18n %}
+
+<div class="col-4 mt-5 border 
+
+{% if comment_round.expert == filter_expert %}
+border-danger
+{% else %}
+border-secondary 
+{% endif %}
+
+rounded p-3 bg-light border">
     <h5>Раунд</h5>
-    <b>Эксперт:</b>
+    <b>Добавил:</b>
+    {{ filter_tag }}
     {{ comment_round.expert.name }}
+
+    (
+    {% language 'ru' %}
+    {{ comment_round.created }}
+    {% endlanguage %}
+    )
     <br>
     <b>Класс:</b>
     {{ comment_round.specie }}
+    {% if comment_round.specie == filter_specie %}
+    <p class="text-danger">{{ comment_round.specie }}</p>
+    {% else %}
+    {{ comment_round.specie }}
+    {% endif %}
     <br>
+
+
     <b>Тональность:</b>
-    {{ comment_round.tonal_type }}
+    {% if comment_round.tonal_type == filter_tonal_type %}
+    <p class="text-danger">{{ comment_round.tonal_type }}</p>
+    {% else %}
+    <p>{{ comment_round.tonal_type }}</p>
+    {% endif %}
     <br>
+
+
     <b>Теги:</b>
     {% for comment_round_tag in comment_round_tags %}
+
+    {% if comment_round_tag.tag == filter_tag %}
+    <p class="text-danger">{{ comment_round_tag.tag.name }}</p>
+    {% else %}
     {{ comment_round_tag.tag.name }}
+    {% endif %}
+
+
     {% if comment_round_tag.is_present %}
     <i class="fas fa-check"></i>
     {% else %}
     <i class="fas fa-times"></i>
     {% endif %}
     {% endfor %}
+    <br>
+    <b>Пояснение:</b>
+    <br>
+    {{ comment_round.clarification }}
 
 </div>

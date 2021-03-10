@@ -1,48 +1,65 @@
-<div class="row mt-5 border border-secondary rounded p-4 bg-light border">
-    <div class="col-6">
+{% load i18n %}
+<div class="row mt-2 border border-secondary rounded p-4 bg-light border result">
+    <div class="col-9">
         <h3>Контент</h3>
     </div>
-    <div class="col-2"><a class="nav-link btn btn-primary" href="{% url 'markup-comment-page' result.id %}">Разметить</a></div>
-    <div class="col-3">
-        <a class="nav-link btn btn-secondary" href="{{ result.url }}">CONTENT</a>
+    <div class="col-1">
+        <a class="nav-link btn btn-secondary" href="{{ result.url }}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
     </div>
     <div class="col-1">
-        <button class="btn btn-default" style="vertical-align: middle;">
-            <a class="nav-link btn btn-primary" href="{% url 'home' %}">
-                <i class="fas fa-long-arrow-alt-left"></i>
-            </a>
+        <a class="nav-link btn btn-primary" type="button" href="{% url 'home' %}">
+            <i class="fas fa-long-arrow-alt-left"></i>
+        </a>
+    </div>
+    <div class="col-1">
+        <button class="nav-link btn btn-primary to_collapse" type="button" data-toggle="collapse" data-target="#result-{{ forloop.counter0 }}-meta" aria-expanded="false" aria-controls="collapseExample">
+            <i class="fas fa-chevron-circle-down"></i>
         </button>
-    </div>
-    <div class="col-3">
-        <h6>Дата публикации:</h6>
-        {{ result.date }}
-    </div>
-    <div class="col-3">
-        <h6>Тип контента:</h6>
-        {{ result.content_type.name }}
-    </div>
-    <div class="col-3">
-        <h6>Язык контента:</h6>
-        {{ result.language_type.name }}
-    </div>
-    <div class="col-3">
-        <h6>Ресурс:</h6>
-        {{ result.resource_type.name }}
-    </div>
-    <div class="col-12">
-        <h6>Заголовок:</h6>
-        <p>{{ result.title }}</p>
     </div>
     <div class="col-12">
         <h6>Текст контента:</h6>
         <p>{{ result.text }}</p>
     </div>
-    <div class="col-4">
-        <h6>Добавил:</h6>
-        {{ result.expert.name }}
+    <div class="collapse col-12" id="result-{{ forloop.counter0 }}-meta">
+        <div class="row mt-2">
+            <div class="col-3">
+                <h6>Дата публикации:</h6>
+                {{ result.date }}
+            </div>
+            <div class="col-3">
+                <h6>Тип контента:</h6>
+                {{ result.content_type.name }}
+            </div>
+            <div class="col-3">
+                <h6>Язык контента:</h6>
+                {{ result.language_type.name }}
+            </div>
+            <div class="col-3">
+                <h6>Ресурс:</h6>
+                {{ result.resource_type.name }}
+            </div>
+            <div class="col-12">
+                <h6>Заголовок:</h6>
+                <p>{{ result.title }}</p>
+            </div>
+            <div class="col-4">
+                <h6>Добавил:</h6>
+                {{ result.expert.name }}
+            </div>
+            <div class="col-4">
+                <h6>Дата добавления:</h6>
+                {% language 'ru' %}
+                {{ result.created }}
+                {% endlanguage %}
+            </div>
+        </div>
     </div>
-    <div class="col-4">
-        <h6>Дата добавления:</h6>
-        {{ result.created }}
-    </div>
+    {% if markup_possible and not filter_expert and not filter_tag and not filter_tonal_type and not filter_specie%}
+    <div class="col-12 mt-2"><a class="nav-link btn btn-primary" href="{% url 'markup-comment-page' result.id %}">Разметить</a></div>
+    {% endif %}
+
+    {% for comment, params in params.comments.items %}
+    {%  include 'dmm/comment/_comment.html' with comment=comment comment_tags=comment.commenttags_set.all params=params %}
+    {% endfor %}
+
 </div>

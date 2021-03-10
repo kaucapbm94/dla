@@ -1,0 +1,35 @@
+<div class="row">
+    <h3><span class="label label-default">Статистика по экспертам</span></h3>
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Эксперт</th>
+                <th scope="col">Раундов всего</th>
+                <th scope="col">Дата последнего раунда</th>
+                <th scope="col" style="width: 5%;" data-toggle="tooltip" data-placement="top" title="Подробнее">
+                    <div class="col-2" align="center">
+                        <i class="fas fa-info"></i>
+                    </div>
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for expert, params in expert_stats.items %}
+            <tr>
+                <th scope="row">{{ forloop.counter }}</th>
+                <td>{{ expert.name }}</td>
+                <td>{{ params.round_count }}</td>
+                <td>{{ params.last_round_date }}</td>
+                <td>
+                    <button class="btn btn-default" style="vertical-align: middle;">
+                        <a class="nav-link btn btn-primary" href="{% url 'expert-comment_rounds-show' expert.id %}">
+                            <i class="fas fa-info-circle"></i>
+                        </a>
+                    </button>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
