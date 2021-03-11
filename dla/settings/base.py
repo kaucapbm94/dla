@@ -12,6 +12,9 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 import colorlog
+import environ
+env = environ.Env()
+environ.Env.read_env()
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -25,6 +28,8 @@ SECRET_KEY = 'vh78)p-*-8-15)(a^=#8j-gy465(4sart)=akw1z@vr)2cq*j('
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
+
+
 
 ALLOWED_HOSTS = ['*']
 
@@ -52,6 +57,11 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+if DEBUG:  
+    MIDDLEWARE.append('corsheaders.middleware.CorsMiddleware',)
+CORS_ALLOW_CREDENTIALS = True
+CORS_ORIGIN_ALLOW_ALL = True
+
 ROOT_URLCONF = 'dla.urls'
 
 TEMPLATES = [
@@ -74,14 +84,15 @@ WSGI_APPLICATION = 'dla.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+# os.environ["DLA_PASSWORD"] = "7820"
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'dla',
-        'USER': 'postgres',
-        'PASSWORD': '7820',
-        'HOST': 'localhost',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': env('DATABASE_NAME'),
+        'USER': env('DATABASE_USER'),
+        'PASSWORD': env('DATABASE_PASS'),
+        'HOST': '127.0.0.1',
         'PORT': '5432'
     },
 }
@@ -120,13 +131,14 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATIC_URL = '/static/'
-
 MEDIA_URL = '/images/'
+MEDIA_ROOT = "/home/kaisar/dla/media"
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static', )
-]
+# STATICFILES_DIRS = [
+#     os.path.join(BASE_DIR, 'static', )
+# ]
 
 FIXTURE_DIRS = [
     os.path.join(BASE_DIR, 'dmm', 'fixtures')

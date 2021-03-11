@@ -2,13 +2,14 @@
 sudo fuser -k 8000/tcp
 source env/bin/activate
 python3 manage.py runserver
+python manage.py runserver 0.0.0.0:8080
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py migrate dmm 0012_example
 
+# build requirements
 pip freeze > requirements.txt
-cd /path/to/requirements/file
-pip install -r requirements.txt
+
 
 python3 manage.py test dmm.tests.TestViews.test_start_get
 python3 manage.py dumpdata dmm.Comment --format json --indent 2 > dmm/fixtures/Comment.json
@@ -24,3 +25,8 @@ ALTER USER postgres CREATEDB;
 
 from dmm.models import Comment, CommentRound
 CommentRound.objects.filter(comment__in=Comment.objects.all()).delete()
+
+
+# rebuild 
+sudo /etc/init.d/nginx restart
+sudo systemctl stop supervisor && sudo touch dla_uwsgi.ini && sudo systemctl start supervisor

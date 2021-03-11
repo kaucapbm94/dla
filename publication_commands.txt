@@ -1,0 +1,27 @@
+source env/bin/activate
+uwsgi --http :8000 --wsgi-file test.py
+python manage.py runserver 0.0.0.0:8080
+uwsgi --http :8000 --module dla.wsgi
+sudo ln -s /home/kaisar/dla/deploy/dla_nginx.conf /etc/nginx/sites-enabled
+sudo /etc/init.d/nginx restart
+(nginx -t -c /etc/nginx/nginx.conf)
+uwsgi --socket uwsgi_nginx.sock --module dla.wsgi --chmod-socket=666
+uwsgi --ini dla_uwsgi.ini
+deactivate
+sudo ln -s /home/kaisar/dla/deploy/dla_uwsgi.ini /etc/uwsgi/vassals/
+uwsgi --emperor "/home/kaisar/dla/deploy/dla_uwsgi.ini"
+sudo systemctl start supervisor
+sudo systemctl stop supervisor
+sudo touch dla_uwsgi.ini
+sudo systemctl start supervisor
+
+
+sudo nano dla_uwsgi.ini
+# edit dla_nginx.conf
+sudo nano  dla_nginx.conf
+server_name 10.5.92.207
+
+
+
+# check nginx conf syntax
+sudo nginx -t
