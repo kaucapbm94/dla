@@ -49,12 +49,12 @@ class CommentForm(ModelForm):
         initial={'max_number': '1'}
     )
     specie = forms.ModelChoiceField(
-        widget=forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+        widget=forms.Select(attrs={'class': 'form-control select-specie', 'required': 'true'}),
         queryset=Specie.objects.all(),
         initial={'max_number': '1'}
     )
     tonal_type = forms.ModelChoiceField(
-        widget=forms.Select(attrs={'class': 'form-control', 'required': 'true'}),
+        widget=forms.Select(attrs={'class': 'form-control select-tonal_type', 'required': 'true'}),
         queryset=TonalType.objects.all().order_by('id'),
         initial={'max_number': '1'}
     )

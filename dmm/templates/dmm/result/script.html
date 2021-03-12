@@ -1,4 +1,174 @@
 <script type='text/javascript'>
+    class parent {
+        constructor(parent_attr, prefix_template, children) {
+            this.parent_attr = parent_attr;
+            this.prefix_template = prefix_template;
+            this.children = children;
+        }
+    }
+
+    class child {
+        constructor(selector, attrs) {
+            this.selector = selector;
+            this.attrs = attrs;
+        }
+    }
+
+    function get_comment_instance_id(target, prefix) {
+        let str = target.attr("id");
+        var res = str.substr(str.lastIndexOf(prefix) + prefix.length + 1);
+        var res = res.substr(0, res.indexOf("-"));
+        return res;
+    }
+
+
+    function updateElementIndex(new_object, prefix, old_id, new_id) {
+        // prefix = 'comment_set'
+        // id should be the last of attrs
+        let parents = [
+            new parent(
+                parent_attr = 'id',
+                prefix_template = '-',
+                children = [
+                    // replace #comment_set-old_id-meta with #comment_set-new_id-meta
+                    new child("#" + prefix + '-' + old_id + "-meta", ['id']),
+                    // replace #comment_set-old_id-meta-collapse with #comment_set-new_id-meta-collapse
+                    new child("#" + prefix + '-' + old_id + "-meta-collapse", ['data-target', 'id']),
+                    new child("#" + prefix + '-' + old_id + "-destroy", ['id']),
+                    new child("#" + prefix + '-' + old_id + "-tags", ['id']),
+                    new child(
+                        ':input:not([type=button]):not([type=submit]):not([type=reset]):not(button)', [
+                            'name', 'id'
+                        ]),
+                    new child('label', ['for']),
+                ]
+            ),
+            new parent(
+                parent_attr = 'for',
+                prefix_template = prefix + '_',
+                children = [
+                    new child("input", ['id']),
+                ]
+            )
+        ]
+
+        parents.forEach(function (parent, index) {
+            if (new_object.attr(parent.parent_attr)) {
+                new_object.attr(parent.parent_attr, new_object.attr(parent.parent_attr).replace(parent
+                    .prefix_template + old_id, parent.prefix_template + new_id))
+                parent.children.forEach(function (child, index) {
+                    new_object.find(child.selector).each(function () {
+                        let my_obj = $(this)
+                        child.attrs.forEach(function (attr, index) {
+                            let val = my_obj.attr(attr)
+                            if (val)
+                                my_obj.attr(attr, val.replace(parent
+                                    .prefix_template + old_id, parent
+                                    .prefix_template + new_id))
+                        })
+                    })
+                })
+            }
+        });
+    }
+
+
+
+    function add_class(target, cl) {
+        if (!target.hasClass(cl)) {
+            target.addClass(cl);
+        }
+    }
+
+    function remove_class(target, cl) {
+        if (target.hasClass(cl)) {
+            target.removeClass(cl);
+        }
+    }
+
+    function cloneMore(selector, prefix) {
+        var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
+        // since selector selects last comment instance and formset is ordered without gaps, last comment will have index = total - 1 and new index will be = total
+        let old_id = total - 1
+        let new_id = total
+        var oldElement = $(selector)
+        var newElement = $(selector).clone();
+        // prefix = comment_set
+        updateElementIndex(newElement, prefix, old_id, new_id)
+        total++;
+        $('#id_' + prefix + '-TOTAL_FORMS').val(total);
+        newElement.find('textarea').val('')
+        var target = newElement.find('.comment-meta');
+        add_class(target, 'collapse');
+        add_class(target, 'show');
+        var target = newElement.find('.to_collapse');
+        remove_class(target, 'collapsed');
+        remove_class(target, 'btn-primary');
+        add_class(target, 'btn-warning');
+        var target = newElement.find('.to_collapse i');
+        remove_class(target, 'fa-chevron-circle-down');
+        add_class(target, 'fa-chevron-circle-up');
+        newElement.find('input[type=datetime-local]').val($(selector).find('input[type=datetime-local]').val())
+        newElement.find('.select-specie').val(oldElement.find('.select-specie').val())
+        newElement.find('.select-tonal_type').val(oldElement.find('.select-tonal_type').val())
+        newElement.find('input[type=url]').val('')
+        $('#comments').append(newElement)
+        return
+    }
+
+    function deleteForm(prefix, btn) {
+        var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
+
+        if (total > 1) {
+            if (confirm("Вы уверены что хотите удалить комментарий?")) {
+                let comment_instance_id = get_comment_instance_id(btn, prefix);
+                $("#comment_set-" + comment_instance_id).remove();
+                var forms = $('.comment');
+                $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
+                for (var i = 0, formCount = forms.length; i < formCount; i++) {
+                    let old_id = parseInt(get_comment_instance_id($(forms.get(i)).find(".comment-destroy")
+                        .first(), prefix))
+                    let new_id = i
+                    updateElementIndex($(forms.get(i)), prefix, old_id, new_id)
+                }
+            }
+        } else
+            alert('Количество комментариев не может быть меньше одного')
+        return false;
+    }
+
+    function closeSpeciePopup(win, newID, newRepr) {
+        var total = parseInt($('#id_comment_set-TOTAL_FORMS').val()) || parseInt($('#id_form-TOTAL_FORMS').val());
+
+        for (let i = 0; i < total; i++) {
+            let selector = $("#id_comment_set-" + i + "-specie").exists() ? $("#id_comment_set-" + i + "-specie") : $(
+                "#id_form-" + i + "-specie");
+            selector.append('<option value=' + newID + '>' + newRepr + '</option>')
+        }
+        win.close();
+    }
+
+    function closeTagPopup(win, newID, newTitle, newRepr) {
+        var total = parseInt($('#id_comment_set-TOTAL_FORMS').val()) || parseInt($('#id_form-TOTAL_FORMS').val());
+        for (let i = 0; i < total; i++) {
+            let prefix = '-tags'
+            let new_tag_div = $("#comment_set-" + i + "-tags .tag-div").last().clone()
+            new_tag_div.attr("title", newTitle);
+            let new_tag_label = new_tag_div.find("label");
+            let old_id = new_tag_label.find("input").first().attr("id");
+            old_id = parseInt(old_id.substr(old_id.lastIndexOf(prefix) + prefix.length + 1))
+            let new_id = old_id + 1
+            updateElementIndex(new_tag_label, prefix, old_id, new_id)
+            let new_input = new_tag_label.find("input").first().clone().attr("value", newID)
+            new_tag_label.html("")
+            new_tag_label.append(new_input)
+            new_tag_label.append('\n' + newRepr)
+            $("#comment_set-" + i + "-tags").append(new_tag_div)
+        }
+        $('[data-toggle="tooltip"]').tooltip();
+        win.close();
+    }
+
     $(document).ready(function () {
         $(function () {
             $('[data-toggle="tooltip"]').tooltip()
@@ -32,8 +202,6 @@
                 btn = $(e.target).parent()
                 target = $(e.target)
             }
-            console.log(target)
-            console.log(btn)
 
             if (target.hasClass('fa-chevron-circle-up') && btn.hasClass('collapsed')) {
                 target.removeClass('fa-chevron-circle-up');
@@ -67,142 +235,6 @@
             return false;
         })
 
-        function closeSpeciePopup(win, newID, newRepr) {
-            var total = parseInt($('#id_comment_set-TOTAL_FORMS').val()) || parseInt($('#id_form-TOTAL_FORMS').val());
-
-            for (let i = 0; i < total; i++) {
-                let selector = $("#id_comment_set-" + i + "-specie").exists() ? $("#id_comment_set-" + i + "-specie") : $("#id_form-" + i + "-specie");
-                selector.append('<option value=' + newID + '>' + newRepr + '</option>')
-            }
-            win.close();
-        }
-
-        function closeTagPopup(win, newID, newTitle, newRepr) {
-            var total = parseInt($('#id_comment_set-TOTAL_FORMS').val()) || parseInt($('#id_form-TOTAL_FORMS').val());
-            for (let i = 0; i < total; i++) {
-                let prefix = '-tags'
-                let new_tag_div = $("#comment_set-" + i + "-tags .tag-div").last().clone()
-                new_tag_div.attr("title", newTitle);
-                let new_tag_label = new_tag_div.find("label");
-                let old_id = new_tag_label.find("input").first().attr("id");
-                old_id = parseInt(old_id.substr(old_id.lastIndexOf(prefix) + prefix.length + 1))
-                let new_id = old_id + 1
-                updateElementIndex(new_tag_label, prefix, old_id, new_id)
-                let new_input = new_tag_label.find("input").first().clone().attr("value", newID)
-                new_tag_label.html("")
-                new_tag_label.append(new_input)
-                new_tag_label.append('\n' + newRepr)
-                $("#comment_set-" + i + "-tags").append(new_tag_div)
-            }
-            $('[data-toggle="tooltip"]').tooltip();
-            win.close();
-        }
-
-
-        function get_comment_instance_id(target, prefix) {
-            let str = target.attr("id");
-            var res = str.substr(str.lastIndexOf(prefix) + prefix.length + 1);
-            var res = res.substr(0, res.indexOf("-"));
-            return res;
-        }
-
-
-        function updateElementIndex(el, prefix, old_id, new_id) {
-            // id should be the last of attrs
-            let targets = [
-                new my_par(
-                    parent_attr = 'id',
-                    prefix_template = '-',
-                    children = [
-                        // replace #comment_set-old_id-meta with #comment_set-new_id-meta
-                        new my_targ("#" + prefix + '-' + old_id + "-meta", ['id']),
-                        // replace #comment_set-old_id-meta-collapse with #comment_set-new_id-meta-collapse
-                        new my_targ("#" + prefix + '-' + old_id + "-meta-collapse", ['data-target', 'id']),
-                        new my_targ("#" + prefix + '-' + old_id + "-destroy", ['id']),
-                        new my_targ(':input:not([type=button]):not([type=submit]):not([type=reset]):not(button)', ['name', 'id']),
-                        new my_targ('label', ['for']),
-                    ]
-                ),
-                new my_par(
-                    parent_attr = 'for',
-                    prefix_template = prefix + '_',
-                    children = [
-                        new my_targ("input", ['id']),
-                    ]
-                )
-            ]
-
-            targets.forEach(function (target, index) {
-                if (el.attr(target.parent_attr)) {
-                    el.attr(target.parent_attr, el.attr(target.parent_attr).replace(target.prefix_template + old_id, target.prefix_template + new_id))
-                    target.children.forEach(function (child, index) {
-                        el.find(child.selector).each(function () {
-                            let my_obj = $(this)
-                            child.attrs.forEach(function (attr, index) {
-                                let val = my_obj.attr(attr)
-                                if (val)
-                                    my_obj.attr(attr, val.replace(target.prefix_template + old_id, target.prefix_template + new_id))
-                            })
-                        })
-                    })
-                }
-            });
-        }
-
-        class my_par {
-            constructor(parent_attr, prefix_template, children) {
-                this.parent_attr = parent_attr;
-                this.prefix_template = prefix_template;
-                this.children = children;
-            }
-        }
-
-        class my_targ {
-            constructor(selector, attrs) {
-                this.selector = selector;
-                this.attrs = attrs;
-            }
-        }
-
-        function cloneMore(selector, prefix) {
-            var total = $('#id_' + prefix + '-TOTAL_FORMS').val();
-            // since selector selects last comment instance and formset is ordered without gaps, last comment will have index = total - 1 and new index will be = total
-            let old_id = total - 1
-            let new_id = total
-            var newElement = $(selector).clone();
-
-            updateElementIndex(newElement, prefix, old_id, new_id)
-            total++;
-            $('#id_' + prefix + '-TOTAL_FORMS').val(total);
-            newElement.find('textarea').val('')
-            newElement.find('input[type=datetime-local]').val($(selector).find('input[type=datetime-local]').val())
-            console.log($(selector).find('input[type=datetime-local]').val())
-            console.log(newElement.find('input[type=datetime-local]').val())
-            newElement.find('input[type=url]').val('')
-            $('#comments').append(newElement)
-            return
-        }
-
-        function deleteForm(prefix, btn) {
-            var total = parseInt($('#id_' + prefix + '-TOTAL_FORMS').val());
-
-            if (total > 1) {
-                if (confirm("Вы уверены что хотите удалить комментарий?")) {
-                    let comment_instance_id = get_comment_instance_id(btn, prefix);
-                    $("#comment_set-" + comment_instance_id).remove();
-                    var forms = $('.comment');
-                    $('#id_' + prefix + '-TOTAL_FORMS').val(forms.length);
-                    for (var i = 0, formCount = forms.length; i < formCount; i++) {
-                        let old_id = parseInt(get_comment_instance_id($(forms.get(i)).find(".comment-destroy").first(), prefix))
-                        let new_id = i
-                        updateElementIndex($(forms.get(i)), prefix, old_id, new_id)
-                    }
-                }
-            } else
-                alert('Количество комментариев не может быть меньше одного')
-            return false;
-        }
-
         $(document).on('click', '.comment-destroy', function (e) {
             e.preventDefault();
             deleteForm('comment_set', $(this));
@@ -213,6 +245,7 @@
         $(document).on('click', '#add-comment', function (e) {
             e.preventDefault();
             cloneMore('.comment:last', 'comment_set');
+            $('[data-toggle="tooltip"]').tooltip();
             return false;
         });
 

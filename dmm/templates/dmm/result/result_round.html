@@ -3,160 +3,165 @@
 
 {% block content %}
 <div class="container">
-	<br>
-	<h1 class="row justify-content-center">ROUND</h1>
-	<div class="row mt-5 border border-secondary rounded p-5 bg-light border">
-		<div class="col-10">
-			<p><b>Текст:</b>: {{ result.text }}</p>
-		</div>
-		<div class="col-1">
-			<button class="nav-link btn btn-primary btn-sm to_collapse" type="button" data-toggle="collapse" data-target="#result-meta" aria-expanded="false" aria-controls="collapseExample">
-				<i class="fas fa-chevron-circle-down"></i>
-			</button>
-		</div>
-		<div class="col-1">
-			<a class="nav-link btn btn-secondary" href="{{ result.url }}" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-		</div>
-		<div class="col-12 collapse" id="result-meta">
-			<div class="row">
-				<div class="col-6">
-					<p><b>{{ result.resource_type.name }}</b>: {{ result.title }} ({{ result.language_type.name }})</p>
-				</div>
-				<div class="col-2">
-					<p><b>Добавил:</b> {{ result.expert.name }} ({{ result.created }})</p>
-				</div>
-			</div>
-		</div>
+    <br>
+    <h1 class="row justify-content-center">ROUND</h1>
+    <div class="row mt-5 border border-secondary rounded p-5 bg-light border">
+        <div class="col-10">
+            <p><b>Текст:</b>: {{ result.text }}</p>
+        </div>
+        <div class="col-1">
+            <button class="nav-link btn btn-warning btn-sm to_collapse" type="button" data-toggle="collapse"
+                data-target="#result-meta" aria-expanded="true" aria-controls="collapseExample">
+                <i class="fas fa-chevron-circle-up"></i>
+            </button>
+        </div>
+        <div class="col-1">
+            <a class="nav-link btn btn-secondary" href="{{ result.url }}" target="_blank"><i
+                    class="fas fa-external-link-alt"></i></a>
+        </div>
+        <div class="col-12 collapse show" id="result-meta">
+            <div class="row">
+                <div class="col-6">
+                    <p><b>{{ result.resource_type.name }}</b>: {{ result.title }} ({{ result.language_type.name }})</p>
+                </div>
+                <div class="col-2">
+                    <p><b>Добавил:</b> {{ result.expert.name }} ({{ result.created }})</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <form action="" method="POST" id="my_form">
+        {% csrf_token %}
+        {{ formset.management_form }}
+        {% comment %} {{ formset }} {% endcomment %}
+        {% for form in formset %}
+        {% if specie_allowed_list|return_item:forloop.counter0 or tag_allowed|return_item:forloop.counter0 or tonal_type_allowed_list|return_item:forloop.counter0 %}
+        <div class="row mt-2 p-2 border border-secondary rounded bg-light border">
+            {% with comment=comments|return_item:forloop.counter0 %}
+            <div class="col-12">
+                <div class="row">
+                    <div class="col-10">
+                        <p><b>Текст комментария:</b> {{ comment.text }}</p>
+                    </div>
+                    <div class="col-1">
+                        <button class="nav-link btn btn-warning btn-sm to_collapse" type="button" data-toggle="collapse"
+                            data-target="#comment-{{ forloop.counter }}-meta" aria-expanded="true"
+                            aria-controls="collapseExample">
+                            <i class="fas fa-chevron-circle-up"></i>
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <a href="{{ comment.author_url }}" class="btn btn-primary" target="_blank"><i
+                                class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+            {{ form.expert }}
+            {{ form.comment }}
+            <div class="col-12 collapse show" id="comment-{{ forloop.counter }}-meta">
+                <div class="row">
+                    <div class="col-6">
+                        <p><b>Добавил:</b> {{ comment.expert }}({{ comment.created }}: {{ comment.clarification }})</p>
+                    </div>
+                    <div class="col-3">
+                        <p><b>Язык:</b> {{ comment.language_type }}</p>
+                    </div>
+                    <div class="col-3">
+                        <p><b>Ресурс:</b> {{ comment.resource_type }}</p>
+                    </div>
+                </div>
+                <div class="row">
 
-	</div>
-	<form action="" method="POST" id="my_form">
-		{% csrf_token %}
-		{{ formset.management_form }}
-		{% comment %} {{ formset }} {% endcomment %}
-		{% for form in formset %}
-		{% if specie_allowed_list|return_item:forloop.counter0 or tag_allowed|return_item:forloop.counter0 or tonal_type_allowed_list|return_item:forloop.counter0 %}
-		<div class="row mt-2 p-2 border border-secondary rounded bg-light border">
-			{% with comment=comments|return_item:forloop.counter0 %}
-			<div class="col-12">
-				<div class="row">
-					<div class="col-10">
-						<p><b>Текст комментария:</b> {{ comment.text }}</p>
-					</div>
-					<div class="col-1">
-						<button class="nav-link btn btn-primary btn-sm to_collapse" type="button" data-toggle="collapse" data-target="#comment-{{ forloop.counter }}-meta" aria-expanded="false" aria-controls="collapseExample">
-							<i class="fas fa-chevron-circle-down"></i>
-						</button>
-					</div>
-					<div class="col-1">
-						<a href="{{ comment.author_url }}" class="btn btn-primary" target="_blank"><i class="fas fa-external-link-alt"></i></a>
-					</div>
-				</div>
-			</div>
-			{{ form.expert }}
-			{{ form.comment }}
-			<div class="col-12 collapse" id="comment-{{ forloop.counter }}-meta">
-				<div class="row">
-					<div class="col-6">
-						<p><b>Добавил:</b> {{ comment.expert }}({{ comment.created }}: {{ comment.clarification }})</p>
-					</div>
-					<div class="col-3">
-						<p><b>Язык:</b> {{ comment.language_type }}</p>
-					</div>
-					<div class="col-3">
-						<p><b>Ресурс:</b> {{ comment.resource_type }}</p>
-					</div>
-				</div>
-				<div class="row">
+                    <div class="col-4">
+                        <h6>Тональность</h6>
+                        {% for tonal_type_allowed in tonal_type_allowed_list %}
+                        {% if forloop.counter == forloop.parentloop.counter %}
+                        {% if tonal_type_allowed == True %}
+                        {{ form.tonal_type }}
+                        {% else %}
+                        <div class="div d-none">
+                            {{ form.tonal_type }}
+                        </div>
 
-					<div class="col-4">
-						<h6>Тональность</h6>
-						{% for tonal_type_allowed in tonal_type_allowed_list %}
-						{% if forloop.counter == forloop.parentloop.counter %}
-						{% if tonal_type_allowed == True %}
-						{{ form.tonal_type }}
-						{% else %}
-						<div class="div d-none">
-							{{ form.tonal_type }}
-						</div>
+                        {% with comment=comments|return_item:forloop.counter0 %}
+                        {% if comment.tonal_type %}
+                        {{ comment.tonal_type }}
+                        {% else %}
+                        Не определена
+                        {% endif %}
+                        {% endwith %}
 
-						{% with comment=comments|return_item:forloop.counter0 %}
-						{% if comment.tonal_type %}
-						{{ comment.tonal_type }}
-						{% else %}
-						Не определена
-						{% endif %}
-						{% endwith %}
+                        {% endif %}
+                        {% endif %}
+                        {% endfor %}
+                    </div>
+                    <div class="col-4">
+                        {% with specie_allowed=specie_allowed_list|return_item:forloop.counter0 %}
+                        <h6>
+                            Класс
+                            {% if specie_allowed %}
+                            <a class="add_specie"><i class="far fa-plus-square"></i></a>
+                            {% endif %}
+                        </h6>
+                        {% if specie_allowed == True %}
+                        {{ form.specie }}
+                        {% else %}
+                        <div class="div d-none">
+                            {{ form.label_specie }}
+                            {{ form.specie }}
+                        </div>
 
-						{% endif %}
-						{% endif %}
-						{% endfor %}
-					</div>
-					<div class="col-4">
-						{% with specie_allowed=specie_allowed_list|return_item:forloop.counter0 %}
-						<h6>
-							Класс
-							{% if specie_allowed %}
-							<a class="add_specie"><i class="far fa-plus-square"></i></a>
-							{% endif %}
-						</h6>
-						{% if specie_allowed == True %}
-						{{ form.specie }}
-						{% else %}
-						<div class="div d-none">
-							{{ form.label_specie }}
-							{{ form.specie }}
-						</div>
+                        {% with comment=comments|return_item:forloop.counter0 %}
+                        {% if comment.specie %}
+                        {{ comment.specie }}
+                        {% else %}
+                        Не определен
+                        {% endif %}
+                        {% endwith %}
 
-						{% with comment=comments|return_item:forloop.counter0 %}
-						{% if comment.specie %}
-						{{ comment.specie }}
-						{% else %}
-						Не определен
-						{% endif %}
-						{% endwith %}
-
-						{% endif %}
-						{% endwith %}
-					</div>
-					<div class="col-4">
-						<div class="col-md-3 d-inline" id="comment_set-{{ forloop.counter0 }}-tags">
-							<h6>Теги
-								{% if tag_allowed|return_item:forloop.counter0 %}
-								<a class="add_tag"><i class="far fa-plus-square"></i></a>
-								{% endif %}
-							</h6>
-							{% with tag_allowed_list=tag_allowed_lists|return_item:forloop.counter0 %}
-							{% for tag in form.tags %}
-							{% with tag_allowed=tag_allowed_list|return_item:forloop.counter0 %}
-							{% with t=tags|return_item:forloop.counter0 %}
-							{% if tag_allowed %}
-							<div class="d-inline tag-div" data-toggle="tooltip" data-placement="top" title="{{ t.description }} ({{ t.expert.name|capfirst }})">
-								{{ tag }}
-							</div>
-							{% else %}
-							<div class="div d-none">
-								{{ tag }}
-							</div>
-							{% endif %}
-							{% endwith %}
-							{% endwith %}
-							{% endfor %}
-							{% endwith %}
-						</div>
-					</div>
-					<div class="col-12">
-						<label>Пояснение</label>
-						{{ form.clarification }}
-					</div>
-				</div>
-			</div>
-			{% endwith %}
-			</br>
-		</div>
-		{% endif %}
-		{% endfor %}
-		<button id="my_submit" class="btn btn-success btn-lg">Submit</button>
-	</form>
+                        {% endif %}
+                        {% endwith %}
+                    </div>
+                    <div class="col-4">
+                        <div class="col-md-3 d-inline" id="comment_set-{{ forloop.counter0 }}-tags">
+                            <h6>Теги
+                                {% if tag_allowed|return_item:forloop.counter0 %}
+                                <a class="add_tag"><i class="far fa-plus-square"></i></a>
+                                {% endif %}
+                            </h6>
+                            {% with tag_allowed_list=tag_allowed_lists|return_item:forloop.counter0 %}
+                            {% for tag in form.tags %}
+                            {% with tag_allowed=tag_allowed_list|return_item:forloop.counter0 %}
+                            {% with t=tags|return_item:forloop.counter0 %}
+                            {% if tag_allowed %}
+                            <div class="d-inline tag-div" data-toggle="tooltip" data-placement="top"
+                                title="{{ t.description }} ({{ t.expert.name|capfirst }})">
+                                {{ tag }}
+                            </div>
+                            {% else %}
+                            <div class="div d-none">
+                                {{ tag }}
+                            </div>
+                            {% endif %}
+                            {% endwith %}
+                            {% endwith %}
+                            {% endfor %}
+                            {% endwith %}
+                        </div>
+                    </div>
+                    <div class="col-12">
+                        <label>Пояснение</label>
+                        {{ form.clarification }}
+                    </div>
+                </div>
+            </div>
+            {% endwith %}
+            </br>
+        </div>
+        {% endif %}
+        {% endfor %}
+        <button id="my_submit" class="btn btn-success btn-lg">Submit</button>
+    </form>
 </div>
 
 {% endblock content %}

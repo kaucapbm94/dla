@@ -9,6 +9,8 @@ python3 manage.py migrate dmm 0012_example
 
 # build requirements
 pip freeze > requirements.txt
+# install requirements
+pip install -r requirements.txt
 
 
 python3 manage.py test dmm.tests.TestViews.test_start_get

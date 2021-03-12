@@ -9,7 +9,9 @@
             </a>
         </div>
         <div class="col-1">
-            <button class="nav-link btn-primary btn to_collapse" type="button" data-toggle="collapse" data-target="#comment-{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}-meta" aria-expanded="false" aria-controls="collapseExample">
+            <button class="nav-link btn-primary btn to_collapse" type="button" data-toggle="collapse"
+                data-target="#comment-{{ forloop.parentloop.counter0 }}-{{ forloop.counter0 }}-meta"
+                aria-expanded="false" aria-controls="collapseExample">
                 <i class="fas fa-chevron-circle-down"></i>
             </button>
         </div>
@@ -25,9 +27,9 @@
                     <br> <br>
                     <h6>Класс доступен для разметки:</h6>
                     {% if params.specie_needs_round %}
-                    <i class="far fa-check-circle"></i>
+                    <i class="far fa-check-circle text-success"></i>
                     {% else %}
-                    <i class="fas fa-times-circle"></i>
+                    <i class="fas fa-times-circle text-danger"></i>
                     {% endif %}
                 </div>
                 <div class="col-4">
@@ -44,9 +46,9 @@
                     <br> <br>
                     <h6>Тональность доступна для разметки:</h6>
                     {% if params.tonal_type_needs_round  %}
-                    <i class="far fa-check-circle"></i>
+                    <i class="far fa-check-circle text-success"></i>
                     {% else %}
-                    <i class="fas fa-times-circle"></i>
+                    <i class="fas fa-times-circle text-danger"></i>
                     {% endif %}
                 </div>
                 <div class="col-4">
@@ -55,9 +57,9 @@
                     {% for comment_tag in comment_tags %}
                     {{ comment_tag.tag.name }}
                     {% if comment_tag.is_present %}
-                    <i class="fas fa-check"></i>
+                    <i class="fas fa-check text-success"></i>
                     {% else %}
-                    <i class="fas fa-times"></i>
+                    <i class="fas fa-times text-danger"></i>
                     {% endif %}
                     {% endfor %}
                     {% else %}
@@ -66,13 +68,13 @@
                     <br> <br>
                     <div class="h6">Доступные теги для разметки:</div>
                     {% if params.tag_ids_need_round %}
-                    <i class="far fa-check-circle"></i> (
+                    <i class="far fa-check-circle text-success"></i> (
                     {% for tag in params.tag_ids_need_round %}
                     {{ tag }}
                     {% endfor %}
                     )
                     {% else %}
-                    <i class="far fa-times-circle"></i>
+                    <i class="far fa-times-circle text-danger"></i>
                     {% endif %}
                 </div>
                 <div class="col-12">

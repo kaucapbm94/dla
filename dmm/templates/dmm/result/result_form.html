@@ -2,135 +2,158 @@
 
 {% block content %}
 <div class="container mt-5">
-	<div class="row d-flex justify-content-center mt-5 mb-5">
-		<h1>Добавление контента, комментариев и их разметка</h1>
-	</div>
-	<form action="" method="POST" id="my_form" class="needs-validation">
-		{% csrf_token %}
-		<div class="row">
-			{{ form.management_form }}
-			<div class="col-12">
-				<label data-toggle="tooltip" data-placement="top" title="Текст контента">Текст</label>
-				{{ form.text }}
-			</div>
-			<div class="col-6">
-				<label data-toggle="tooltip" data-placement="top" title="Заголовок контента">Заголовок</label>
-				{{ form.title }}
-			</div>
-			<div class="col-6">
-				<label data-toggle="tooltip" data-placement="top" title="URL публикации">URL<b class="text-danger">*</b></label>
-				{{ form.url }}
-			</div>
-			<div class="col-6">
-				<label data-toggle="tooltip" data-placement="top" title="Дата публикации">Дата<b class="text-danger">*</b></label>
-				{{ form.date }}
-			</div>
-			<div class="col-3">
-				<label data-toggle="tooltip" data-placement="top" title="Тип публикации"">Тип<b class=" text-danger">*</b></label>
-				{{ form.content_type }}
-			</div>
-			<div class="col-3">
-				<label data-toggle="tooltip" data-placement="top" title="Язык публикации">Язык<b class="text-danger">*</b></label>
-				{{ form.language_type }}
-			</div>
-			<div class="col-3">
-				<label data-toggle="tooltip" data-placement="top" title="Ресурс публикации">Ресурс<b class="text-danger">*</b></label>
-				{{ form.resource_type }}
-			</div>
-			<div class="d-none">
-				{{ form.expert.label }}
-				{{ form.expert }}
-			</div>
-		</div>
-		<div class="row">
-			{{ formset.management_form }}
-			<div class="col-12" id="comments">
-				{% for f in formset %}
-				<div class="row comment mt-2 border border-secondary rounded bg-light p-2" id="comment_set-{{ forloop.counter0 }}">
-					<div class="col-11">
-						{{ f.text.errors }}
-						{{ f.text }}
-						<div class="collapse comment-meta row" id="comment_set-{{ forloop.counter0 }}-meta">
-							<div class="col-md-6">
-								<label data-toggle="tooltip" data-placement="top" title="URL профиля автора">URL<b class="text-danger">*</b></label>
-								{{ f.author_url }}
-							</div>
-							<div class="col-md-6">
-								<label data-toggle="tooltip" data-placement="top" title="Дата публикации комментария">Дата<b class=" text-danger">*</b></label>
-								{{ f.date }}
-							</div>
-							<div class="col-md-12 d-none">
-								{{ f.expert }}
-							</div>
-							<div class="col-md-3">
-								<label data-toggle="tooltip" data-placement="top" title="Язык публикации комментария">Язык<b class=" text-danger">*</b></label>
-								{{ f.language_type }}
-							</div>
-							<div class="col-3 d-none">
-								<label data-toggle="tooltip" data-placement="top" title="Ресурс публикации комментария">Ресурс<b class="text-danger">*</b></label>
-								{{ f.resource_type }}
-							</div>
-							<div class="col-md-3" data-toggle="tooltip" data-placement="top" title="Является ответом на другой комментарий?">
-								<label>Ответ?</label>
-								{{ f.is_answer }}
-							</div>
-						</div>
-						<hr>
-						<div class="row">
-							<div class="col-md-6">
-								<label data-toggle="tooltip" data-placement="top" title="Тональность">Тональность<b class="text-danger">*</b></label>
-								{{ f.tonal_type }}
-							</div>
-							<div class="col-md-6">
-								<label data-toggle="tooltip" data-placement="top" title="Класс">Класс<b class="text-danger">*</b></label>
-								<a class="add_specie" data-toggle="tooltip" data-placement="top" title="Предложить класс"><i class="far fa-plus-square"></i></a>
-								{{ f.specie }}
-							</div>
-							<div class="col-md-12" id="comment_set-{{ forloop.counter0 }}-tags">
-								<label data-toggle="tooltip" data-placement="top" title="Теги">Теги</label>
-								<a class="add_tag" data-toggle="tooltip" data-placement="top" title="Предложить тег"><i class="far fa-plus-square"></i></a>
-								</br>
-								{% for tag in f.tags %}
-								{% for t in tags %}
-								{% if forloop.counter == forloop.parentloop.counter%}
-								<div class="d-inline tag-div" data-toggle="tooltip" data-placement="top" title="{{ t.description }} ({{ t.expert.name }})">
-									{{ tag }}
-								</div>
-								{% endif %}
-								{% endfor %}
-								{% endfor %}
-							</div>
-							<div class="col-md-12">
-								<label data-toggle="tooltip" data-placement="top" title="Доп. информация">Пояснение</label>
-								{{ f.clarification }}
-							</div>
-						</div>
-					</div>
-					<div class="col-1">
-						<div class="row">
-							<div class="col-6">
-								<button class="btn btn-primary btn-sm to_collapse" id="comment_set-{{ forloop.counter0 }}-meta-collapse" type="button" data-toggle="collapse" data-target="#comment_set-{{ forloop.counter0 }}-meta" aria-expanded="false" aria-controls="collapseExample">
-									<i class="fas fa-chevron-circle-down"></i>
-								</button>
-							</div>
-							<div class="col-6">
-								<button class="btn btn-danger btn-sm comment-destroy" id="comment_set-{{ forloop.counter0 }}-destroy" type="button">
-									<i class="fa fa-trash"></i>
-								</button>
-							</div>
-						</div>
-					</div>
-				</div>
-				{% endfor %}
-			</div>
-		</div>
-	</form>
-	<div class="col-md-12 mt-20">
-		<button type="button" class="btn btn-primary btn-lg" id="add-comment">
-			Ещё комментарий
-		</button>
-		<button id="my_submit" class="btn btn-success btn-lg">Submit</button>
-	</div>
+    <div class="row d-flex justify-content-center mt-5 mb-5">
+        <h1>Добавление контента, комментариев и их разметка</h1>
+    </div>
+    <form action="" method="POST" id="my_form" class="needs-validation">
+        {% csrf_token %}
+        <div class="row">
+            {{ form.management_form }}
+            <div class="col-12">
+                <label data-toggle="tooltip" data-placement="top" title="Текст контента">Текст</label>
+                {{ form.text }}
+            </div>
+            <div class="col-6">
+                <label data-toggle="tooltip" data-placement="top" title="Заголовок контента">Заголовок</label>
+                {{ form.title }}
+            </div>
+            <div class="col-6">
+                <label data-toggle="tooltip" data-placement="top" title="URL публикации">URL<b
+                        class="text-danger">*</b></label>
+                {{ form.url }}
+            </div>
+            <div class="col-6">
+                <label data-toggle="tooltip" data-placement="top" title="Дата публикации">Дата<b
+                        class="text-danger">*</b></label>
+                {{ form.date }}
+            </div>
+            <div class="col-3">
+                <label data-toggle="tooltip" data-placement="top" title="Тип публикации">Тип<b
+                        class="text-danger">*</b></label>
+                {{ form.content_type }}
+            </div>
+            <div class="col-3">
+                <label data-toggle="tooltip" data-placement="top" title="Язык публикации">Язык<b
+                        class="text-danger">*</b></label>
+                {{ form.language_type }}
+            </div>
+            <div class="col-3">
+                <label data-toggle="tooltip" data-placement="top" title="Ресурс публикации">Ресурс<b
+                        class="text-danger">*</b></label>
+                {{ form.resource_type }}
+            </div>
+            <div class="d-none">
+                {{ form.expert.label }}
+                {{ form.expert }}
+            </div>
+        </div>
+        <div class="row">
+            {{ formset.management_form }}
+            <div class="col-12" id="comments">
+                {% for f in formset %}
+                <div class="row comment mt-2 border border-secondary rounded bg-light p-2"
+                    id="comment_set-{{ forloop.counter0 }}">
+                    <div class="col-11">
+                        {{ f.text.errors }}
+                        {{ f.text }}
+                        <div class="comment-meta row collapse show" id="comment_set-{{ forloop.counter0 }}-meta">
+                            <div class="col-md-6">
+                                <label data-toggle="tooltip" data-placement="top" title="URL профиля автора">URL<b
+                                        class="text-danger">*</b></label>
+                                {{ f.author_url }}
+                            </div>
+                            <div class="col-md-6">
+                                <label data-toggle="tooltip" data-placement="top"
+                                    title="Дата публикации комментария">Дата<b class=" text-danger">*</b></label>
+                                {{ f.date }}
+                            </div>
+                            <div class="col-md-12 d-none">
+                                {{ f.expert }}
+                            </div>
+                            <div class="col-md-3">
+                                <label data-toggle="tooltip" data-placement="top"
+                                    title="Язык публикации комментария">Язык<b class=" text-danger">*</b></label>
+                                {{ f.language_type }}
+                            </div>
+                            <div class="col-3 d-none">
+                                <label data-toggle="tooltip" data-placement="top"
+                                    title="Ресурс публикации комментария">Ресурс<b class="text-danger">*</b></label>
+                                {{ f.resource_type }}
+                            </div>
+                            <div class="col-md-3" data-toggle="tooltip" data-placement="top"
+                                title="Является ответом на другой комментарий?">
+                                <label>Ответ?</label>
+                                {{ f.is_answer }}
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label data-toggle="tooltip" data-placement="top" title="Тональность">Тональность<b
+                                        class="text-danger">*</b></label>
+                                {{ f.tonal_type }}
+                            </div>
+                            <div class="col-md-6">
+                                <label data-toggle="tooltip" data-placement="top" title="Класс">Класс<b
+                                        class="text-danger">*</b></label>
+                                <a class="add_specie" data-toggle="tooltip" data-placement="top"
+                                    title="Предложить класс"><i class="far fa-plus-square"></i></a>
+                                {{ f.specie }}
+                            </div>
+                            <div class="col-md-12" id="comment_set-{{ forloop.counter0 }}-tags">
+                                <label data-toggle="tooltip" data-placement="top" title="Теги">Теги</label>
+                                <a class="add_tag" data-toggle="tooltip" data-placement="top" title="Предложить тег"><i
+                                        class="far fa-plus-square"></i></a>
+                                </br>
+                                {% for tag in f.tags %}
+                                {% for t in tags %}
+                                {% if forloop.counter == forloop.parentloop.counter%}
+                                <div class="d-inline tag-div" data-toggle="tooltip" data-html="true"
+                                    data-placement="top" {% if t.is_common %} style="color:red" {% endif %} title="                                    
+                                    {{ t.description }} ({{ t.expert.name }})                                   
+                                    ">
+                                    {{ tag }}
+                                </div>
+                                {% endif %}
+                                {% endfor %}
+                                {% endfor %}
+                            </div>
+                            <div class="col-md-12">
+                                <label data-toggle="tooltip" data-placement="top"
+                                    title="Доп. информация">Пояснение</label>
+                                {{ f.clarification }}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-1">
+                        <div class="row">
+                            <div class="col-6">
+                                <button class="btn btn-warning btn-sm to_collapse"
+                                    id="comment_set-{{ forloop.counter0 }}-meta-collapse" type="button"
+                                    data-toggle="collapse" data-target="#comment_set-{{ forloop.counter0 }}-meta"
+                                    aria-expanded="true" aria-controls="collapseExample">
+                                    <i class="fas fa-chevron-circle-up"></i>
+                                </button>
+                            </div>
+                            <div class="col-6">
+                                <button class="btn btn-danger btn-sm comment-destroy"
+                                    id="comment_set-{{ forloop.counter0 }}-destroy" type="button">
+                                    <i class="fa fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </form>
+    <div class="col-md-12 mt-20">
+        <button type="button" class="btn btn-primary btn-lg" id="add-comment">
+            Ещё комментарий
+        </button>
+        <button id="my_submit" class="btn btn-success btn-lg">Submit</button>
+    </div>
 </div>
 
 
