@@ -6,7 +6,6 @@ python manage.py runserver 0.0.0.0:8080
 python3 manage.py makemigrations
 python3 manage.py migrate
 python3 manage.py migrate dmm 0012_example
-lol
 
 # build requirements
 pip freeze > requirements.txt
